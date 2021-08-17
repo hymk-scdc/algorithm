@@ -1,3 +1,148 @@
-# 2557 - Hello World
-
+# 2557 : Hello World
 print("Hello World!")
+
+
+# 1000 : A+B
+A = input().split(" ")
+print(int(A[0])+int(A[1]))
+
+'''
+예제 소스)
+
+a, b = map(int, input().split())
+print(a+b)
+'''
+
+
+# 2558 : A+B-2
+A = int(input(""))
+B = int(input(""))
+print(A+B)
+
+
+# 10950 : A+B-3
+T = int(input(""))
+for i in range(T):
+    A, B = map(int, input("").split(" "))
+    print(A+B)
+
+
+# 10951 : A+B-4
+try:
+    while(1):
+        A, B = map(int, input("").split(" "))
+        print(A+B)
+except:
+    exit()
+
+
+# 10952 : A+B-5
+try:
+    while(1):
+        A, B = map(int, input("").split(" "))
+        if (A==0 and B==0):
+            exit()
+        else:
+            print(A+B)
+except:
+    exit()
+
+
+# 10953
+T = int(input(""))
+for i in range(T):
+    A, B = map(int, input("").split(","))
+    print(A+B)
+
+
+# 11021
+T = int(input(""))
+for i in range(T):
+    A, B = map(int, input("").split(" "))
+    print("Case #"+str(i+1)+":",A+B)
+
+
+# 11022
+T = int(input(""))
+for i in range(T):
+    A, B = map(int, input("").split(" "))
+    print("Case #{}: {} + {} = {}".format(i+1,A,B,A+B))
+
+
+# 11718 : 그대로 출력하기
+try:
+    while(1):
+        A = input("")
+        print(A)
+except:
+    exit()
+
+
+# 11719 : 그대로 출력하기 2
+try:
+    while(1):
+        A = input("")
+        print(A)
+except:
+    exit()
+
+'''
+뭐지 위랑 똑같이 했는뎅..
+'''
+
+
+# 11720 : 숫자의 합
+N = int(input(""))
+num = input("")
+sum = 0
+for i in range(len(num)):
+    sum += int(num[i])
+print(sum)
+
+
+# 11721 : 열 개씩 끊어 출력하기
+word = input("")
+for i in range(len(word)//10+1):
+    if (i==len(word)//10+1):
+        print(word[10*i :])
+    else:
+        print(word[10*i : 10*(i+1)])
+
+
+# 2741 : N 찍기
+N = int(input(""))
+for i in range(N):
+    print(i+1)
+
+
+# 2742 : 기찍 N
+N = int(input(""))
+for i in range(N):
+    print(N-i)
+
+
+# 2739 : 구구단
+N = int(input(""))
+for i in range(9):
+    print("{} * {} = {}".format(N, i+1, N*(i+1)))
+
+
+# 1924 : 2007년
+a, b = map(int, input("").split())
+month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+day = ['SUN', 'MON', 'TUE', 'WED', 'THU', "FRI", "SAT"]
+for i in range(a-1):
+    b += month[i]
+print(day[b % 7])
+
+
+# 8393 : 합
+n = int(input(""))
+sum = 0
+for i in range(n):
+    sum+=i+1
+print(sum)
+
+
+# 10818 : 최소, 최대
+N = int(input(""))
