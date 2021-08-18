@@ -1,3 +1,5 @@
+# 2021.08.17
+
 # 2557 : Hello World
 print("Hello World!")
 
@@ -144,5 +146,172 @@ for i in range(n):
 print(sum)
 
 
+# 2021.08.18
+
 # 10818 : 최소, 최대
 N = int(input(""))
+numbers = list(map(int, input("").split(" ")))
+min = numbers[0]
+max = numbers[0]
+for i in range(1, N):
+    if (max < numbers[i]):
+        max = numbers[i]
+    if (min > numbers[i]):
+        min = numbers[i]
+print(min, max)
+
+
+# 2438
+N = int(input(""))
+for i in range(1, N+1):
+    for j in range(i):
+        print("*", end='')
+    print("")
+
+
+# 2439
+N = int(input(""))
+for i in range(1, N+1):
+    for j in range(N-i):
+        print(" ", end="")
+    for k in range(i):
+        print("*", end="")
+    print("")
+
+
+# 2440
+N = int(input(""))
+for i in range(N):
+    for j in range(N-i):
+        print("*",end="")
+    print("")
+
+
+# 2441
+N = int(input(""))
+for i in range(N):
+    for k in range(i):
+        print(" ", end="")
+    for j in range(N-i):
+        print("*", end="")
+    print("")
+
+
+# 2442
+N = int(input(""))
+for i in range(N):
+    for k in range(N-i-1):
+        print(" ", end="")
+    for k in range(2*i+1):
+        print("*", end="")
+    if i == N-1:
+        break
+    print("")
+
+
+# 2443
+N = int(input(""))
+for i in range(N, 0, -1):
+    for k in range(N-i):
+        print(" ", end="")
+    for k in range(2*i-1):
+        print("*", end="")
+    print("")
+
+
+# 2444
+N = int(input(""))
+for i in range(N):
+    for k in range(N-i-1):
+        print(" ", end="")
+    for k in range(2*i+1):
+        print("*", end="")
+    print("")
+for i in range(N-1, 0, -1):
+    for k in range(N-i):
+        print(" ", end="")
+    for k in range(2*i-1):
+        print("*", end="")
+    print("")
+
+
+# 2445
+N = int(input(""))
+for i in range(1,N+1):
+    for k in range(i):
+        print("*", end="")
+    for k in range(2*N-2*i):
+        print(' ', end="")
+    for k in range(i):
+        print("*", end="")
+    print()
+for i in range(1, N):
+    for k in range(N-i):
+        print("*", end="")
+    for k in range(2*i):
+        print(" ", end="")
+    for k in range(N-i):
+        print("*", end="")
+    print("")
+
+
+# 2446
+N = int(input(""))
+for i in range(1,N+1):
+    for k in range(i-1):
+        print(" ", end="")
+    for k in range(2*N-2*i+1):
+        print("*", end="")
+    print("")
+for i in range(1,N):
+    for k in range(N-i-1):
+        print(" ", end="")
+    for k in range(2*i+1):
+        print("*", end="")
+    print("")
+
+
+# 2522
+N = int(input(""))
+for i in range(N-1,0,-1):
+    for k in range(i):
+        print(" ", end="")
+    for k in range(N-i):
+        print("*", end="")
+    print("")
+for i in range(N,0,-1):
+    for k in range(N-i):
+        print(" ", end="")
+    for k in range(i):
+        print("*", end="")
+    print("")
+
+
+# 10991
+N = int(input(""))
+for i in range(N):
+    for k in range(N-i-1):
+        print(" ", end="")
+    for k in range(i+1):
+        print("* ", end="")
+    print("")
+'''
+맞지 않냐,,?ㅜㅜ
+'''
+
+
+# 10992
+N = int(input(""))
+for i in range(1,N):
+    for k in range(N-i):
+        print(" ", end="")
+    print("*", end="")
+    if i==1:
+        print("")
+        continue
+    for k in range(i*2-3):
+        print(" ", end="")
+    print("*")
+for i in range(2*N-1):
+    print("*", end="")
+
