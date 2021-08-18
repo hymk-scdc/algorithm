@@ -295,9 +295,6 @@ for i in range(N):
     for k in range(i+1):
         print("* ", end="")
     print("")
-'''
-맞지 않냐,,?ㅜㅜ
-'''
 
 
 # 10992
