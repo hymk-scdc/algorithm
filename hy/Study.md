@@ -16,7 +16,7 @@
 
 - 해결 
 
-  - input() 대신 sys.stdin.readline() 
+  - `input()` 대신 `sys.stdin.readline()` 
 
   - for 문에 있던 조건문들을 모두 함수로 정의해서 사용 
 
@@ -36,13 +36,14 @@
 
   - for 문에 있던 조건문들을 모두 함수로 정의해서 사용 
   - 함수 정의 시, global 선언해주고 변수명 사용하기 - 근데 왜 10828 할 때, stack 리스트는 선언하지 않고도 사용이 가능했는가? 
-  - input() 대신 sys.stdin.readline() 
+  - `input()` 대신 `sys.stdin.readline()` 
 
   => 여기까지해도 시간초과로 틀림 
 
   - stack 2개로 나눠서 접근 
-  - insert보다 pop()과 append()를 사용해서 쓰는 것이 더 좋음 
-
+  - `insert`보다 `pop()`과 `append()`를 사용해서 쓰는 것이 더 좋음 
+  - 하지만 코드 구조 99% 똑같은데 맞고 틀리고가 갈림 확인 필‼
+  
   
 
 
@@ -102,7 +103,7 @@ n = int(sys.stdin.readline()) # stdin.readline(), 한 줄에 여러 개 입력 �
 
 
 
-# 일기 
+# 📝 일기 
 
 ## 0818
 
