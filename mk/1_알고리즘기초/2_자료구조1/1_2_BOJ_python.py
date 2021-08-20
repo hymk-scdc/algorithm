@@ -55,9 +55,36 @@ for i in range(N):
                 continue
             else:
                 stack = stack[:-1]
-    if len(stack)==0:
+    if len(stack) == 0:
         print("YES")
     else:
         print("NO")
 
 
+# 10799 : 쇠막대기
+'''
+모르겠는데요
+'''
+
+
+# 1406 : 에디터
+'''
+실패 : 시간 초과
+'''
+sent = list(input(""))
+M = int(input(""))
+cursor = len(sent)
+for i in range(M):
+    command = input("")
+    if command == 'L':
+        cursor = max(cursor-1, 0)
+    elif command == 'D':
+        cursor = min(cursor+1, len(sent))
+    elif command == 'B':
+        if cursor != 0:
+            del sent[cursor-1]
+        cursor = max(cursor - 1, 0)
+    else:
+        sent = sent[:cursor]+list(command.split(" ")[1])+sent[cursor:]
+        cursor = cursor+1
+print("".join(sent))
