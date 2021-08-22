@@ -142,7 +142,7 @@ print(day[b % 7])
 n = int(input(""))
 sum = 0
 for i in range(n):
-    sum+=i+1
+    sum += i+1
 print(sum)
 
 
@@ -167,7 +167,10 @@ for i in range(1, N+1):
     for j in range(i):
         print("*", end='')
     print("")
-
+'''
+숏코딩
+for i in range(int(input())):print('*'*(i+1))
+'''
 
 # 2439
 N = int(input(""))
@@ -183,7 +186,7 @@ for i in range(1, N+1):
 N = int(input(""))
 for i in range(N):
     for j in range(N-i):
-        print("*",end="")
+        print("*", end="")
     print("")
 
 
@@ -273,13 +276,13 @@ for i in range(1,N):
 
 # 2522
 N = int(input(""))
-for i in range(N-1,0,-1):
+for i in range(N-1, 0, -1):
     for k in range(i):
         print(" ", end="")
     for k in range(N-i):
         print("*", end="")
     print("")
-for i in range(N,0,-1):
+for i in range(N, 0, -1):
     for k in range(N-i):
         print(" ", end="")
     for k in range(i):
@@ -299,11 +302,11 @@ for i in range(N):
 
 # 10992
 N = int(input(""))
-for i in range(1,N):
+for i in range(1, N):
     for k in range(N-i):
         print(" ", end="")
     print("*", end="")
-    if i==1:
+    if i == 1:
         print("")
         continue
     for k in range(i*2-3):

@@ -8,7 +8,6 @@
 import sys
 
 input = sys.stdin.readline
-
 stack = []
 N = int(input())
 
@@ -36,6 +35,14 @@ for i in range(N):
             print(-1)
 
 
+
+m,*l = -1,
+for a in[*open(0)][1:]:
+    l+=[a[5:m]]*-~-(a[1]<"u"!=print(a<"f"and"10"[l>[]]or a<"q" and (l or[m]).pop()or[len(l),(m,*l)[m]][a>"t"]))
+
+
+
+
 # 9012 - 괄호
 # 실패- 틀림 : 뭐가 틀렸는지 말을 좀 해봐
 '''
@@ -54,11 +61,14 @@ for i in range(N):
         else:
             try:
                 stack[-1] == '('
-            except IndexError:
+            except IndexError:  # 비어있을 경우
                 stack.append(")")
                 continue
-            else:
-                stack = stack[:-1]
+            else:  ## () 일 경우
+                if stack[-1] == ')':
+                    stack.append(")")
+                else:
+                    stack = stack[:-1]
     if len(stack) == 0:
         print("YES")
     else:
@@ -69,7 +79,7 @@ for i in range(N):
 '''
 (를 만나면
 '만난 (의 개수 +1' 번째 ) 를 만날 때까지 만난 숫자 + 1을 더한다
-'''
+
 import sys
 stick = sys.stdin.readline().rstrip()
 stick = stick.replace("()", "1")
@@ -95,6 +105,7 @@ for i in range(len(stick)):
     else:
         continue
 print(num)
+'''
 
 
 # 1406 : 에디터
@@ -141,7 +152,7 @@ for i in range(N):
     elif command[0] == 's':
         print(len(str))
     elif command[0] == 'e':
-        print(0 if min(len(str), 1) ==1 else 1)
+        print(0 if min(len(str), 1) == 1 else 1)
     elif command[0] == 'f':
         try:
             print(str[0])
@@ -157,19 +168,18 @@ for i in range(N):
 # 1158 : 요세푸스 문제
 '''
 틀림 - 왜? 왜??왜????
+해결 - 어떻게 해결했는지 모름 ㅋㅋ.. try except 말고 그냥 나머지로 한꺼번에 함
 '''
 import sys
 N, K = map(int, sys.stdin.readline().rstrip().split(" "))
 circle = [i+1 for i in range(N)]
-pointer = K-1
 yo = []
 for i in range(N):
-    try:
-        yo.append(circle[pointer])
-        circle = circle[pointer+1:]+circle[:pointer]
-    except IndexError:
-        yo.append(circle[(pointer+1) % len(circle)-1])
-        circle = circle[(pointer+1) % len(circle):] + circle[:(pointer+1) % len(circle)-1]
+    yo.append(circle[(K) % len(circle)-1])
+    if K % len(circle) ==0:
+        circle = circle[:-1]
+    else:
+        circle = circle[K % len(circle):] + circle[: K % len(circle)-1]
 print("<"+", ".join(map(str, yo))+">")
 
 
@@ -216,4 +226,34 @@ for i in range(N):
             print(-1)
     else:
         pass
-deque = list(map(int,deque))
+deque = list(map(int, deque))
+
+
+# 10808 : 알파벳 개수
+'''
+
+'''
+import sys
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+S = sys.stdin.readline().rstrip()
+count = [0 for i in range(len(alphabet))]
+
+for i in range(len(S)):
+    index = alphabet.find(S[i])
+    count[index] += 1
+print(" ".join(map(str, count)))
+
+
+# 10809 : 알파벳 찾기
+import sys
+alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+S = sys.stdin.readline().rstrip()
+result = [-1 for i in range(len(alphabet))]
+
+for i in range(len(S)-1, -1 ,-1):
+    index = alphabet.find(S[i])
+    result[index] = i
+
+print(" ".join(map(str, result)))

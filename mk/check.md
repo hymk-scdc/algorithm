@@ -25,3 +25,6 @@ input = sys.stdin.readline
 위에 추가해서 해결
 4. ```if 문자열 == 문자열``` , ```if 문자열[:숫자] == 문자열``` : 연산 시간 차이가 많이 나나?  
 5. list에서 인덱싱 슬라이싱보다 append, pop이 빠름
+6. ```for i in range( int(input()) )``` 형식도 가능함 - 숏코딩
+7. ```for i in range(4): print(~i)``` : -1 -2 -3 .. 으로 출력됨
+8. ```zfill(width)``` ```rjust(width,[fillchar]```
