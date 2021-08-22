@@ -1,15 +1,19 @@
 # 2021.08.19
-import time
 
 # 10828 : 스택
-# 실패 - 시간 초과
-start = time.time()
+'''
+실패 - 시간 초과 
+해결 - input = sys.stdin.readline 사용 - 꼭 이렇게 쓸 필요 없음 input 대신에 쓰면 됨
+'''
+import sys
+
+input = sys.stdin.readline
 
 stack = []
-N = int(input(""))
+N = int(input())
 
 for i in range(N):
-    command = input("")
+    command = input()
     if command[:2] == 'pu':
         stack.append(int(command.split(" ")[1]))
     elif command[:2] == 'po':
@@ -31,8 +35,6 @@ for i in range(N):
         else:
             print(-1)
 
-print("time :", time.time() - start)
-
 
 # 9012 - 괄호
 # 실패- 틀림 : 뭐가 틀렸는지 말을 좀 해봐
@@ -40,10 +42,12 @@ print("time :", time.time() - start)
 )가 들어왔을 때 앞에 (가 있으면 같이 없애
 (는 그냥 들여보내
 '''
-N = int(input(""))
+import sys
+
+N = int(sys.stdin.readline())
 for i in range(N):
     stack = []
-    PS = list(input(""))
+    PS = list(sys.stdin.readline().rstrip())
     for j in range(len(PS)):
         if PS[j] == "(":
             stack.append("(")
@@ -63,19 +67,48 @@ for i in range(N):
 
 # 10799 : 쇠막대기
 '''
-모르겠는데요
+(를 만나면
+'만난 (의 개수 +1' 번째 ) 를 만날 때까지 만난 숫자 + 1을 더한다
 '''
+import sys
+stick = sys.stdin.readline().rstrip()
+stick = stick.replace("()", "1")
+num = 0
+for i in range(len(stick)):
+    mid_num = 0
+    meet = 0
+    if stick[i] == "(":
+        for j in range(i, len(stick)-1):
+            if stick[j+1] == '(':
+                meet += 1
+            elif stick[j+1] == ')':
+                if meet == 0:
+                    if mid_num != 0:
+                        num += mid_num+1
+                        break
+                    else:
+                        continue
+                else:
+                    meet -= 1
+            else:
+                mid_num += 1
+    else:
+        continue
+print(num)
 
 
 # 1406 : 에디터
 '''
 실패 : 시간 초과
+해결 : 
 '''
-sent = list(input(""))
-M = int(input(""))
+import sys
+
+sent = list(sys.stdin.readline().rstrip())
+M = int(sys.stdin.readline())
 cursor = len(sent)
 for i in range(M):
-    command = input("")
+    command = sys.stdin.readline().rstrip()
     if command == 'L':
         cursor = max(cursor-1, 0)
     elif command == 'D':
@@ -88,3 +121,99 @@ for i in range(M):
         sent = sent[:cursor]+list(command.split(" ")[1])+sent[cursor:]
         cursor = cursor+1
 print("".join(sent))
+
+
+# 10845 : 큐
+import sys
+
+N = int(sys.stdin.readline())
+str = []
+for i in range(N):
+    command = sys.stdin.readline().rstrip()
+    if command[:2] == 'pu':
+        str.append(int(command.split()[1]))
+    elif command[0] == 'p':
+        if len(str) == 0:
+            print(-1)
+        else:
+            print(str[0])
+            str = str[1:]
+    elif command[0] == 's':
+        print(len(str))
+    elif command[0] == 'e':
+        print(0 if min(len(str), 1) ==1 else 1)
+    elif command[0] == 'f':
+        try:
+            print(str[0])
+        except IndexError:
+            print(-1)
+    elif command[0] == 'b':
+        try:
+            print(str[-1])
+        except IndexError:
+            print(-1)
+
+
+# 1158 : 요세푸스 문제
+'''
+틀림 - 왜? 왜??왜????
+'''
+import sys
+N, K = map(int, sys.stdin.readline().rstrip().split(" "))
+circle = [i+1 for i in range(N)]
+pointer = K-1
+yo = []
+for i in range(N):
+    try:
+        yo.append(circle[pointer])
+        circle = circle[pointer+1:]+circle[:pointer]
+    except IndexError:
+        yo.append(circle[(pointer+1) % len(circle)-1])
+        circle = circle[(pointer+1) % len(circle):] + circle[:(pointer+1) % len(circle)-1]
+print("<"+", ".join(map(str, yo))+">")
+
+
+# 10866 : 덱
+'''
+333을 입력받아서 바로 list 하면 3, 3, 3으로 들어가서 틀렸었음
+'''
+import sys
+N = int(sys.stdin.readline())
+deque = []
+for i in range(N):
+    temp = []
+    command = sys.stdin.readline().rstrip()
+    if command[:6] == 'push_f':
+        temp.append(command.split(" ")[1])
+        deque = temp+deque
+    elif command[:6] == 'push_b':
+        deque.append(command.split(" ")[1])
+    elif command[:5] == 'pop_f':
+        if len(deque) > 0:
+            print(deque[0])
+            deque = deque[1:]
+        else:
+            print(-1)
+    elif command[:5] == 'pop_b':
+        if len(deque) > 0:
+            print(deque[-1])
+            deque = deque[:-1]
+        else:
+            print(-1)
+    elif command[0] == 's':
+        print(len(deque))
+    elif command[0] == 'e':
+        print(0 if min(len(deque), 1) ==1 else 1)
+    elif command[0] == 'f':
+        if len(deque) > 0:
+            print(deque[0])
+        else:
+            print(-1)
+    elif command[0] == 'b':
+        if len(deque) > 0:
+            print(deque[-1])
+        else:
+            print(-1)
+    else:
+        pass
+deque = list(map(int,deque))
