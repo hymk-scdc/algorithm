@@ -257,3 +257,35 @@ for i in range(len(S)-1, -1 ,-1):
     result[index] = i
 
 print(" ".join(map(str, result)))
+
+
+# 10820 : 문자열 분석
+'''
+맞은 것 같은데 틀렸대
+'''
+import sys
+N = sys.stdin.readline().rstrip().split("\n")
+refer = ["abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "0123456789", " "]
+
+result = list([0, 0, 0, 0] for i in range(len(N)))
+
+for i in range(len(N)):
+    for j in range(len(refer)):
+        for k in range(len(N[i])):
+            index = refer[j].find(N[i][k])
+            if index != -1:
+                result[i][j] += 1
+for i in result:
+    print(" ".join(map(str, i)))
+
+
+# 2743 : 단어 길이 재기
+'''
+뭐... 스택 큐 이용하라고?
+'''
+import sys
+N = sys.stdin.readline().rstrip()
+print(len(N))
+
+
+# 11655 : ROT13
