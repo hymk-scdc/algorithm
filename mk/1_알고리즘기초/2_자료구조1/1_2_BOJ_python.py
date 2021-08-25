@@ -288,6 +288,8 @@ N = sys.stdin.readline().rstrip()
 print(len(N))
 
 
+# 2021.08.25
+
 # 11655 : ROT13
 import sys
 
