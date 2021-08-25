@@ -289,3 +289,46 @@ print(len(N))
 
 
 # 11655 : ROT13
+import sys
+
+lower = "abcdefghijklmnopqrstuvwxyz"
+upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+sent = list(sys.stdin.readline().rstrip())
+result = []
+
+for i in range(len(sent)):
+    x = sent.pop()
+    if lower.find(x) != -1:
+        result.append(lower[(lower.find(x)+13) % len(lower)] )
+    elif upper.find(x) != -1:
+        result.append(upper[(upper.find(x)+13) % len(upper)] )
+    else:
+        result.append(x)
+result.reverse()
+
+print("".join(result))
+
+
+# 10824 : 네 수
+import sys
+
+nums = sys.stdin.readline().rstrip().split(" ")
+print(int("".join(nums[:2])) + int("".join(nums[2:])))
+
+
+# 11656 : 접미사 배열
+import sys
+
+word = list(sys.stdin.readline().rstrip())
+word.reverse()
+suffix = []
+for i in range(len(word)):
+    temp = word[:]
+    temp.reverse()
+    suffix.append("".join(temp))
+    word.pop()
+
+suffix.sort()
+for i in suffix:
+    print(i)
