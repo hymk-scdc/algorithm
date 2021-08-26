@@ -49,6 +49,84 @@
 
 ### 3. 다이나믹 프로그래밍 
 
+### 개념 이해 
+
+#### 조건 
+
+- 하나의 problem이 더 작은 subproblem으로 쪼개질 때
+- subproblem들의 해결로 더 큰 subproblem을 해결할 수 있을 때 
+- subproblem이 겹칠 때 
+
+**예시**
+
+피보나치 수열 O(2^n)
+
+Fn = Fn-1 + Fn-2 
+
+ ```python
+ def fib_naive(n) : 
+     if n==0 : 
+         return 1 
+     elif n == 1 : 
+         return 1 
+     else : 
+         fib = fib_naive(n-1) + fib_naive(n-2)
+         return fib 
+     
+  # O(2^n) 
+ %%timeit # 시간 재는 것 
+ fib_naive(35)
+ ```
+
+- array에 담아서 해결한다 
+
+  ```python
+  fib_arry = [0,1 ]
+  
+  def fib_recur_dp(n) : 
+      if n < len(fib_arry) : 
+          return fib_arry[n]
+      else : 
+          fib = fib_recur_dp(n-1) + fib_recur_dp(n-2)
+          fib_arry.append(fib)
+          return fib
+  ```
+
+  => 하지만, 큰 수를 넣게되면 런타임 에러가 나오게 됨 (maximum recursion depth 초과)
+
+  => 이러한 topdown 방식은 스택의 리밋이 있음 
+  예를 들어, f(10000)을 하면 f(9999) f(9998) ... f(2)까지 모두 계산해야 함 
+
+- bottom up 방식을 사용한다. (가장 작은 subproblem부터 시작)
+
+  for loop으로 array를 채워나간다. 
+
+  ```python
+  def fib_dp(n) : 
+      if n==0 : 
+          return 1 
+      elif n==1 : 
+          return 1
+      fib_array = [1,1]
+      
+      for i in range(2, n+1) : 
+          num = fib_array[i-1] + fib_array[i-2]
+          fib_array.append(num)
+      return fib_array[n]
+  ```
+
+  => O(n)과 O(1)이 걸림 
+
+  => 왜냐하면, F(3)을 구하기 위해선 가장 최근 것인 F(2)와 F(1)만 보면 됨 
+
+  => F(n)을 구하기 위해서도 가장 최근 것 두 개만 보면 됨 
+
+  => 그래서 그 앞에 것들은 지울 수 있음 
+
+
+
+
+
 #### 1463 
 
 틀림 
@@ -56,6 +134,16 @@
 #### 11726 
 
 - 팩토리얼 함수, 재귀함수로 구현해서 사용했더니 런타임 에러 남 
+
+
+
+
+
+
+
+
+
+----
 
 
 
