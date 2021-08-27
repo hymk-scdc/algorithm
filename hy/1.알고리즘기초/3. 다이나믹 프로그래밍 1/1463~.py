@@ -105,17 +105,55 @@ for n in ns :
     print(int(total_sum))
 ### 음 ............................... 몰라 ..... 안해 먹어
 
-# 11052 카드 구매하기
-import sys
+# # 11052 카드 구매하기
+# import sys
+#
+# n = int(sys.stdin.readline())
+# prices = list(map(int, sys.stdin.readline().rstrip().split()))
+#
+# for price in prices :
+#     print
 
-n = int(sys.stdin.readline())
-prices = list(map(int, sys.stdin.readline().rstrip().split()))
+################ 새로운 시작 ###################
 
-for price in prices :
-    price*
+# 1463 1로 만들기
 
 
+n = int(input())
 
+def make1(n) :
+    dp = [0, 0, 1, 1] # 0 ~ 3의 답을 미리 담아둠
+    if n < 4 :
+        return dp[n]
+    else :
+        for i in range(4,n+1) :
+            d1 = i -1 # n에서 1 뺀 값
+            if i % 2 == 0 :
+                d2 = int(i / 2) # n을 2로 나눈 값
+            else : d2 = i-1
+            if i % 3 == 0 :
+                d3 = int(i / 3) # n을 3으로 나눈 값
+            else : d3 = i-1
+            temp = min(dp[d1], dp[d2], dp[d3]) # 위의 세 가지 값의 답 중 가장 작은 것 선택
+            dp.append(temp+1) # 거기에 1 더하기
+        return dp[n]
+
+print(make1(n))
+
+
+# 11726 2*n 타일링 틀림...
+
+n = int(input())
+
+def tile(num) :
+    dp = [0, 1, 2, 3]
+    if n < 4 :
+        return dp[num]%10007
+    else :
+        for i in range(4,num+1) :
+            dp.append(dp[i-1] + dp[i-2])
+        return dp[num]%10007
+tile(n)
 
 
 
