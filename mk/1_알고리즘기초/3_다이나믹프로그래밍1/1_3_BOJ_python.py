@@ -121,4 +121,14 @@ for i in range(2, N+1):
 print(DP[N-1] % 10007)
 
 
-# 
+# 9095 : 1,2,3 더하기
+
+import sys
+N = int(sys.stdin.readline())
+
+DP = [1, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0]
+
+for i in range(2, N+1):
+    DP[i] = DP[i-1] + DP[i-2] + DP[i-3]
+
+print(DP[N-1])
