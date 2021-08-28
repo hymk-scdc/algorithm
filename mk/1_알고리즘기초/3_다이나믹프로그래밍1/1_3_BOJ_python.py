@@ -116,7 +116,9 @@ N = int(sys.stdin.readline())
 DP = [1, 3] + [0]*1000
 
 for i in range(2, N+1):
-    DP[i] = DP[i-1] + DP[i-2] + 1
+    DP[i] = DP[i-1] + 2 * DP[i-2]
 
 print(DP[N-1] % 10007)
 
+
+# 
