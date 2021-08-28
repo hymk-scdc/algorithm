@@ -261,10 +261,11 @@ print(" ".join(map(str, result)))
 
 # 10820 : 문자열 분석
 '''
-맞은 것 같은데 틀렸대
-'''
-import sys
-N = sys.stdin.readline().rstrip().split("\n")
+실패 : 맞은 것 같은데 틀렸대 - 한 줄씩 입력 안 받아서
+해결 : while로 한 줄씩 입력 받기
+
+#N = sys.stdin.readline().rstrip().split("\n")
+N = input().split("\n")
 refer = ["abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "0123456789", " "]
 
 result = list([0, 0, 0, 0] for i in range(len(N)))
@@ -277,6 +278,21 @@ for i in range(len(N)):
                 result[i][j] += 1
 for i in result:
     print(" ".join(map(str, i)))
+'''
+refer = ["abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "0123456789", " "]
+
+while True:
+    try:
+        result = [0, 0, 0, 0]
+        N = input()
+        for j in range(len(refer)):
+            for k in range(len(N)):
+                index = refer[j].find(N[k])
+                if index != -1:
+                    result[j] += 1
+        print(" ".join(map(str, result)))
+    except:
+        break
 
 
 # 2743 : 단어 길이 재기
