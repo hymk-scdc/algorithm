@@ -124,11 +124,29 @@ print(DP[N-1] % 10007)
 # 9095 : 1,2,3 더하기
 
 import sys
+T = int(sys.stdin.readline())
+for i in range(T):
+    N = int(sys.stdin.readline())
+
+    DP = [1, 2, 4, 0, 0, 0, 0, 0, 0, 0]
+
+    for i in range(3, N):
+        DP[i] = DP[i-1] + DP[i-2] + DP[i-3]
+
+    print(DP[N-1])
+
+
+# 11052 : 카드 구매하기
+'''
+와앙 모르겠는데
+'''
+
+
+# 10844 : 쉬운 계단 수
+'''
+몰라
+'''
+import sys
 N = int(sys.stdin.readline())
 
-DP = [1, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0]
-
-for i in range(2, N+1):
-    DP[i] = DP[i-1] + DP[i-2] + DP[i-3]
-
-print(DP[N-1])
+DP = [9, 17] + [0] * 1000
