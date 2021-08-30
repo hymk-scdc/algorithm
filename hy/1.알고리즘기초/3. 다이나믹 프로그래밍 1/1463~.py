@@ -141,19 +141,49 @@ def make1(n) :
 print(make1(n))
 
 
-# 11726 2*n 타일링 틀림...
+# 11726 2*n 타일링
 
 n = int(input())
 
 def tile(num) :
     dp = [0, 1, 2, 3]
-    if n < 4 :
+    if num < 4 :
         return dp[num]%10007
     else :
         for i in range(4,num+1) :
             dp.append(dp[i-1] + dp[i-2])
         return dp[num]%10007
-tile(n)
+print(tile(n))
 
 
 
+# 11727 2*n 타일링 2 몰라 몰라!!!!
+
+dp = [0,2,2]
+dp2 = [1,3,5]
+n = int(input())
+if n <= 2 :
+    print(dp2[n-1])
+else :
+    for i in range(3,n+1) :
+        dp.append(dp[i-1] + 4)
+        dp2.append(dp2[i-1] + dp[i])
+    print(dp2[n])
+
+# 9095 1,2,3 더하기
+
+def sum123(n) :
+    result = [1,2,4,7]
+    if n < 4 :
+        return result[n-1]
+    else :
+        for i in range(4,n) :
+            temp = result[i-1] + result[i-2] + result[i-3]
+            result.append(temp)
+        return result[n-1]
+
+T = int(input())
+
+for j in range(T) :
+    n = int(input())
+    print(sum123(n))
