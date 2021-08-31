@@ -138,15 +138,25 @@ for i in range(T):
 
 # 11052 : 카드 구매하기
 '''
-와앙 모르겠는데
+0829 와앙 모르겠는데
+0830 와 진짜 모르겠는뎅
 '''
+
+import sys
+N = int(sys.stdin.readline())
+P = sys.stdin.readline().rstrip().split(" ")
 
 
 # 10844 : 쉬운 계단 수
 '''
-몰라
+1. 이전 경우의 수에서 바로 연산할 수 있는지 해봤는데 잘 모르겠음
+2. 이전 경우의 수를 전부 탐색
 '''
+
 import sys
 N = int(sys.stdin.readline())
 
-DP = [9, 17] + [0] * 1000
+DP = [9, 17]
+
+
+#
