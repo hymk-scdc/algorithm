@@ -47,6 +47,18 @@
 
 
 
+#### 10820 문자열 
+
+- 내장함수 : `isupper()` 같은 거 사용할 수도 있음 
+
+
+
+
+
+
+
+
+
 ### 3. 다이나믹 프로그래밍 
 
 ### 개념 이해 
@@ -189,8 +201,11 @@ n = int(sys.stdin.readline()) # stdin.readline(), 한 줄에 여러 개 입력 �
 | Sort          | l.sort()        | O(N Log N) |                           |
 | Multiply      | k*l             | O(k N)     | [1,2,3] * 3 » O(N**2)     |
 
-
 ## ❗ 문법 
+
+
+
+**for문**
 
 - for i in range(4) : print(i) # 0, 1, 2, 3
 - for i in range(4) : print(~i) # -1, -2, -3, -4
@@ -199,16 +214,28 @@ n = int(sys.stdin.readline()) # stdin.readline(), 한 줄에 여러 개 입력 �
 
 
 
+<<<<<<< Updated upstream
 
 
 **조건문**
 
 ```python
 if 'a' < 'b' < 'c' : print('된다')
+=======
+**조건문**
+
+```python
+if 'a' < b < 'c' : print("됨")
+>>>>>>> Stashed changes
 ```
 
 
 
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
 ## 📕 Reference 
 
 - [리스트 시간복잡도](https://wayhome25.github.io/python/2017/06/14/time-complexity/)
