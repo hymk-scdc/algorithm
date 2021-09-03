@@ -94,6 +94,42 @@ for i in range(T):
     print(max(dp[-1]))
 
 
+# 병사 배치하기
+N = int(input(""))
+P = list(map(int, input().split(" ")))
+
+dp = [P[0], 0]
+
+cnt = 0
+
+for i in P[1:]:
+    if dp[0] - dp[1] < i:
+        if dp[0] < i:  # 바꿔야하는 경우임
+            dp = [i, 0]
+            cnt += 1
+        else:  # 안 바꾸는 경우
+            continue
+
+    elif dp[-2] - dp[-1] > i:
+        for j in range(len(dp)):
+            dp[j] = dp[j] + i
+        dp.append(0)
+
+    else:
+        for j in range(len(dp) - 2):
+            if dp[j] - dp[j+1] > i > dp[j+1] - dp[j+2]:
+                if dp[j+1] < i: # 바꿔야 함
+                    for k in range(j+1):
+                        dp[k] = dp[k] - dp[j+1] + i
+                    dp = dp[:j+1] + [i, 0]
+                    cnt += 1
+                else:
+                    continue
+    print(dp)
+
+
+
+
 
 
 
