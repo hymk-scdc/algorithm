@@ -95,6 +95,9 @@ for i in range(T):
 
 
 # 병사 배치하기
+'''
+전투력이 최대가 되게 한거다
+
 N = int(input(""))
 P = list(map(int, input().split(" ")))
 
@@ -125,7 +128,33 @@ for i in P[1:]:
                     cnt += 1
                 else:
                     continue
-    print(dp)
+print(cnt)
+'''
+
+N = int(input(""))
+P = list(map(int, input().split(" ")))
+
+dp = [10000001, P[0]]
+
+cnt = 0
+
+for i in range(1, N):
+    if dp[-2] > P[i] > dp[-1]:  # 바꿔
+        dp[-1] = P[i]
+        cnt += 1
+    elif dp[-2] < P[i]:  # pass
+        continue
+    else:  #dp[-1] > P[i]
+        dp.append(P[i])
+
+print(cnt)
+
+
+
+
+
+
+
 
 
 
