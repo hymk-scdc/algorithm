@@ -149,11 +149,13 @@ def tile(num) :
     dp = [0, 1, 2, 3]
     if num < 4 :
         return dp[num]%10007
-    else :
+    else:
         for i in range(4,num+1) :
             dp.append(dp[i-1] + dp[i-2])
+        print(dp)
         return dp[num]%10007
 print(tile(n))
+<<<<<<< Updated upstream
 
 
 
@@ -181,6 +183,10 @@ def sum123(n) :
             temp = result[i-1] + result[i-2] + result[i-3]
             result.append(temp)
         return result[n-1]
+=======
+
+# 11727 2*n 타일링 2
+>>>>>>> Stashed changes
 
 T = int(input())
 
