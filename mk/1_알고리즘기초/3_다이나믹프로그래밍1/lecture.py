@@ -152,11 +152,14 @@ print(cnt)
 
 
 '''
+결국 못 풀고 해설 들음
 해설)
 가장 긴 증가하는 부분 수열 (LIS) 알고리즘
 D[i] = array[i]를 마지막 원소로 가지는 부분 수열의 최대 길이
 D[i] = max(D[i], D[j]+1) if array[j] < array[i]
 '''
+
+# 푸는 로직 듣고 작성한 코드
 
 N = int(input(""))
 P = list(map(int, input().split(" ")))
