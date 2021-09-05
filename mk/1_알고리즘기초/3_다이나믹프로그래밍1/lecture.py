@@ -130,6 +130,7 @@ for i in P[1:]:
                     continue
 print(cnt)
 '''
+# 틀린 내 풀이
 
 N = int(input(""))
 P = list(map(int, input().split(" ")))
@@ -150,13 +151,26 @@ for i in range(1, N):
 print(cnt)
 
 
+'''
+해설)
+가장 긴 증가하는 부분 수열 (LIS) 알고리즘
+D[i] = array[i]를 마지막 원소로 가지는 부분 수열의 최대 길이
+D[i] = max(D[i], D[j]+1) if array[j] < array[i]
+'''
 
+N = int(input(""))
+P = list(map(int, input().split(" ")))
 
+dp = [1] * 2000
 
+P.reverse()
 
+for i in range(1, N):
+    for j in range(i):
+        if P[j] < P[i]:
+            dp[i] = max(dp[j]+1, dp[i])
 
-
-
+print(len(P)-max(dp))
 
 
 

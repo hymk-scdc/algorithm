@@ -140,12 +140,41 @@ for i in range(T):
 '''
 0829 와앙 모르겠는데
 0830 와 진짜 모르겠는뎅
+
+0905)
+내 풀이 != 학영언니 풀이 = 모범답안 풀이
+그래도 내 풀이도 맞는 것 같고 시간복잡도 더 낮은듯??
+
+내 풀이는 n^2/2 ?? 모범답안 n^2.. n^2/2도 n^2인 것 같긴 한데
 '''
 
 import sys
 N = int(sys.stdin.readline())
 P = sys.stdin.readline().rstrip().split(" ")
+d = list(map(int, P))
 
+for i in range(1, N):
+    for j in range((i+1)//2):
+        #print("max(d{}, d[{}]+d[{}])".format(i, j, i-j-1), d[i], d[j], "+", d[i-j-1])
+        d[i] = max(int(d[i]), d[j]+d[i-j-1])
+        #print("P", P)
+        #print("d", d)
+
+
+print(d[-1])
+
+
+# 학영
+n = int(input())
+p = [0] + list(map(int, input().split()))
+dp =[0 for _ in range(n+1)]
+for i in range(1, n+1):
+    for j in range(1, i+1):
+        print("max(dp{}, dp[{}]+p[{}])".format(i, i-j, j), dp[i], dp[i-j],"+", p[j])
+        print("p", p)
+        print("d", dp)
+        dp[i] = max(dp[i], dp[i-j] + p[j])
+print(dp[n])
 
 # 10844 : 쉬운 계단 수
 '''
@@ -156,7 +185,17 @@ P = sys.stdin.readline().rstrip().split(" ")
 import sys
 N = int(sys.stdin.readline())
 
-DP = [9, 17]
+d = [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0]
+
+for i in range(1, N):
+    d_new = [0]
+    for j in range(1, 11):
+        d_new.append(d[j-1] + d[j+1])
+    d_new.append(0)
+    d = d_new
+
+print(sum(d) % 1000000000)
+
 
 
 #
