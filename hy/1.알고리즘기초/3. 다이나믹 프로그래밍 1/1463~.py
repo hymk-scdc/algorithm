@@ -193,3 +193,70 @@ T = int(input())
 for j in range(T) :
     n = int(input())
     print(sum123(n))
+
+
+# 11052 카드 구매하기
+
+n = int(input())
+p = [0] + list(map(int,input().split()))
+dp =[0 for _ in range(n+1)]
+
+for i in range(1,n+1) :
+    for j in range(1,i+1) :
+        dp[i] = max(dp[i], dp[i-j] + p[j])
+print(dp[n])
+
+
+
+
+# 10844 쉬운 계단 수
+n = int(input())
+num = [1] + [0]*n
+count = 0
+for j in range(n) :
+    for i in range(0,10) :
+        if (j == 0) & (i == 0) :
+            pass
+        if num[j]-1 > -1 :
+            num[j+1] = num[j]-1
+            count += 1
+        else : pass
+        if num[j]+1 < 10 :
+            num[j+1] = num[j]+1
+            count += 1
+        else : pass
+print(count-1)
+
+n = int(input())
+current = [0,1,1,1,1,1,1,1,1,1]
+temp = [0]*10
+
+if n == 1 :
+    print(sum(current)%1000000000)
+else :
+    for i in range(1,n) :
+        for j in range(10) :
+            if j == 0 :
+                temp[j] = current[j+1]
+            elif j == 9 :
+                temp[j] = current[j-1]
+            else :
+                temp[j] = current[j-1] + current[j+1]
+        current = temp.copy()
+    print(sum(current)%1000000000)
+
+
+#11057 오르막 수
+
+n = int(input())
+current = [1,1,1,1,1,1,1,1,1,1]
+temp = [0]*10
+
+if n == 1 :
+    print(sum(current)%10007)
+else :
+    for i in range(1,n) :
+        for j in range(10) :
+                temp[j] = sum(current[:j+1])
+        current = temp.copy()
+    print(sum(current)%10007)

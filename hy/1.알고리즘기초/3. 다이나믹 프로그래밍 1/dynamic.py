@@ -99,3 +99,14 @@ for _ in range(T) :
 
 ## 병사 배치하기 :  O(N^2) 이하의 프로그래밍
 
+n = int(input())
+array = list(map(int,input().split()))
+array.reverse()
+
+dp = [1]*n
+
+for i in range(len(array)) :
+    for j in range(i) :
+        if array[j] < array[i] : dp[i]=(max(dp[i], dp[j]+1))
+
+print(n-max(dp))
