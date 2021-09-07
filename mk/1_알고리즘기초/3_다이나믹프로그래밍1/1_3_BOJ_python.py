@@ -199,5 +199,24 @@ for i in range(1, N):
 print(sum(d) % 1000000000)
 
 
+# 11057 : 오르막 수
+N = int(input(""))
+DP = [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 
-#
+for i in range(1, N):
+    for j in range(10):
+        DP[j + 1] = DP[j] + DP[j + 1]
+
+print(sum(DP) % 10007)
+
+
+# 2193 : 이친수
+N = int(input(""))
+
+DP = [0, 1]
+
+for i in range(1, N):
+    DP = [DP[0] + DP[1], DP[0]]
+
+print(sum(DP))
+
