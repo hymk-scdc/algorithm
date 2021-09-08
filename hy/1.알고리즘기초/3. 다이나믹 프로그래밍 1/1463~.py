@@ -272,3 +272,47 @@ else :
     for i in range(2,n+1) :
         dp[i] = dp[i-1] + dp[i-2]
     print(dp[n])
+
+
+# 9465 스티커
+T = int(input())
+result = []
+for _ in range(T) :
+    n = int(input())
+    array = [[],[]]
+    array[0] = list(map(int,input().split()))
+    array[1]= list(map(int,input().split()))
+
+
+    dp0, dp1, temp0, temp1 = [0]*n, [0]*n, [0]*n, [0]*n
+
+    dp0[0] = array[0][0]
+    dp1[0] = array[1][0]
+
+    temp0[0], temp0[1]  = array[0][0], array[0][0]
+    temp1[0], temp1[1] = array[1][0], array[1][0]
+
+
+    for i in range(1,n) :
+        if i%2 == 0 :
+            dp0[i] = dp0[i-1] + array[0][i]
+            dp1[i] = dp1[i-1] + array[1][i]
+            if i > 1 :
+                temp0[i] = temp0[i-1] + array[1][i]
+                temp1[i] = temp1[i-1] + array[0][i]
+        else :
+            dp0[i] = dp0[i-1] + array[1][i]
+            dp1[i] = dp1[i-1] + array[0][i]
+            if i > 1 :
+                temp0[i] = temp0[i-1] + array[0][i]
+                temp1[i] = temp1[i-1] + array[1][i]
+        dp0[i] = max(dp0[i], temp0[i])
+        dp1[i] = max(dp1[i], temp1[i])
+
+        temp0[i] = dp0[i-1]
+        temp1[i] = dp1[i-1]
+
+    result.append(max(dp0[n-1], dp1[n-1]))
+
+for k in result :
+    print(k)
