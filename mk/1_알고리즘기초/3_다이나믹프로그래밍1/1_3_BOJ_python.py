@@ -220,3 +220,94 @@ for i in range(1, N):
 
 print(sum(DP))
 
+
+# 9465 : 스티커
+
+# 학영
+# 9465 스티커
+T = int(input())
+result = []
+for _ in range(T):
+    n = int(input())
+    array = [[],[]]
+    array[0] = list(map(int,input().split()))
+    array[1]= list(map(int,input().split()))
+
+
+    dp0, dp1, temp0, temp1 = [0]*n, [0]*n, [0]*n, [0]*n
+
+    dp0[0] = array[0][0]
+    dp1[0] = array[1][0]
+
+    temp0[0], temp0[1]  = array[0][0], array[0][0]
+    temp1[0], temp1[1] = array[1][0], array[1][0]
+
+
+    for i in range(1,n) :
+        if i%2 == 0 :
+            dp0[i] = dp0[i-1] + array[0][i]
+            dp1[i] = dp1[i-1] + array[1][i]
+            if i > 1 :
+                temp0[i] = temp0[i-1] + array[1][i]
+                temp1[i] = temp1[i-1] + array[0][i]
+        else :
+            dp0[i] = dp0[i-1] + array[1][i]
+            dp1[i] = dp1[i-1] + array[0][i]
+            if i > 1 :
+                temp0[i] = temp0[i-1] + array[0][i]
+                temp1[i] = temp1[i-1] + array[1][i]
+        dp0[i] = max(dp0[i], temp0[i])
+        dp1[i] = max(dp1[i], temp1[i])
+
+        temp0[i] = dp0[i-1]
+        temp1[i] = dp1[i-1]
+
+    result.append(max(dp0[n-1], dp1[n-1]))
+
+for k in result :
+    print(k)
+
+# 내꺼
+
+T = int(input(""))
+for i in range(T):
+    N = int(input(""))
+    point = []  # point[0]은 1행, point[1]은 2행
+    point.append(list(map(int, input().split(" "))))
+    point.append(list(map(int, input().split(" "))))
+
+    # 초항 넣기
+    if point[0][0] < point[1][0]:
+        DP = [point[1][0]]
+        last = [1, 0]  # [마지막놈의 행, 아닌거]
+    else:
+        DP = [point[0][0]]
+        last = [0, 1]
+
+    # 2항 넣기
+    if point[0][0]+point[1][1] > point[1][0]+point[0][1]:
+        DP.append(point[0][0]+point[1][1])
+        last = last + [1, 0]  # [전열(dp[i-2]): 마지막놈의 행, 아닌거 / 마지막열dp[i-1]: 마지막놈의 행, 아닌거]
+    else:
+        DP.append(point[1][0]+point[0][1])
+        last = last + [0, 1]
+
+    for i in range(2, N):
+        # 3가지 비교
+        # DP[i-2] + point[n_last][i-1] + point[last][i]    DP[i-2] + point[n_last][i]     DP[i-1] + point[n_last][i]
+        if DP[i-2]+point[last[1]][i-1]+point[last[0]][i] > max(DP[i-2]+point[last[1]][i], DP[i-1]+point[last[3]][i]):
+            DP.append(DP[i-2]+point[last[1]][i-1]+point[last[0]][i])
+            print("1", DP, point[last[1]][i-1]+point[last[0]][i], i)
+            last = last[2:] + last[:2]
+        elif DP[i-2] + point[last[1]][i] > max(DP[i-2]+point[last[1]][i-1]+point[last[0]][i], DP[i-1]+point[last[3]][i]):
+            DP.append(DP[i-2] + point[last[1]][i])
+            print("2", DP,  point[last[1]][i], i)
+            last = last[2:] + last[:2][::-1]
+        else:
+            DP.append(DP[i-1]+point[last[3]][i])
+            print("3", DP, point[last[3]][i], i)
+            last = last[2:] + last[2:][::-1]
+    print(DP[-1])
+
+
+# 내가 다시..
