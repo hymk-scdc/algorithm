@@ -267,7 +267,7 @@ for _ in range(T):
 for k in result :
     print(k)
 
-# 내꺼
+# 내꺼 : 답 맞게 나오는거 같은데 틀렸대.. 코드도 길기는 해서 다시 해볼까봐
 
 T = int(input(""))
 for i in range(T):
@@ -311,3 +311,8 @@ for i in range(T):
 
 
 # 내가 다시..
+
+
+# 2156 : 포도주 시식
+
+
