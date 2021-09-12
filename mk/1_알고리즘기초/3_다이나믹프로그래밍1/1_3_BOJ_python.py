@@ -222,6 +222,9 @@ print(sum(DP))
 
 
 # 9465 : 스티커
+'''
+너어는 진짜.. 며칠 붙잡고 있었음
+'''
 
 # 학영
 # 9465 스티커
@@ -310,9 +313,59 @@ for i in range(T):
     print(DP[-1])
 
 
-# 내가 다시..
+# 내가 다시 한 거
+T = int(input(""))
+last = []
+for i in range(T):
+    N = int(input(""))
+    point = [[0]*N]  # point[0]이 dp, point[1]은 1행, point[-1]은 2행
+    point.append(list(map(int, input().split(" "))))
+    point.append(list(map(int, input().split(" "))))
+    point[0][:2] = [max(point[1][0], point[-1][0]), max(point[1][0]+point[-1][1], point[1][1]+point[-1][0])]
+    last = [[point[1][0], point[-1][0]].index(point[0][0]), [point[1][1]+point[-1][0], point[1][0]+point[-1][1]].index(point[0][1])]
+    try:
+        last[last.index(1)]=-1
+    except:
+        pass
+    try:
+        last[last.index(0)] = 1
+    except:
+        pass
+    for i in range(2, N):
+        point[0][i] = max(point[0][i-2]+point[last[0]*(-1)][i-1]+point[last[0]][i], point[0][i-2]+point[last[0]*(-1)][i]
+                          , point[0][i-1]+point[last[1]*(-1)][i], )
+        if point[0][i] == point[0][i-2]+point[last[0]*(-1)][i-1]+point[last[0]][i]:
+            last = [last[-1], last[0]]
+        elif point[0][i] == point[0][i-2]+point[last[0]*(-1)][i]:
+            last = [last[-1], last[0]*(-1)]
+        else:
+            last = [last[-1], last[-1]*(-1)]
+    print(point[0][-1])
+
+
+
+
+
 
 
 # 2156 : 포도주 시식
+'''
+하.....너무 힘들었다.... 너무 오래 걸렸다.. 한 이틀?걸렸나 4시간은 쓴듯
+'''
+n = int(input(""))
+drink = [0]
 
+for i in range(n):
+    drink.append(int(input("")))
 
+if len(drink) == 2:
+    print(drink[1])
+elif len(drink) == 3:
+    print(drink[1]+drink[2])
+else:
+    dp = [0, drink[1], drink[1]+drink[2]]
+    cnt = 2
+    for i in range(3, len(drink)):
+        dp.append(max(dp[i-3]+drink[i-1]+drink[i], dp[i-2]+drink[i], dp[i-1]))
+
+    print(dp[-1])
