@@ -294,25 +294,179 @@ for _ in range(T) :
 
 
     for i in range(1,n) :
-        if i%2 == 0 :
+        # if cursor == 1 :
             dp0[i] = dp0[i-1] + array[0][i]
             dp1[i] = dp1[i-1] + array[1][i]
+            print("dp ----->", dp0, dp1)
             if i > 1 :
                 temp0[i] = temp0[i-1] + array[1][i]
                 temp1[i] = temp1[i-1] + array[0][i]
+            print(temp0, temp1)
         else :
             dp0[i] = dp0[i-1] + array[1][i]
             dp1[i] = dp1[i-1] + array[0][i]
-            if i > 1 :
+            print("dp ----->", dp0, dp1)
+            if cursor == -1  :
                 temp0[i] = temp0[i-1] + array[0][i]
                 temp1[i] = temp1[i-1] + array[1][i]
+            print(temp0, temp1)
         dp0[i] = max(dp0[i], temp0[i])
         dp1[i] = max(dp1[i], temp1[i])
 
+
         temp0[i] = dp0[i-1]
         temp1[i] = dp1[i-1]
+        print(temp0, temp1)
+        print("최종dp ----->",dp0,dp1)
 
-    result.append(max(dp0[n-1], dp1[n-1]))
+
+        result.append(max(dp0[i], dp1[i]))
+        print("result ---------->", result)
+        print('--------------i바뀜---------')
 
 for k in result :
     print(k)
+
+
+
+# 9465 cursor 설정
+T = int(input())
+result = []
+for _ in range(T) :
+    n = int(input())
+    array = [[],[]]
+    dp0, dp1 = [0]*n, [0]*n
+    array[0] = list(map(int,input().split()))
+    array[1]= list(map(int,input().split()))
+
+    dp0[0] = array[0][0] # 위로 끝나는 경우
+    dp1[0] = array[1][0] # 아래로 끝나는 경우
+    dp0[1] = dp1[0] + array[0][1]
+    dp1[1] = dp0[0] + array[1][1]
+    result.append(max(dp0[0],dp1[0]))
+    result.append(max(dp0[1],dp1[1]))
+
+    for i in range(2,n) :
+        dp0[i] = max(dp0[i-2]+array[1][i-1]+array[0][i],dp1[i-2] + array[0][i])
+        dp1[i] = max(dp1[i-2]+array[0][i-1]+array[1][i],dp0[i-2] + array[1][i])
+        result.append(max(dp0[i],dp1[i]))
+    print(result[-1])
+
+# 2156 포도주 시식
+num0 , num1, num2 = [], [], [] # 연결 개수에 따른 배열
+array = [] # 포도주
+
+#2156 포도주
+n = int(input())
+array = []
+for _ in range(n) :
+    array.append(int(input()))
+
+result = [array[:1],array[:2]]
+answer = [array[0],array[0]+array[1]]
+
+
+
+
+for i in range(2,n) :
+    temp0, temp1, temp2 = [], [], []
+    if result[i-2][-1] != 0 :
+        temp0 = result[i-2]+[0]+[array[i]] # 앞이 비어있음
+    if (result[i-2][-1] == 0) and (i!=2) :
+        temp1 = result[i-2] + [array[i-1]] + [array[i]] # 앞이 비어있지 않음
+    if (result[i-1][-2] != 0 and result[i-1][-1] != 0) :
+        temp2 = result[i-1] + [0] # 내가 비었음
+    if i == 2 :
+        temp1 = [0, array[1], array[2]]
+
+
+    a,b,c = sum(temp0),sum(temp1),sum(temp2)
+    answer.append(max(a,b,c))
+
+    print("temp0------>", temp0)
+    print("temp1------->", temp1)
+    print("temp2------->", temp2)
+    if max(a,b,c) == c :
+        result.append(temp2)
+    elif max(a,b,c) == b :
+        result.append(temp1)
+    else : result.append(temp0)
+    print("result------------->", result)
+print(answer[-1])
+
+
+
+# 포도주 뿌시기
+n = int(input())
+array = [] # 포도주
+
+for _ in range(n) :
+    array.append(int(input()))
+
+pre = [[array[0],array[1],0],[0,array[1],array[2]],[array[0],0,array[2]]] # 3잔까지 갔을 때 나오는 경우의 수
+
+# for j in range(3,n) :
+#     current = []
+#     for i in pre :
+#         if (i[-1] != 0)and(i[-2] != 0 ) and (i[-3] == 0):
+#             current.append(i[1:] + [0])
+#         if (i[-1] != 0) and (i[-2] == 0) and (i[-3] != 0):
+#             current.append(i[1:] + [array[j]])
+#         if (i[-1] == 0) and (i[-2] != 0) and (i[-3] != 0):
+#             current.append(i[1:]+[array[j]])
+#         if (i[-1] == 0) and (i[-2] != 0) and (i[-3] == 0) :
+#             current.append(i[1:]+[array[j]])
+#         if (i[-1]!= 0) and (i[-2] ==0) and (i[-3] != 0) :
+#             current.append(i[1:] + [0])
+#     print("pre------>", pre)
+#     print("current----->", current)
+
+    pre = current
+result = list(sum(i) for i in current)
+print(max(result))
+
+
+n = int(input())
+array = [] # 포도주
+
+for _ in range(n) :
+    array.append(int(input()))
+
+yes = [6,16]
+no = [0,6]
+result =[]
+for i in range(2,n) :
+    temp_y1 = no[i-3]+array[i-2] + array[i]
+    temp_y2 = yes[i-3] + array[i - 2] + array[i]
+    temp_y3 = no[i-2] + array[i-1] + array[i]
+    temp_n1 = yes[i-2] + array[i-1]
+    temp_n2 = no[i-2] +array[i-1]
+    print(temp_y1,temp_y2,temp_n1,temp_n2)
+    yes.append(max(temp_y1,temp_y2))
+    no.append(max(temp_n1, temp_n2))
+    print("yes--->",yes)
+    print("no----->", no)
+    result.append(max(yes[i],no[i]))
+    print("result---->", result)
+
+
+# 포도주 잔 다 깨버릴라..
+n = int(input())
+array = [] # 포도주
+
+for _ in range(n) : # 포도주 잔 채우기
+    array.append(int(input()))
+
+if n == 1 :
+    print(array[0])
+elif n == 2 :
+    print(array[0]+array[1])
+else :
+    dp = [array[0], array[0]+array[1],max(array[0]+array[1],array[1]+array[2],array[0]+array[2])]
+
+    for i in range(3,n) :
+        a = dp[i-3] + array[i-1] + array[i]
+        b = dp[i-2] + array[i]
+        c = dp[i-1]
+        dp.append(max(a,b,c))
+    print(dp[n-1])
