@@ -321,27 +321,6 @@ for i in range(T):
     point = [[0]*N]  # point[0]이 dp, point[1]은 1행, point[-1]은 2행
     point.append(list(map(int, input().split(" "))))
     point.append(list(map(int, input().split(" "))))
-    point[0][:2] = [max(point[1][0], point[-1][0]), max(point[1][0]+point[-1][1], point[1][1]+point[-1][0])]
-    last = [[point[1][0], point[-1][0]].index(point[0][0]), [point[1][1]+point[-1][0], point[1][0]+point[-1][1]].index(point[0][1])]
-    try:
-        last[last.index(1)]=-1
-    except:
-        pass
-    try:
-        last[last.index(0)] = 1
-    except:
-        pass
-    for i in range(2, N):
-        point[0][i] = max(point[0][i-2]+point[last[0]*(-1)][i-1]+point[last[0]][i], point[0][i-2]+point[last[0]*(-1)][i]
-                          , point[0][i-1]+point[last[1]*(-1)][i], )
-        if point[0][i] == point[0][i-2]+point[last[0]*(-1)][i-1]+point[last[0]][i]:
-            last = [last[-1], last[0]]
-        elif point[0][i] == point[0][i-2]+point[last[0]*(-1)][i]:
-            last = [last[-1], last[0]*(-1)]
-        else:
-            last = [last[-1], last[-1]*(-1)]
-    print(point[0][-1])
-
 
 
 
