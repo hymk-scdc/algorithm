@@ -179,3 +179,5 @@ print(len(P)-max(dp))
 
 
 
+
+

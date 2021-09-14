@@ -225,51 +225,6 @@ print(sum(DP))
 '''
 너어는 진짜.. 며칠 붙잡고 있었음
 '''
-
-# 학영
-# 9465 스티커
-T = int(input())
-result = []
-for _ in range(T):
-    n = int(input())
-    array = [[],[]]
-    array[0] = list(map(int,input().split()))
-    array[1]= list(map(int,input().split()))
-
-
-    dp0, dp1, temp0, temp1 = [0]*n, [0]*n, [0]*n, [0]*n
-
-    dp0[0] = array[0][0]
-    dp1[0] = array[1][0]
-
-    temp0[0], temp0[1]  = array[0][0], array[0][0]
-    temp1[0], temp1[1] = array[1][0], array[1][0]
-
-
-    for i in range(1,n) :
-        if i%2 == 0 :
-            dp0[i] = dp0[i-1] + array[0][i]
-            dp1[i] = dp1[i-1] + array[1][i]
-            if i > 1 :
-                temp0[i] = temp0[i-1] + array[1][i]
-                temp1[i] = temp1[i-1] + array[0][i]
-        else :
-            dp0[i] = dp0[i-1] + array[1][i]
-            dp1[i] = dp1[i-1] + array[0][i]
-            if i > 1 :
-                temp0[i] = temp0[i-1] + array[0][i]
-                temp1[i] = temp1[i-1] + array[1][i]
-        dp0[i] = max(dp0[i], temp0[i])
-        dp1[i] = max(dp1[i], temp1[i])
-
-        temp0[i] = dp0[i-1]
-        temp1[i] = dp1[i-1]
-
-    result.append(max(dp0[n-1], dp1[n-1]))
-
-for k in result :
-    print(k)
-
 # 내꺼 : 답 맞게 나오는거 같은데 틀렸대.. 코드도 길기는 해서 다시 해볼까봐
 
 T = int(input(""))
@@ -314,16 +269,25 @@ for i in range(T):
 
 
 # 내가 다시 한 거
+'''
+해설 봄 : 앞놈이 건너뛴 놈으로 선택됐을 때는 dp[i-2] + array[i-1]이랑 dp[i-1]이랑 달라져서 틀린 거였음 
+위 코드 반례 : 10 1 1 20 / 5 1 100 1
+
+'''
 T = int(input(""))
-last = []
 for i in range(T):
     N = int(input(""))
-    point = [[0]*N]  # point[0]이 dp, point[1]은 1행, point[-1]은 2행
-    point.append(list(map(int, input().split(" "))))
-    point.append(list(map(int, input().split(" "))))
+    point = []
+    point.append([0, 0]+list(map(int, input().split(" "))))
+    point.append([0, 0]+list(map(int, input().split(" "))))
+    dp = [[point[0][0], point[1][0]+point[0][1]] + [0]*(N)
+        , [point[1][0], point[1][1]+point[0][0]] + [0]*(N)]
 
+    for i in range(2, N+2):
+        dp[0][i] = max(dp[1][i-1]+point[0][i], dp[1][i-2]+point[0][i])
+        dp[1][i] = max(dp[0][i-1]+point[1][i], dp[0][i-2]+point[1][i])
 
-
+    print(max(dp[0][-1], dp[1][-1]))
 
 
 
@@ -348,3 +312,6 @@ else:
         dp.append(max(dp[i-3]+drink[i-1]+drink[i], dp[i-2]+drink[i], dp[i-1]))
 
     print(dp[-1])
+
+
+# 11053 : 가장 긴 증가하는 부분 수열
