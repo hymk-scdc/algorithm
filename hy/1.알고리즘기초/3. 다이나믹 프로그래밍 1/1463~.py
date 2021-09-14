@@ -329,7 +329,12 @@ for k in result :
 
 
 
-# 9465 cursor 설정
+# 9465 스티커
+'''
+음... 일단 엄청 힘들었고, 대각선으로 선택하고 그 다음 차수의 경우, 앞이 비어있는 경우로 시작하는 경우가 생기는데 
+그걸 고려를 안해줘서 계속 틀렸음 
+dp[i-2]로 시작하는 경우, dp[i-1]로 싲가하는 경우가 있음 
+'''
 T = int(input())
 result = []
 for _ in range(T) :
@@ -338,19 +343,24 @@ for _ in range(T) :
     dp0, dp1 = [0]*n, [0]*n
     array[0] = list(map(int,input().split()))
     array[1]= list(map(int,input().split()))
+    if n == 1 :
+        print(max(array[0][0],array[1][0]))
+    else :
+        dp0[0] = array[0][0] # 위로 끝나는 경우
+        dp1[0] = array[1][0] # 아래로 끝나는 경우
+        dp0[1] = dp1[0] + array[0][1]
+        dp1[1] = dp0[0] + array[1][1]
+        result.append(max(dp0[0],dp1[0]))
+        result.append(max(dp0[1],dp1[1]))
 
-    dp0[0] = array[0][0] # 위로 끝나는 경우
-    dp1[0] = array[1][0] # 아래로 끝나는 경우
-    dp0[1] = dp1[0] + array[0][1]
-    dp1[1] = dp0[0] + array[1][1]
-    result.append(max(dp0[0],dp1[0]))
-    result.append(max(dp0[1],dp1[1]))
-
-    for i in range(2,n) :
-        dp0[i] = max(dp0[i-2]+array[1][i-1]+array[0][i],dp1[i-2] + array[0][i])
-        dp1[i] = max(dp1[i-2]+array[0][i-1]+array[1][i],dp0[i-2] + array[1][i])
-        result.append(max(dp0[i],dp1[i]))
-    print(result[-1])
+        if n == 2 :
+            print(result[-1])
+        else :
+            for i in range(2,n) :
+                dp0[i] = max(dp1[i-2]+array[0][i],dp1[i-1] + array[0][i])
+                dp1[i] = max(dp0[i-2]+array[1][i],dp0[i-1] + array[1][i])
+                result.append(max(dp0[i],dp1[i]))
+            print(result[-1])
 
 # 2156 포도주 시식
 num0 , num1, num2 = [], [], [] # 연결 개수에 따른 배열
@@ -470,3 +480,39 @@ else :
         c = dp[i-1]
         dp.append(max(a,b,c))
     print(dp[n-1])
+
+
+# 스티커 보내는 날
+# T = int(input())
+#
+# for _ in range(T) :
+#     n = int(input())
+#     array = [[],[]]
+#     dp0, dp1 = [0]*n, [0]*n
+#     array[0] = list(map(int,input().split()))
+#     array[1]= list(map(int,input().split()))
+#
+#     if n == 1 :
+#         print(max(array[0][0], array[1][0]))
+#     elif n == 2 :
+#         print(max(array[0][0]+array[1][1], array[0][1]+array[1][0]))
+#     else :
+#         dp0 = [array[0][0],array[0][1]+array[1][0]]
+#         dp1 = [array[1][0], array[0][0]+array[1][1]]
+#         result = [max(array[0][0], array[1][0]),max(array[0][0]+array[1][1], array[0][1]+array[1][0])]
+#         for i in range(2,n) :
+#             temp1 = dp0[i-2] + array[]
+
+# 11053 가장 긴 증가하는 부분 수열 (LIS)
+
+n = int(input())
+dp = [0]*n
+array = list(map(int,input().split()))
+
+for i in range(1,n) :
+    for j in range(i) :
+        if array[i] > array[j] :
+            dp[i] = max(dp[j] + 1, )
+
+
+
