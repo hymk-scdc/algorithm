@@ -506,13 +506,22 @@ else :
 # 11053 가장 긴 증가하는 부분 수열 (LIS)
 
 n = int(input())
-dp = [0]*n
 array = list(map(int,input().split()))
+dp = [1]*n
+for i in range(1,n) :
+    for j in range(i) :
+        if array[i] > array[j] :
+            dp[i] = max(dp[i], dp[j]+1)
+print(max(dp))
+
+
+# 11055 가장 큰 증가 부분 수열
+n = int(input())
+array = list(map(int,input().split()))
+dp = array.copy()
 
 for i in range(1,n) :
     for j in range(i) :
         if array[i] > array[j] :
-            dp[i] = max(dp[j] + 1, )
-
-
-
+            dp[i] = array[j] + dp[i]
+print(max(dp))
