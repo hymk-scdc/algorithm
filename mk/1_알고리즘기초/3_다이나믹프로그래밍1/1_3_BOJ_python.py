@@ -338,4 +338,66 @@ for i in range(N):
 print(max(dp))
 
 
-# 
+# 11722 : 가장 긴 감소하는 부분 수열
+N = int(input(""))
+A = list(map(int, input().split()))
+A.reverse()
+dp = [1] * N
+for i in range(1, N):
+    for j in range(i):
+        if A[j] < A[i]:
+            dp[i] = max(dp[i], dp[j]+1)
+
+print(max(dp))
+
+
+# 11054 : 가장 긴 바이토닉 부분 수열
+N = int(input(""))
+A = list(map(int, input().split()))
+
+dp = [1] * N
+for i in range(1, N):
+    for j in range(i):
+        if A[j] < A[i]:
+            dp[i] = max(dp[i], dp[j]+1)
+
+A.reverse()
+dp2 = [1] * N
+for i in range(1, N):
+    for j in range(i):
+        if A[j] < A[i]:
+            dp2[i] = max(dp2[i], dp2[j]+1)
+dp2.reverse()
+
+result = []
+for i in range(N):
+    result.append(dp[i]+dp2[i]-1)
+
+print(max(result))
+
+
+# 1912 : 연속합
+'''
+시간 초과
+
+N = int(input(""))
+A = list(map(int, input().split()))
+dp = []
+for i in range(N):
+    result = []
+    for j in range(i+1):
+        result.append(sum(A[j:i+1]))
+    dp.append(max(result))
+print(max(dp))
+
+'''
+
+N = int(input(""))
+A = list(map(int, input().split()))
+result=[]
+for i in range(N):
+    result.append(sum(A[:i+1]))
+dp = [max(result)]
+
+for i in range(1, N-1):
+    dp.append(dp[-1]-A[i])
