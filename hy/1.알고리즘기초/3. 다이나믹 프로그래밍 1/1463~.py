@@ -523,5 +523,61 @@ dp = array.copy()
 for i in range(1,n) :
     for j in range(i) :
         if array[i] > array[j] :
-            dp[i] = array[j] + dp[i]
+            dp[i] = max(dp[i],dp[j] + array[i])
+print(max(dp))
+
+# 11722 가장 긴 감소하는 부분 수열
+n = int(input())
+array = list(map(int,input().split()))
+dp = [1]*n
+for i in range(1,n) :
+    for j in range(i) :
+        if array[i] < array[j] :
+            dp[i] = max(dp[i], dp[j]+1)
+print(max(dp))
+
+# 11054 가장 긴 바이토닉 부분 수열
+n = int(input())
+array = list(map(int,input().split()))
+dpIn = [1]*n
+dpDe = [1]*n
+
+for i in range(n) :
+    for j in range(i) :
+        if array[i] > array[j] :
+            dpIn[i] = max(dpIn[i], dpIn[j]+1)
+for i in range(n-1,-1,-1) :
+    for k in range(n-1,i,-1) :
+        if array[i] > array[k] :
+            dpDe[i] = max(dpDe[i], dpDe[k]+1)
+result = list(dpIn[i]+dpDe[i]-1 for i in range(n))
+print(max(result))
+
+#1912 연속합
+
+n = int(input())
+array = list(map(int,input().split()))
+dp=[0]*(n+1)
+for i in range(1,n+1) : # 몇 개 연속
+    for j in range(n-i+1) : # 시작하는 위치
+        temp = sum(array[j:j+i])
+        dp[i] = max(dp[i],temp)
+print(max(dp))
+
+
+from collections import deque
+n = int(input())
+array = list(map(int,input().split()))
+dp=[0]*(n+1)
+
+
+for i in range(1,n+1) : # 몇 개 연속
+    for j in range(n-i+1) : # 시작하는 위치
+        temp=[]
+        array2 = deque(array)
+        for _ in range(j) :
+            array2.popleft()
+        for _ in range(i) :
+            temp.append(array2.popleft())
+        dp[i] = max(dp[i],sum(temp))
 print(max(dp))
