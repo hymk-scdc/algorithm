@@ -394,10 +394,31 @@ print(max(dp))
 
 N = int(input(""))
 A = list(map(int, input().split()))
-result=[]
-for i in range(N):
-    result.append(sum(A[:i+1]))
-dp = [max(result)]
+dp = [A[0]]
+for i in range(1, N):
+    if dp[i-1] + A[i] < A[i]:
+        dp.append(A[i])
+    else:
+        dp.append(dp[i-1]+A[i])
 
-for i in range(1, N-1):
-    dp.append(dp[-1]-A[i])
+print(max(dp))
+
+
+# 2579 : 계단 오르기
+'''
+max(dp[-3]+A[i-1]+A[i], dp[-2]+A[i], dp[-1] 가 아닌 이유는 x가 연속 두 번이면 안돼서
+'''
+n = int(input(""))
+A = []
+for i in range(n):
+    A.append(int(input("")))
+if n < 3:
+    print(sum(A))
+else:
+    dp = [A[0], A[0]+A[1], A[2]+max(A[0], A[1])]
+    for i in range(3, n):
+        dp.append(max(dp[-3]+A[i-1]+A[i], dp[-2]+A[i]))
+    print(dp[-1])
+
+
+# 1699 : 제곱수의 합
