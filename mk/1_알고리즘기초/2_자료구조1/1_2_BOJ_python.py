@@ -108,6 +108,9 @@ print(num)
 '''
 
 
+
+
+
 # 1406 : 에디터
 '''
 실패 : 시간 초과
@@ -132,6 +135,8 @@ for i in range(M):
         sent = sent[:cursor]+list(command.split(" ")[1])+sent[cursor:]
         cursor = cursor+1
 print("".join(sent))
+
+
 
 
 # 10845 : 큐

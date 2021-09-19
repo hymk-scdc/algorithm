@@ -478,16 +478,16 @@ for t in range(T):
 
 
 # 2225 : 합분해
-
+'''
+0도 포함인 걸 빼먹었었음
+'''
 N, K = list(map(int, input("").split(" ")))
-dp = [[1]*200]
-for i in range(199):
-    dp.append([1]*200)
 
-for i in range(1, N+1):
+dp = [[1 for i in range(0, 201)], [i for i in range(0, 201)]]
+for i in range(200):
+    dp.append([1]*201)
+
+for i in range(2, N+1):
     for j in range(2, K+1):
-        sum = 0
-        for k in range(j-1, i):
-            sum += dp[k][j-1]
-        dp[i][j] = sum
-print(dp[N][K])
+        dp[i][j] = dp[i-1][j] + dp[i][j-1]
+print(dp[N][K] % 1000000000)
