@@ -554,23 +554,21 @@ result = list(dpIn[i]+dpDe[i]-1 for i in range(n))
 print(max(result))
 
 #1912 연속합
-
-n = int(input())
-array = list(map(int,input().split()))
-dp=[0]*(n+1)
+import sys
+n = int(sys.stdin.readline())
+array = list(map(int,sys.stdin.readline().split()))
+dp=[-1000]*(n)
 for i in range(1,n+1) : # 몇 개 연속
     for j in range(n-i+1) : # 시작하는 위치
         temp = sum(array[j:j+i])
-        dp[i] = max(dp[i],temp)
+        dp[i-1] = max(dp[i-1],temp)
 print(max(dp))
 
 
 from collections import deque
 n = int(input())
 array = list(map(int,input().split()))
-dp=[0]*(n+1)
-
-
+dp=[0]*n
 for i in range(1,n+1) : # 몇 개 연속
     for j in range(n-i+1) : # 시작하는 위치
         temp=[]
@@ -581,3 +579,158 @@ for i in range(1,n+1) : # 몇 개 연속
             temp.append(array2.popleft())
         dp[i] = max(dp[i],sum(temp))
 print(max(dp))
+
+
+# 연속합
+n = int(input())
+array = list(map(int,input().split()))
+dp =[]
+for i in range(1,n+1) : # 몇 개 연속
+    for j in range(n-i+1) : # 시작위치
+        current = 0
+        for k in range(i) : # 연속하는 거만큼 더해주기
+            if k == 0 :
+                result = -1000*n
+            current += array[j]
+            j+=1 # 더할 값들 위치 변경해주기
+            result = max(result, current)
+    dp.append(result)
+print(max(dp)
+
+
+
+# 연속합
+n = int(input())
+array = list(map(int,input().split()))
+dp = [array[0]]
+for i in range(n-1):
+    dp.append(max(dp[i] + array[i+1], array[i+1]))
+print(max(dp))
+
+
+# 2579 계단오르기
+n = int(input())
+array =[]
+for _ in range(n) :
+    array.append(int(input()))
+
+dp = [0]*n
+dp[0] = array[0]
+for i in range(1,n) :
+    a = dp[i-1]
+    b = dp[i-2] + array[i]
+    c = dp[i-3] + array[i-1] + array[i]
+    if i == n-1 :
+        dp[i] = max(b,c)
+    else :
+        dp[i] = max(a,b,c)
+print(dp[n-1])
+
+
+
+n = int(input())
+array =[]
+for _ in range(n) :
+    array.append(int(input()))
+
+dp = [0]*n
+dp[0] = array[0]
+for i in range(1,n) :
+    b = dp[i-2] + array[i]
+    c = dp[i-3] + array[i-1] + array[i]
+    dp[i] = max(b,c)
+print(dp[n-1])
+
+
+n = int(input())
+array =[]
+for _ in range(n) :
+    array.append(int(input()))
+
+dp = [0]*n
+dp[0] = array[0]
+if n >= 2 :
+    dp[1] = array[0]+array[1]
+
+if n >= 3 :
+    for i in range(2,n) :
+        b = dp[i-2] + array[i]
+        c = dp[i-3] + array[i-1] + array[i]
+        dp[i] = max(b,c)
+print(dp[n-1])
+
+
+# 1699 제곱수의 합
+n = int(input())
+dp = [0]*(n+1)
+dp[1] = 1
+if n >= 2 :
+    dp[2] = 2
+    if n >= 3 :
+        dp[3] = 3
+
+if n >= 4 :
+    count = 2
+    for i in range(4,n+1) :
+        pre = (count)**2
+        if i/(count+1) == count+1 :
+            count+=1
+        if i/count == count :
+            dp[i] = 1
+        else :
+            dp[i] = dp[i-pre] + 1
+
+print(dp[n])
+
+
+n = int(input())
+dp = [0]*(n+1)
+dp[1] = 1
+if n >= 2 :
+    dp[2] = 2
+    if n >= 3 :
+        dp[3] = 3
+
+if n >= 4 :
+    count = 2
+    for i in range(4,n+1) :
+        if i/(count+1) == count+1 :
+            count+=1
+        if i/count == count :
+            dp[i] = 1
+        else :
+            dp[i] = dp[i-4]+1
+            for j in range(2,count+1) :
+                pre = (j)**2
+                dp[i] = min(dp[i],dp[i-pre]+1)
+
+print(dp[n])
+
+
+# 1699 제곱수의 합
+n = int(input())
+dp = [0]*(n+1)
+
+for i in range(1,n+1) :
+    if int(i**0.5) == i**0.5 :
+        dp[i] = 1
+    else :
+        dp[i] = i
+        for j in range(1,i) :
+            if (j * j) > i:
+                break
+            if dp[i] > dp[i - j * j] + 1:
+                dp[i] = dp[i - j * j] + 1
+
+
+print(dp[n])
+
+# 9461 파도반 수열
+T = int(input())
+for _ in range(T) :
+    N = int(input())
+    dp = [0, 1, 1, 1, 2, 2]
+    if N >= 6 :
+        for i in range(6,N+1) :
+            dp.append(dp[i-1]+dp[i-5])
+    print(dp[N])
