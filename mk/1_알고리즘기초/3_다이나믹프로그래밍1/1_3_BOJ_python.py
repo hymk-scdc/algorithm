@@ -422,3 +422,72 @@ else:
 
 
 # 1699 : 제곱수의 합
+'''
+반례 : 12 = 4+4+4 / 9+1+1+1
+
+N = int(input(""))
+dp = [0] * 100000
+
+for i in range(1, N+1):
+    if i**0.5 % 1 == 0:
+        dp[i] = 1
+    else:
+        dp[i] = dp[int(i**0.5)**2] + dp[i-int(i**0.5)**2]
+print(dp[N])
+'''
+
+N = int(input(""))
+dp = [0] * 100000
+
+for i in range(1, N+1):
+    if i**0.5 % 1 == 0:
+        dp[i] = 1
+    else:
+        result = []
+        for j in range(1, int(i**0.5)+1):
+                result.append(dp[j**2] + dp[i - j**2])
+        dp[i] = min(result)
+print(dp[N])
+
+
+# 2133 : 타일 채우기
+
+N = int(input(""))
+if N % 2 != 0:
+    print(0)
+else:
+    N = int(N/2)
+    dp = [1, 3, 11, 41]
+    if N < 4:
+        print(dp[N])
+    else:
+        for i in range(4, N+1):
+            dp.append(2*sum(dp)+dp[-1])
+        print(dp[N])
+
+
+# 9461 : 파도반 수열
+
+T = int(input(""))
+dp = [0, 1, 1, 1, 2, 2]
+for t in range(T):
+    N = int(input(""))
+    for i in range(len(dp), N+1):
+        dp.append(dp[i-1]+dp[-5])
+    print(dp[N])
+
+
+# 2225 : 합분해
+
+N, K = list(map(int, input("").split(" ")))
+dp = [[1]*200]
+for i in range(199):
+    dp.append([1]*200)
+
+for i in range(1, N+1):
+    for j in range(2, K+1):
+        sum = 0
+        for k in range(j-1, i):
+            sum += dp[k][j-1]
+        dp[i][j] = sum
+print(dp[N][K])
