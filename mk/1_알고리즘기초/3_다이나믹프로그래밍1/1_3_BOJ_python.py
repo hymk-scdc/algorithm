@@ -491,3 +491,35 @@ for i in range(2, N+1):
     for j in range(2, K+1):
         dp[i][j] = dp[i-1][j] + dp[i][j-1]
 print(dp[N][K] % 1000000000)
+
+
+# 2011 : 암호코드
+
+N = list(map(int, input("")))
+N.reverse()
+dp = [1, 1]
+num1 = N.pop()
+
+if num1 == 0:
+    print(0)
+    exit()
+
+for i in range(2, len(N)+2):
+    num2 = N.pop()
+
+    if (num1 == 1 and num2 != 0) or (num1 == 2 and 0 < num2 < 7):
+        dp.append(dp[i-1]+dp[i-2])
+    elif (num1 == 0 and num2 != 0) or (2 < num1 <= 9 and num2 != 0) \
+            or (num1 == 2 and 6 < num2 <= 9):
+        dp.append(dp[i-1])
+    elif 0 < num1 < 3 and num2 == 0:
+        dp.append(dp[i-2])
+    else:
+        dp.append(0)
+        break
+    num1 = num2
+
+print(dp[-1] % 1000000)
+
+
+# 다른 풀이 도전
