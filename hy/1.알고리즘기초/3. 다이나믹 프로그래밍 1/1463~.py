@@ -156,6 +156,7 @@ def tile(num) :
         return dp[num]%10007
 print(tile(n))
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 
 
@@ -902,6 +903,9 @@ if n >= 4 :
     for i in range(4, n+1, 2) :
         dp[i] = dp[i-2]*3 + sum(dp[:i-3])*2 + 2
 print(dp[n])
+=======
+>>>>>>> Stashed changes
 
+# 11727 2*n 타일링 2
 
 

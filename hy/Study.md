@@ -215,6 +215,7 @@ n = int(sys.stdin.readline()) # stdin.readline(), 한 줄에 여러 개 입력 �
 
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 
 **조건문**
@@ -222,16 +223,26 @@ n = int(sys.stdin.readline()) # stdin.readline(), 한 줄에 여러 개 입력 �
 ```python
 if 'a' < 'b' < 'c' : print('된다')
 =======
+=======
+>>>>>>> Stashed changes
 **조건문**
 
 ```python
 if 'a' < b < 'c' : print("됨")
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 ```
 
 
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
 =======
 
 
