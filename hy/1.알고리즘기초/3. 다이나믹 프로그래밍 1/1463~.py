@@ -734,3 +734,174 @@ for _ in range(T) :
         for i in range(6,N+1) :
             dp.append(dp[i-1]+dp[i-5])
     print(dp[N])
+
+# 2225 합분해
+n, k = map(int, input().split())
+fix = [0]*k
+dp =[]
+for i in range(k) :
+    temp = fix.copy()
+    temp[i] = 1
+    dp.append(temp)
+
+
+for _ in range(n-1) :
+    result = []
+    for i in range(k) :
+        for j in dp :
+            temp2 = j.copy()
+            temp2[i] = temp2[i]+1
+            if temp2 not in result :
+                result.append(temp2)
+    dp = result.copy()
+print(len(dp))
+
+# 2225 합분해
+n, k = map(int, input().split())
+dp= [[1]*(k+1)]*(n+1)
+for i in range(k+1) :
+    dp[1][i] = i
+
+for i in range(2,n+1) :
+    for j in range(2,k+1) :
+        dp[i][j] = dp[i-1][j] + dp[i][j-1]
+print(dp[n][k]%1000000000)
+
+
+
+
+
+# 2011 암호코드
+
+array = [int(i) for i in list(input())]
+n = len(array)
+dp =[0]*n
+dp[0] = 1
+dp[1] = 2
+
+for i in range(2, n+1) :
+    if (array[n-i] == 0)  :
+        print("요기")
+    elif ((array[n-i]*10 + array[n-i+1]) > 26) :
+        dp[i] = dp[i-2]
+        print("저기")
+    else :
+        dp[i] = dp[i-2] + dp[i-1]
+        print("여기다아ㅏ")
+
+# 2011 암호코드
+
+array = [int(i) for i in list(input())]
+n = len(array)
+dp =[0]*(n+1)
+
+if n == 1 :
+    if array[0] == 0 : print(0)
+    else : print(1)
+if n >=2 :
+    if (array[0] == 0) or (array[-1]==0 and array[-2]>=3):
+        print(0)
+
+    else :
+        if array[-1] == 0 :
+            dp[1] = 0
+        else :
+            dp[1] = 1
+        if ((array[-2]*10 + array[-1]) <= 26) and ((array[-2]*10 + array[-1]) >= 10) :
+            dp[2] = 2
+        elif (array[-1]==0) and (array[-2]==0) :
+            pass
+        else :
+            dp[2] = 1
+        if n >=3 :
+            for i in range(3, n+1) :
+                if (array[n-i] == 0) and (array[n-i+1] != 0) :
+                    dp[i] = dp[i-1]
+                elif (array[n-i] == 0) and (array[n-i+1] == 0):
+                    break
+                elif (array[n-i] >= 3) and (array[n-i+1] == 0) :
+                    break
+                elif ((array[n-i]*10 + array[n-i+1]) > 26) :
+                    dp[i] = dp[i-1]
+                else :
+                    dp[i] = dp[i-2] + dp[i-1]
+            print(dp[-1]%1000000)
+
+
+# 2011 암호코드
+
+array = [int(i) for i in list(input())]
+n = len(array)
+dp =[0]*(n+1)
+
+if array[0] == 0 :
+    print(0)
+else :
+    if (array[n-1] == 0) and (array[n-2] == 1 or array[n-2] == 2) : # 10, 20
+        dp[2] = 1
+    elif (array[n-1]==0) : pass # 30, 40, 50, 60 ,,,
+        # print(0)
+    elif ((array[n-2]*10 + array[n-1]) <= 26) and ((array[n-2]*10 + array[n-1]) > 10) : # 11~26
+        dp[1] = 1
+        dp[2] = 2
+    else : # 01, 02, ... , 31, 32, 33 ... 99
+        dp[2] =1
+
+    for i in range(3,n+1) : # i개 숫자 사용
+        if (array[n-i+1]==0) and (array[n-i] == 1 or array[n-i] == 2) : # 10, 20
+            dp[i] = dp[i-2]
+        elif (array[n-i+1]==0) : # 30, 40, 50 ...
+            # print(0)
+            break
+        elif ((array[n-i]*10 + array[n-i+1]) <= 26) and ((array[n-i]*10 + array[n-i+1]) > 10) : # 11 ~ 26
+            dp[i] = dp[i-2] + dp[i-1]
+        else : # 01, 02, ..., 31, 32, ... ,99
+            dp[i] = dp[i-1]
+    print(dp[n]%1000000)
+
+
+# 암호코드
+array = [int(i) for i in list(input())]
+n = len(array)
+dp =[0]*(n+1)
+dp[0] = 1
+if array[0] == 0 :
+    print(0)
+else :
+    dp[1] = 1
+
+    for i in range(2, n+1) :
+        if 0 < array[i-1] :
+            dp[i] = dp[i-1]
+        if 10 <= (array[i-2]*10 + array[i-1]) <= 26 :
+            dp[i] += dp[i-2]
+    print(dp[n]%1000000)
+
+# 2133 타일 채우기
+
+N = int(input())
+if N % 2 != 0 :
+    print(0)
+else :
+    n = int(N/2)
+    dp = [0] * (n+1)
+    dp[0] = 1
+    dp[1] = 3
+    if n >= 2 :
+        for i in range(2,n+1) :
+            dp[i] = dp[i-1]*3 + dp[i-2]*2
+    print(dp[-1])
+
+# 2133 타일 채우기
+
+n = int(input())
+
+dp = [0] * (31)
+dp[2] = 3
+if n >= 4 :
+    for i in range(4, n+1, 2) :
+        dp[i] = dp[i-2]*3 + sum(dp[:i-3])*2 + 2
+print(dp[n])
+
+
+
