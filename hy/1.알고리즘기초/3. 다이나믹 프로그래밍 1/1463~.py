@@ -157,6 +157,8 @@ def tile(num) :
 print(tile(n))
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 
 
@@ -905,7 +907,12 @@ if n >= 4 :
 print(dp[n])
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 
+=======
+
+>>>>>>> Stashed changes
 # 11727 2*n 타일링 2
 
 
