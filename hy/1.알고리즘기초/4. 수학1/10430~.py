@@ -111,3 +111,47 @@ for j in range(len(result)) : # 해당 자리수의 값 계산해주기
     result[j] = result[j]*(B**(len(result)-j-1))
 
 print(sum(result))
+
+# 1373 2진수 8진수
+"""
+시간초과 났음 .... 
+oct int 내장함수 
+
+"""
+
+
+num2 = list(input())[::-1]
+
+N = 0
+for i in range(len(num2)) :
+    N += int(num2[i])*(2**i)
+
+temp = N
+result = []
+while temp >= 8:
+    result.append(str(temp%8))
+    temp = temp//8
+result.append(str(temp))
+
+result.reverse()
+
+print(''.join(result))
+
+# 새로 다시
+num2 = list(input())[::-1]
+num2 = list(int(i) for i in num2)
+count = 0
+result = []
+for i in range(0,len(num2),3) :
+    N = 0
+    try : N = N + num2[i]
+    except : pass
+    try : N = N + num2[i+1]*2
+    except : pass
+    try : N = N +num2[i+2]*4
+    except : pass
+    result.append(str(N))
+result.reverse()
+
+
+print(''.join(result))
