@@ -130,9 +130,41 @@ print(result)
 
 
 # 1373 : 2진수 8진수
-import math
+'''
+oct int 내장함수
+'''
 N = list(map(int, input("")))
+
 result = []
-for i in range(math.ceil(len(N)/3)):
-    for j in range(1, 4):
-        N[-(3*i + j)]
+N.reverse()
+if len(N) % 3 == 1:
+    N = N + [0] * 2
+elif len(N) % 3 == 2:
+    N = N + [0]
+
+temp = 0
+for i in range(len(N)):
+    temp += N[i] * (2**(i % 3))
+    if i % 3 == 2:
+        result.append(temp)
+        temp = 0
+result.reverse()
+
+print("".join(map(str, result)))
+
+
+# 1212 : 8진수 2진수
+N = list(map(int, input("")))
+N.reverse()
+
+result = []
+i = N.pop()
+num = [(i // 2) // 2, (i // 2) % 2, i % 2]
+index = num.index(1)
+result = result + num[index:]
+N.reverse()
+
+for i in N:
+    num = [(i // 2) // 2, (i // 2) % 2, i % 2]
+    result = result + num
+print("".join(list(map(str, result))))
