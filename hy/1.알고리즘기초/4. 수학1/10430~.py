@@ -155,3 +155,41 @@ result.reverse()
 
 
 print(''.join(result))
+
+# 1212 8진수 2진수
+
+num8 = list(input())
+num8 = [int(i) for i in num8]
+result = []
+
+for num in num8 :
+    mok = num//4
+    result.append(str(mok))
+    temp = num%4
+    mok = mok//2
+    result.append(str(mok))
+    temp = temp%2
+    result.append(str(temp))
+index = result.index("1")
+result = result[index:]
+
+print("".join(result))
+
+
+# 2089 -2진수
+
+num = int(input())
+mok = num
+result = []
+while True :
+    nam = mok % (-2)
+    if nam !=0 :
+        mok = mok -1
+        nam = 1
+    temp = mok // (-2)
+    mok = temp
+    result.append(str(nam))
+    if temp == 0 :
+        break
+result.reverse()
+print("".join(result))
