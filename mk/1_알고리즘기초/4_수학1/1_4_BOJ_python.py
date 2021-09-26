@@ -154,6 +154,9 @@ print("".join(map(str, result)))
 
 
 # 1212 : 8진수 2진수
+'''
+다른 답안) 내장 함수 사용
+'''
 N = list(map(int, input("")))
 N.reverse()
 
@@ -168,3 +171,40 @@ for i in N:
     num = [(i // 2) // 2, (i // 2) % 2, i % 2]
     result = result + num
 print("".join(list(map(str, result))))
+
+
+# 2089 : -2진수
+
+N = int(input(""))
+remain = ''
+if N == 0:
+    print(0)
+    exit()
+
+while (N != 1):
+    if N % -2 == 0:
+        remain = '0' + remain
+        N = N // -2
+    else:
+        remain = '1' + remain
+        N = (N-1) // -2
+
+print(str(N)+remain)
+
+
+# 11576 : Base Conversion
+A, B = list(map(int, input("").split(" ")))
+N = int(input(""))
+Nums = list(input("").split(" "))
+num_ten = 0
+for i in range(len(Nums)):
+    num_ten += int(Nums[len(Nums)-i-1]) * (A**i)
+
+num = []
+while num_ten >= B:
+    ex = num_ten % B
+    num_ten = num_ten // B
+    num.append(ex)
+num.reverse()
+
+
