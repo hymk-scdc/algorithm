@@ -224,3 +224,42 @@ print(N-cnt)
 
 
 # 1929 : 소수 구하기
+'''
+# 시간 초과
+
+M, N = list(map(int, input("").split(" ")))
+for num in range(M, N+1):
+    n = 2
+    if num == 2: 
+        print(num)
+    while (n < num):
+        if num % n == 0:
+            break
+        if n == num-1:
+            print(num)
+        n += 1
+'''
+# 아예 다른 방식 : 미리 채워놓고 프린트하는 방식
+# 근데 프린트가 인덱싱이고 채워 넣을 때 계속 확인해서(확인이 시간초과에 영향?) 시간 초과 뜰 줄 알았는데 무슨 차이인지 모르겠음
+
+M, N = list(map(int, input("").split(" ")))
+decimal = [0 for i in range(N+1)]
+decimal[1] = 1
+
+for i in range(2, (N // 2)+1):
+    if decimal[i] == 0:
+        for j in range(2, (N // i) + 1):
+            decimal[i * j] = 1
+    else:
+        continue
+
+for i in range(M, N+1):
+    if decimal[i] == 0:
+        print(i)
+
+
+# 6588 : 골드바흐의 추측
+while(1):
+    n = int(input(""))
+
+
