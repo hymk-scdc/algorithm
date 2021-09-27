@@ -208,3 +208,19 @@ while num_ten >= B:
 num.reverse()
 
 
+# 1978 : 소수 찾기
+N = int(input(""))
+Num = list(map(int, input("").split(" ")))
+cnt = 0  # 소수가 아닌 수
+for i in Num:
+    n = 2
+    if i == 1: cnt += 1
+    while (n < i):
+        if i % n == 0:
+            cnt += 1
+            break
+        n += 1
+print(N-cnt)
+
+
+# 1929 : 소수 구하기
