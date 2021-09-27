@@ -193,3 +193,86 @@ while True :
         break
 result.reverse()
 print("".join(result))
+
+
+# 11576 Base Conversion
+
+A, B = map(int, input().split())
+
+m = int(input())
+
+numA = list(map(int, input().split()))[::-1]
+
+N = 0
+for i in range(len(numA)) :
+    N += int(numA[i])*(A**i)
+
+temp = N
+result = []
+while temp >= B:
+    result.append(str(temp%B))
+    temp = temp//B
+result.append(str(temp))
+
+result.reverse()
+
+print(' '.join(result))
+
+
+# 1978 소수 찾기
+N = int(input())
+nums = list(map(int,input().split()))
+
+count = 0
+for num in nums :
+    if num == 1 :
+        pass
+    for i in range(2,num+1) :
+        if i == num :
+            count +=1
+        if (num%i == 0) :
+            break
+print(count)
+
+# 1929 소수 구하기
+"""
+시간초과
+"""
+M, N = map(int,input().split())
+
+for num in range(M,N+1) :
+    if num == 1 :
+        pass
+    for i in range(2,num+1) :
+        if i == num :
+            print(i)
+        if (num%i == 0) :
+            break
+
+"""
+새로해보자구 근데도 시간초과군요 
+"""
+import sys
+
+M, N = map(int,sys.stdin.readline().rstrip().split())
+
+if M%2 == 0 :
+    M = M+1
+
+for num in range(M,N+1,2) :
+    if num == 1 :
+        pass
+    for i in range(3,num+1,2) :
+        if i == num :
+            print(i)
+        if (num%i == 0) :
+            break
+
+"""
+다시 렛츠고 
+"""
+import sys
+
+M, N = map(int,sys.stdin.readline().rstrip().split())
+
+
