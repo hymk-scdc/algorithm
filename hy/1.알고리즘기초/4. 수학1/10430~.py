@@ -255,7 +255,8 @@ for num in range(M,N+1) :
 import sys
 
 M, N = map(int,sys.stdin.readline().rstrip().split())
-
+if M == 2 :
+    print(M)
 if M%2 == 0 :
     M = M+1
 
@@ -269,10 +270,98 @@ for num in range(M,N+1,2) :
             break
 
 """
-다시 렛츠고 
+다시 렛츠고 틀렸다고 나옴 
 """
 import sys
 
 M, N = map(int,sys.stdin.readline().rstrip().split())
+def sosu(M,N) :
+    if M == 2:
+        print(2)
+    if M % 2 == 0:
+        M = M + 1
+
+    for num in range(M, N + 1, 2):
+        if num == 1:
+            pass
+        count = 0
+        for i in range(3, round((num + 1)**(0.5)+1)):
+            if (num % i == 0):
+                count +=1
+                break
+        if count == 0 : print(num)
+sosu(M,N)
+
+"""
+라스트
+"""
+import sys
+
+M, N = map(int,sys.stdin.readline().rstrip().split())
+def sosu(M,N) :
+    if (M==1) & (N==1) :
+        pass
+    elif M == 1 :
+        M = 3
+        print(2)
+    if M % 2 == 0:
+        M = M + 1
+    if M >= 2 :
+        for num in range(M, N + 1, 2):
+            if num == 1:
+                pass
+            count = 0
+            for i in range(3, round((num + 1)**(0.5)+1)):
+                if (num % i == 0):
+                    count +=1
+                    break
+            if count == 0 : print(num)
+sosu(M,N)
+
+""" 
+찐막
+"""
+import sys
+
+M, N = map(int,sys.stdin.readline().rstrip().split())
+def sosu(M,N) :
+    for i in range(M, N+1) :
+        if i == 1 :
+            pass
+        elif i == 2 :
+            print(2)
+        else :
+            count = 0
+            for j in range(2, int(i**0.5)+2) :
+                if i % j == 0 :
+                    count +=1
+                    break
+            if count == 0 :
+                print(i)
+
+sosu(M, N)
+
+"""미경이는 배수를 지우는 방식으로 했음"""
+
+# 6588 골드바흐의 추측
+sosu = []
+for i in range(3,999998,2) :
+    count = 0
+    for j in range(3, int(i ** 0.5)+1,2):
+        if i % j == 0:
+            count += 1
+            break
+    if count == 0:
+        sosu.append(i)
+n = int(input())
+for a in sosu :
+    if a > n/2 :
+        print("Goldbach's conjecture is wrong.")
+        break
+    else :
+        if (n-a) in sosu :
+            print (f"{n} = {a} + {n-a}")
+            break
+        else : pass
 
 
