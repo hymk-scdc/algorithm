@@ -226,6 +226,7 @@ print(N-cnt)
 # 1929 : 소수 구하기
 '''
 # 시간 초과
+# 나누는 수 (n)을 num의 제곱근으로 하면 시간초과 해결됨
 
 M, N = list(map(int, input("").split(" ")))
 for num in range(M, N+1):
@@ -259,7 +260,46 @@ for i in range(M, N+1):
 
 
 # 6588 : 골드바흐의 추측
+# 소수에 0
+# 1 1 1 0 1 0 1 0 1 0 1
+decimal = [1 for i in range(1000001)]
+for i in range(3, 1000001, 2):
+    decimal[i] = 0
+
+decimal_list = []
+
+for i in range(3, 1000001):
+    if decimal[i] == 0:
+        decimal_list.append(i)
+        for j in range(2, (1000000 // i) + 1):
+            decimal[i * j] = 1
+    else:
+        continue
+
+def result(n):
+    if n < 500000:
+        for a in decimal_list:
+            try:
+                decimal_list.index(n-a)
+            except:
+                continue
+            else:
+                str = "%d = %d + %d" % (n,a,n-a)
+                return str
+    else:
+        decimal_list.reverse()
+        for a in decimal_list:
+            try:
+                decimal_list.index(n-a)
+            except:
+                continue
+            else:
+                str = "%d = %d + %d" % (n,n-a,a)
+                decimal_list.reverse()
+                return str
+
 while(1):
     n = int(input(""))
-
-
+    if n == 0:
+        exit()
+    print(result(n))
