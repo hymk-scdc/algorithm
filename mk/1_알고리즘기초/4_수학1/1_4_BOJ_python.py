@@ -323,7 +323,7 @@ while(1):
 N = int(input(""))
 n = 2
 
-while(N != 1):
+while N != 1:
     if N % n == 0:
         print(n)
         N = N // n
@@ -339,3 +339,19 @@ for i in range(1, N+1):
     result = result * i
 print(result)
 
+
+# 1676 : 팩토리얼 0의 개수
+result = 1
+
+N = int(input(""))
+for i in range(1, N+1):
+    result = result * i
+n = 0
+result = list(str(result))
+while result.pop() == '0':
+    n += 1
+
+print(n)
+
+
+# 2004 : 조합 0의 개수
