@@ -157,6 +157,8 @@ print("".join(map(str, result)))
 '''
 다른 답안) 내장 함수 사용
 '''
+'''
+# 내 답안 : 시간 초과
 N = list(map(int, input("")))
 N.reverse()
 
@@ -171,7 +173,8 @@ for i in N:
     num = [(i // 2) // 2, (i // 2) % 2, i % 2]
     result = result + num
 print("".join(list(map(str, result))))
-
+'''
+print(bin(int(input(), 8))[2:])
 
 # 2089 : -2진수
 
@@ -260,15 +263,13 @@ for i in range(M, N+1):
 
 
 # 6588 : 골드바흐의 추측
-# 소수에 0
-# 1 1 1 0 1 0 1 0 1 0 1
-decimal = [1 for i in range(1000001)]
-for i in range(3, 1000001, 2):
-    decimal[i] = 0
+'''
+# 제일 깔끔한 것 같은데 시간초과
+decimal = [0 for i in range(1000001)]
 
 decimal_list = []
 
-for i in range(3, 1000001):
+for i in range(2, 1000001):
     if decimal[i] == 0:
         decimal_list.append(i)
         for j in range(2, (1000000 // i) + 1):
@@ -276,30 +277,65 @@ for i in range(3, 1000001):
     else:
         continue
 
+# 이 부분? 고쳤더니 맞게 됐음
 def result(n):
-    if n < 500000:
-        for a in decimal_list:
-            try:
-                decimal_list.index(n-a)
-            except:
-                continue
-            else:
-                str = "%d = %d + %d" % (n,a,n-a)
-                return str
-    else:
-        decimal_list.reverse()
-        for a in decimal_list:
-            try:
-                decimal_list.index(n-a)
-            except:
-                continue
-            else:
-                str = "%d = %d + %d" % (n,n-a,a)
-                decimal_list.reverse()
-                return str
+    for a in decimal_list:
+        try:
+            decimal_list.index(n-a)
+        except:
+            continue
+        else:
+            str = "%d = %d + %d" % (n, a, n-a)
+            return str
 
 while(1):
     n = int(input(""))
     if n == 0:
         exit()
     print(result(n))
+'''
+
+decimal = [1 for i in range(1000001)]
+
+for i in range(2, 1000001):
+    if decimal[i] == 1:
+        for j in range(2, (1000000 // i) + 1):
+            decimal[i * j] = 0
+    else:
+        continue
+
+def result(n):
+    for a in range(3, 1000001):
+        if decimal[a] & decimal[n-a]:
+            str = "%d = %d + %d" % (n, a, n - a)
+            return str
+        else:
+            continue
+
+while(1):
+    n = int(input(""))
+    if n == 0:
+        exit()
+    print(result(n))
+
+
+# 11653 : 소인수분해
+N = int(input(""))
+n = 2
+
+while(N != 1):
+    if N % n == 0:
+        print(n)
+        N = N // n
+    else:
+        n += 1
+
+
+# 10872 : 팩토리얼
+result = 1
+
+N = int(input(""))
+for i in range(1, N+1):
+    result = result * i
+print(result)
+
