@@ -344,6 +344,7 @@ sosu(M, N)
 """미경이는 배수를 지우는 방식으로 했음"""
 
 # 6588 골드바흐의 추측
+"""시간초과"""
 sosu = []
 for i in range(3,999998,2) :
     count = 0
@@ -353,14 +354,78 @@ for i in range(3,999998,2) :
             break
     if count == 0:
         sosu.append(i)
-n = int(input())
-for a in sosu :
-    if a > n/2 :
-        print("Goldbach's conjecture is wrong.")
-        break
+while True :
+    n = int(input())
+    if (n >= 6) & (n%2==0):
+        for a in sosu :
+            if a > n/2 :
+                print("Goldbach's conjecture is wrong.")
+                break
+            else :
+                if (n-a) in sosu :
+                    print (f"{n} = {a} + {n-a}")
+                    break
+                else : pass
+    else : break
+
+"""
+다시 시작 
+아니...분명히 100%까지 떠놓고선 왜 시간초과 뜨냐구요 
+"""
+
+def isPrime(num) :
+    if num == 1 :
+        return False
+    elif num == 2 :
+        return True
     else :
-        if (n-a) in sosu :
-            print (f"{n} = {a} + {n-a}")
+        count = 0
+        for j in range(3, int(num ** 0.5)+1):
+            if num % j == 0:
+                count += 1
+                return False
+        if count == 0: return True
+
+sosu = []
+for i in range(3,500002,2) :
+    if isPrime(i) : sosu.append(i)
+
+while True :
+    n = int(input())
+    if (n >= 6) & (n%2==0):
+        for a in sosu :
+            if a <= n/2 :
+                if isPrime(n-a):
+                    print (f"{n} = {a} + {n-a}")
+                    break
+                else : pass
+            else :
+                print("Goldbach's conjecture is wrong.")
+                break
+    else : break
+
+"""
+성공!!!!!!!!!!!!!!!!!!!!!!
+"""
+
+sosu = [False for _ in range(1000001)]
+
+for i in range(3,999998,2) :
+    count = 0
+    for j in range(3, int(i ** 0.5)+1,2):
+        if i % j == 0:
+            count += 1
+            break
+    if count == 0:
+        sosu[i] = True
+
+while True :
+    import sys
+    n = int(sys.stdin.readline().rstrip())
+    if n == 0 : break
+    for a in range(3,int(len(sosu)/2),2):
+        if sosu[a] and sosu[n-a] :
+            print(f"{n} = {a} + {n - a}")
             break
         else : pass
 
