@@ -295,6 +295,7 @@ while(1):
     print(result(n))
 '''
 
+# 소수 채우기
 decimal = [1 for i in range(1000001)]
 
 for i in range(2, 1000001):
@@ -304,6 +305,7 @@ for i in range(2, 1000001):
     else:
         continue
 
+# 소수 합 찾기
 def result(n):
     for a in range(3, 1000001):
         if decimal[a] & decimal[n-a]:
@@ -355,3 +357,44 @@ print(n)
 
 
 # 2004 : 조합 0의 개수
+'''
+# 시간 초과
+N, M = map(int, sys.stdin.readline().rstrip().split(" "))
+
+if N//2 < M:
+    M = N-M
+
+result1 = 1
+for i in range(N-M+1, N+1):
+    result1 = result1 * i
+
+result2 = 1
+for j in range(1, M+1):
+    result2 = result2 * j
+
+n = 0
+result = list(str(result1//result2))
+while result.pop() == '0':
+    n += 1
+
+print(n)
+'''
+N, M = map(int, sys.stdin.readline().rstrip().split(" "))
+
+def num2(num):
+    N2 = 0
+    while num % 2 == 0:
+        num //= 2
+        N2 += 1
+    return N2
+
+def num5(num):
+    N5 = 0
+    while num % 5 == 0:
+        num //= 5
+        N5 += 1
+    return N5
+
+x2, x5 = num2(N), num5(N)
+y2, y5 = num2(M)+num2(N-M), num5(M)+num5(N-M)
+
