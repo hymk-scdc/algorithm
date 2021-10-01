@@ -345,6 +345,7 @@ sosu(M, N)
 
 # 6588 골드바흐의 추측
 """시간초과"""
+'''
 sosu = []
 for i in range(3,999998,2) :
     count = 0
@@ -367,12 +368,12 @@ while True :
                     break
                 else : pass
     else : break
-
+'''
 """
 다시 시작 
 아니...분명히 100%까지 떠놓고선 왜 시간초과 뜨냐구요 
 """
-
+'''
 def isPrime(num) :
     if num == 1 :
         return False
@@ -403,7 +404,7 @@ while True :
                 print("Goldbach's conjecture is wrong.")
                 break
     else : break
-
+'''
 """
 성공!!!!!!!!!!!!!!!!!!!!!!
 """
@@ -419,8 +420,8 @@ for i in range(3,999998,2) :
     if count == 0:
         sosu[i] = True
 
+import sys
 while True :
-    import sys
     n = int(sys.stdin.readline().rstrip())
     if n == 0 : break
     for a in range(3,int(len(sosu)/2),2):
@@ -429,4 +430,102 @@ while True :
             break
         else : pass
 
+
+# 11653 소인수분해
+"""
+"""시간초과"""
+n = int(input())
+
+def isPrime(num) :
+    if num == 1 :
+        return False
+    elif num == 2 :
+        return True
+    else :
+        count = 0
+        for j in range(3, int(num ** 0.5)+1):
+            if num % j == 0:
+                count += 1
+                return False
+        if count == 0: return True
+
+
+for i in range(2,n+1) :
+    if n == 1: break
+    if isPrime(i) :
+        while n%i == 0 :
+            print(i)
+            n = n/i
+"""
+"""재도전"""
+
+n = int(input())
+i = 2
+while n != 1 :
+    if n%i == 0 :
+        n = n/i
+        print(i)
+    else :
+        i += 1
+
+
+# 10872 팩토리얼
+
+import sys
+n = int(sys.stdin.readline().rstrip())
+result = 1
+if n >= 2 :
+    for i in range(n,1,-1) :
+        result = result * i
+print(result)
+
+# 1676 팩토리얼 0의 개수
+""" 5의 개수로 하면 더 빨리 짧다"""
+import sys
+n = int(sys.stdin.readline().rstrip())
+result = 1
+if n >= 2 :
+    for i in range(n,1,-1) :
+        result = result * i
+
+count = 0
+while result % 10 == 0 :
+    result = result // 10
+    count +=1
+print(count)
+
+
+# 2004 조합 0의 개수
+
+"""시간초과"""
+
+n, m = map(int, input().split())
+
+result_n = 1
+result_m = 1
+if m > (n - m) :
+    m = n - m
+
+i = n
+for _ in range(m) :
+     result_n = result_n*i
+     i -= 1
+for j in range(m,1,-1) :
+    result_m = result_m*j
+
+result = result_n//result_m
+
+count = 0
+while result % 10 == 0 :
+    result = result // 10
+    count +=1
+print(count)
+
+
+"""재도전"""
+import sys
+n, m = map(int, sys.stdin.readline().split())
+
+if m > (n - m) :
+    m = n - m
 
