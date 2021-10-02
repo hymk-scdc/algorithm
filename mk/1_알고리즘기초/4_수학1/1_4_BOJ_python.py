@@ -379,22 +379,29 @@ while result.pop() == '0':
 
 print(n)
 '''
+import math
+
 N, M = map(int, sys.stdin.readline().rstrip().split(" "))
 
-def num2(num):
-    N2 = 0
-    while num % 2 == 0:
-        num //= 2
-        N2 += 1
-    return N2
+def num2(number2):
+    cnt2 = 0
+    for i2 in range(1, int(math.log2(number2))+1):
+        cnt2 += number2 // (2**i2)
+    return cnt2
 
-def num5(num):
-    N5 = 0
-    while num % 5 == 0:
-        num //= 5
-        N5 += 1
-    return N5
+def num5(number5):
+    cnt5 = 0
+    for j5 in range(1, int(math.log(number5, 5))+1):
+        cnt5 += number5 // (5**j5)
+    return cnt5
 
-x2, x5 = num2(N), num5(N)
-y2, y5 = num2(M)+num2(N-M), num5(M)+num5(N-M)
-
+if M == 0 or N == M:
+    print(0)
+else:
+    # 분자
+    x2 = num2(N)
+    x5 = num5(N)
+    # 분모
+    y2 = num2(M)+num2(N-M)
+    y5 = num5(M)+num5(N-M)
+    print(min(x2-y2, x5-y5))

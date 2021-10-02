@@ -314,4 +314,3 @@ for i in range(1, N):
     print("*")
 for i in range(2*N-1):
     print("*", end="")
-
