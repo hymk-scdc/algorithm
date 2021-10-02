@@ -501,31 +501,110 @@ print(count)
 
 n, m = map(int, input().split())
 
-result_n = 1
-result_m = 1
 if m > (n - m) :
     m = n - m
 
-i = n
-for _ in range(m) :
-     result_n = result_n*i
-     i -= 1
-for j in range(m,1,-1) :
-    result_m = result_m*j
+re_n = 1
+re_m = 1
+for i in range(n,n-m, -1) :
+    re_n = re_n*i
+for i in range(m,0, -1) :
+    re_m = re_m*i
 
-result = result_n//result_m
+re = re_n//re_m
 
 count = 0
-while result % 10 == 0 :
-    result = result // 10
+while re% 10 == 0 :
     count +=1
+    re = re//10
 print(count)
 
 
-"""재도전"""
+"""
+재도전
+성공!
+"""
 import sys
 n, m = map(int, sys.stdin.readline().split())
 
-if m > (n - m) :
-    m = n - m
+num_n5 = 0
+i = 1
+count = -1
+while count != 0 :
+    count = n//(5**i)
+    num_n5 += count
+    i +=1
 
+num_n2 = 0
+i = 1
+count = -1
+while count != 0 :
+    count = n//(2**i)
+    num_n2+= count
+    i +=1
+
+num_m5 = 0
+i = 1
+count = -1
+while count != 0 :
+    count = m//(5**i)
+    num_m5+= count
+    i +=1
+
+num_m2 = 0
+i = 1
+count = -1
+while count != 0 :
+    count = m//(2**i)
+    num_m2+= count
+    i +=1
+
+
+num_k5 = 0
+i = 1
+count = -1
+while count != 0 :
+    count = (n-m)//(5**i)
+    num_k5+= count
+    i +=1
+
+num_k2 = 0
+i = 1
+count = -1
+while count != 0 :
+    count = (n-m)//(2**i)
+    num_k2+= count
+    i +=1
+
+print(min(num_n5-(num_m5+num_k5), num_n2-(num_m2+num_k2)))
+
+
+# 미경 코드
+import math
+
+N, M = map(int, sys.stdin.readline().rstrip().split(" "))
+
+
+# 숫자를 입력하면 그 숫자까지 2의 개수 세는 함수
+def num2(number2):
+    cnt2 = 0
+    for i2 in range(1, int(math.log2(number2))+1):
+        cnt2 += number2 // 2**i2
+    return cnt2
+
+
+def num5(number5):
+    cnt5 = 0
+    for j5 in range(1, int(math.log(number5, 5))+1):
+        cnt5 += number5 // 5**j5
+    return cnt5
+
+
+if M == 0 or N == M:
+    print(0)
+else:
+    # 분자
+    x2, x5 = num2(N), num5(N)
+    # 분모
+    y2, y5 = num2(M)+num2(N-M), num5(M)+num5(N-M)
+    print(min(x2-y2, x5-y5))
