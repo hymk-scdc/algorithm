@@ -1,34 +1,80 @@
 # 2751 수 정렬하기 2
 
+'''선택정렬'''
 N = int(input())
 li = []
 for _ in range(N) :
     n = int(input())
     li.append(n)
 
+# min = li[0]
+# index = 0
+# for i in range(len(li)) :
+#     min = li[i] #index만 저장해도 됨
+#     for j in range(i+1, len(li)) :
+#         if min > li[j] :
+#             min = li[j]
+#             index = j
+#     if min != li[i] :
+#         li[i], li[index] = li[index], li[i]
+# print(li)
+
+
+for i in range(len(li)) :
+    min_index = i #index만 저장해도 됨
+    for j in range(i+1, len(li)) :
+        if li[min_index] > li[j] :
+            min_index = j
+    if min_index != i:
+        li[i], li[min_index] = li[min_index], li[i]
+print(li)
+
+
+# '''삽입 정렬 코드'''
+# def insert(arr) :
+#     for end in range(1,len(arr)) :
+#         for i in range(end,0, -1) :
+#             if arr[i-1] > arr[i] : # arr[i] 정렬의 대상이 되는 요소, arr[i-1] arr[i]의 적절한 위치
+#                 arr[i-1], arr[i] = arr[i], arr[i-1]
+#     return arr
+
+
+
 '''퀵정렬로 해보기'''
-key = 0
-start = key
-end = len(li) - 1
+N = int(input())
+li = []
+for _ in range(N) :
+    n = int(input())
+    li.append(n)
 
-
-# def quick(li, key, start, end) :
-#     if len(li) <= 1 :
+# start = 0
+# end = len(li) - 1
+#
+# def quick_sort(li, start, end) :
+#     if len(li) == 1 : # 배열 길이가 1 인 경우
 #         return li
-#     i = start + 1
-#     j = end
-#     while i <= j : # 엇갈리는 경우
-#         while li[key] >= li[i] :
-#             i += 1
-#         while True :
-#             if (li[key]<=li[j]) and (start < j) :
-#                 j -= 1
-#             else : break
+#     pivot = start
+#     left = pivot + 1 # 왼-> 오 시작 지점
+#     right = end # 오 -> 왼 시작 지점
 #
-#     li[key], li[j-1] = li[j-1], li[key]
-#     return quick(li, key+1, key+1, j-2), quick(li, j, j, end)
+#     for i in range(left, len(li)) :
+#         if li[i] >= li[pivot] :
+#             max_li = i
+#             print(i)
+#             break
 #
-# quick(result, key, start, end)
+#     for j in range(right, 0, -1) :
+#         if li[j] <= li[pivot] :
+#             min_li = j
+#             print(j)
+#             break
+#
+#     if max_li <= min_li : # 안 엇갈린 경우
+#         li[max_li], li[min_li] = li[min_li], li[max_li]
+#     else : # 엇갈린 경우
+#         li[pivot], li[min_li] = li[min_li], li[pivot]
+#     quick_sort(li, start, min_li-1)
+#     quick_sort(li, min_li, end)
 
 
 '''퀵 정렬 코드'''
@@ -121,4 +167,73 @@ li = merge_sort(li)
 for i in li :
     print(i)
 
-'''힙 정렬 구현해보기'''
+
+'''
+힙 정렬
+시간초과
+'''
+
+# N = int(input())
+# li = []
+# for _ in range(N) :
+#     n = int(input())
+#     li.append(n)
+#
+#
+# def heapify(li) : # 최대힙구조 만들기
+#     for i in range(1, len(li)) :
+#         child = i
+#         while child != 0 :
+#             root = (child-1) // 2 # i번째 노드의 부모노드
+#             if li[root] < li[child] : # 부모노드보다 자식 노드가 큰 경우
+#                 li[root], li[child] = li[child], li[root]
+#             child = root
+#     return li
+#
+# def heap_sort(li) :
+#     end = len(li) - 1
+#     for i in range(end,0, -1) :
+#         li[0], li[i] = li[i], li[0] # 가장 큰 값을 가장 마지막으로 보낸다
+#         li[:i] = heapify(li[:i])
+#
+#
+# heapify(li)
+# heap_sort(li)
+#
+# for i in li : print(i)
+
+
+'''이것도 시간초과'''
+N = int(input())
+li = []
+for _ in range(N) :
+    n = int(input())
+    li.append(n)
+
+
+def heapify(li) : # 최대힙구조 만들기
+    for i in range(1, len(li)) :
+        child = i
+        while child != 0 :
+            root = (child-1) // 2 # i번째 노드의 부모노드
+            if li[root] < li[child] : # 부모노드보다 자식 노드가 큰 경우
+                li[root], li[child] = li[child], li[root]
+            child = root
+    return li
+
+def heap_sort(li) :
+    end = len(li) - 1
+    for i in range(end,0, -1) :
+        li[0], li[i] = li[i], li[0] # 가장 큰 값을 가장 마지막으로 보낸다
+
+        child = i-1
+        while child != 0 :
+            root = (child-1) // 2
+            if li[root] < li[child] : # 부모노드보다 자식 노드가 큰 경우
+                li[root], li[child] = li[child], li[root]
+            child = root
+
+heapify(li)
+heap_sort(li)
+
+for i in li : print(i)
