@@ -406,3 +406,156 @@ else:
     y2 = num2(M)+num2(N-M)
     y5 = num5(M)+num5(N-M)
     print(min(x2-y2, x5-y5))
+
+
+
+# 학영
+
+# 선택 정렬
+for i in range(len(li)) :
+    min_index = i #index만 저장해도 됨
+    for j in range(i+1, len(li)) :
+        if li[min_index] > li[j] :
+            min_index = j
+    if min_index != i:
+        li[i], li[min_index] = li[min_index], li[i]
+print(li)
+
+'''버블 정렬'''
+def bubble(li) :
+    for _ in range(len(li)) :
+        for i in range(1,len(li)) :
+            if li[i-1] > li[i] :
+                li[i-1], li[i] = li[i], li[i-1]
+    return li
+
+'''삽입 정렬'''
+def insert_sort(li) :
+    for i in range(1,len(li)) :
+        for j in range(i,0,-1) :
+            if li[j-1] > li[j] :
+                li[j-1], li[j] = li[j], li[j-1]
+    return li
+
+'''퀵 정렬 다시 구현해보기'''
+start = 0 # 첫 인덱스
+end = len(li)-1 # 마지막 인덱스
+def quick(li, start, end) :
+    if start >= end : # 꼭 부등호를 이상으로 해줘야 함
+        return
+    pivot = start # 처음에 피벗은 젤 첫 원소로 설정한다
+    left = start +1 #
+    right = end # 오->왼 시작하는 지점
+
+    while left <= right : # 엇갈리기 전까지
+        while (li[left] <= li[pivot] and left <= end) :  # 왼->오
+            left += 1
+        while (li[right] >= li[pivot] and right>start) : # 오->왼
+            right -= 1
+        if left < right : # 엇갈리지 않았다면
+            li[left], li[right] = li[right], li[left]
+        elif left > right: # 엇갈렸다면 그 중 작은 값이랑 피벗 바꿔줌
+            li[pivot], li[right] = li[right], li[pivot]
+    # 그 다음에는 right 위치를 기준으로 분할해서 quick 수행
+    quick(li,start,right-1)
+    quick(li,right+1,end)
+
+
+'''k안쓰고 병합정렬'''
+
+N = int(input())
+li = []
+for _ in range(N) :
+    n = int(input())
+    li.append(n)
+
+def merge_sort(li) :
+    if len(li) < 2 : # 리스트가 1 인 경우
+        return li
+    mid = len(li)//2
+
+    temp1, temp2 = [], []
+    for num in range(mid) :
+        temp1.append(li[num])
+
+    for num in range(mid,len(li)) :
+        temp2.append(li[num])
+
+    # 합치기 전 아이들도 병합정렬이 되어 있는 상태여야 함
+    temp1 = merge_sort(temp1)
+    temp2 = merge_sort(temp2)
+
+    # 병합 정렬한 결과물 담을 곳
+    result = []
+    i,j= 0, 0
+    while (i < len(temp1) and j < len(temp2)) : # 한 쪽이 다 채워지기 전까지
+        if temp1[i] < temp2[j] :
+            result.append(temp1[i])
+            i += 1
+        else :
+            result.append(temp2[j])
+            j += 1
+
+    # 마지막까지 채우기 (while문을 for문으로 바꿨음)
+    if i == len(temp1) : # temp1는 다 채워짐
+        for z in range(j, len(temp2)) :
+            result.append(temp2[z])
+
+    elif j == len(temp2) : # temp2가 다 채워짐
+        for z in range(i, len(temp1)) :
+            result.append(temp1[z])
+
+
+    return result
+
+answer = merge_sort(li)
+
+for i in answer :
+    print(i)
+
+'''힙정렬'''
+N = int(input())
+li = []
+for _ in range(N) :
+    n = int(input())
+    li.append(n)
+
+
+def heapify(li) : # 최대힙구조 만들기
+    for i in range(1, len(li)) :
+        child = i
+        while child != 0 :
+            root = (child-1) // 2 # i번째 노드의 부모노드
+            if li[root] < li[child] : # 부모노드보다 자식 노드가 큰 경우
+                li[root], li[child] = li[child], li[root]
+            child = root
+    return li
+
+def heap_sort(li) :
+    end = len(li) - 1
+    for i in range(end,0, -1) :
+        li[0], li[i] = li[i], li[0] # 가장 큰 값을 가장 마지막으로 보낸다
+
+        child = i-1
+        while child != 0 :
+            root = (child-1) // 2
+            if li[root] < li[child] : # 부모노드보다 자식 노드가 큰 경우
+                li[root], li[child] = li[child], li[root]
+            child = root
+
+heapify(li)
+heap_sort(li)
+
+for i in li : print(i)
+
+
+'''계수 정렬'''
+def gaesu(li, n) :
+    num = [0] * (n+1)
+    for i in li :
+        num[i]+=1
+    result = []
+    for j in range(len(num)) :
+        if num[j] !=0 :
+            for _ in range(num[j]) : result.append(j)
+    return result

@@ -73,32 +73,73 @@ for i in range(int(math.log2(len(list)))):
     for j in range(0, len(list), 2**(i+1)):
         list[j:j+2**(i+1)] = merge(list[j:j+2**i], list[j+2**i:j+2**(i+1)])
 
-'''
-계수 정렬
-'''
-list = [0 for i in range(1000001)]
-
-N = int(input())
-for i in range(N):
-    num = int(input())
-    list[num] = list[num]+1
-
-cnt = 0
-while (cnt != N):
-    for i in range(1000001):
-        if list[i] != 0:
-            print(i)
-            cnt += 1
-
 
 '''
 퀵 정렬
-
 '''
 
+def quick_sort(list):
+    pivot = 0
+    low = 0
+    high = len(list)-1
 
+    while (low <= high):
+        while (list[low] < list[pivot] and low < len(list)-1) :
+            low += 1
+        while (list[high] > list[pivot]):
+            high -= 1
+        list[high], list[low] = list[low], list[high]
+        low += 1
+        high -= 1
+    list[pivot], list[high] = list[high], list[pivot]
+    return list[:high], list[low:]
+
+# 구글링
+def quick(list, start, end):
+    if start >= end:
+        return
+    pivot = start
+    left = start + 1
+    right = end
+
+    while (left <= right):
+        while (left <= end and list[left] <= list[pivot]):
+            left += 1
+        while (right >= start and list[right] >= list[pivot]):
+            right -= 1
+        if (left > right): # 엇갈렸다면 작은 데이터와 피벗을 교체
+            list[pivot], list[right] = list[right], list[pivot]
+        else: # 엇갈리지 않았다면 작은 데이터와 큰 데이터를 교체
+            list[left], list[right] = list[right], list[left]
+
+    quick(list, start, right-1)
+    quick(list, right + 1, end)
+
+quick(list, 0, len(list)-1)
+print(list)
 
 '''
 힙 정렬
-
 '''
+
+
+# 2751 : 수 정렬하기 2
+'''
+계수 정렬로 성공
+'''
+
+import sys
+list = [0 for i in range(2000001)]
+
+N = int(sys.stdin.readline())
+for i in range(N):
+    num = int(sys.stdin.readline())
+    list[num+1000000] += 1
+
+cnt = 0
+
+while (cnt != N):
+    for i in range(2000001):
+        if list[i] != 0:
+            print(i-1000000)
+            cnt += 1
