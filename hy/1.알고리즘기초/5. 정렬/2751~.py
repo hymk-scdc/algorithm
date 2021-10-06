@@ -29,18 +29,25 @@ for i in range(len(li)) :
         li[i], li[min_index] = li[min_index], li[i]
 print(li)
 
-
-# '''삽입 정렬 코드'''
-# def insert(arr) :
-#     for end in range(1,len(arr)) :
-#         for i in range(end,0, -1) :
-#             if arr[i-1] > arr[i] : # arr[i] 정렬의 대상이 되는 요소, arr[i-1] arr[i]의 적절한 위치
-#                 arr[i-1], arr[i] = arr[i], arr[i-1]
-#     return arr
-
+'''버블 정렬'''
+def bubble(li) :
+    for _ in range(len(li)) :
+        for i in range(1,len(li)) :
+            if li[i-1] > li[i] :
+                li[i-1], li[i] = li[i], li[i-1]
+    return li
 
 
-'''퀵정렬로 해보기'''
+'''삽입 정렬'''
+def insert_sort(li) :
+    for i in range(1,len(li)) :
+        for j in range(i,0,-1) :
+            if li[j-1] > li[j] :
+                li[j-1], li[j] = li[j], li[j-1]
+    return li
+
+
+'''퀵정렬'''
 N = int(input())
 li = []
 for _ in range(N) :
@@ -77,7 +84,7 @@ for _ in range(N) :
 #     quick_sort(li, min_li, end)
 
 
-'''퀵 정렬 코드'''
+'''퀵정렬'''
 def quick(li, start, end) :
     if start >= end :
         return
@@ -135,6 +142,32 @@ for i in li :
     print(i)
 
 
+'''퀵 정렬 다시 구현해보기'''
+start = 0 # 첫 인덱스
+end = len(li)-1 # 마지막 인덱스
+def quick(li, start, end) :
+    if start >= end : # 꼭 부등호를 이상으로 해줘야 함
+        return
+    pivot = start # 처음에 피벗은 젤 첫 원소로 설정한다
+    left = start +1 #
+    right = end # 오->왼 시작하는 지점
+
+    while left <= right : # 엇갈리기 전까지
+        while (li[left] <= li[pivot] and left <= end) :  # 왼->오
+            left += 1
+        while (li[right] >= li[pivot] and right>start) : # 오->왼
+            right -= 1
+        if left < right : # 엇갈리지 않았다면
+            li[left], li[right] = li[right], li[left]
+        elif left > right: # 엇갈렸다면 그 중 작은 값이랑 피벗 바꿔줌
+            li[pivot], li[right] = li[right], li[pivot]
+    # 그 다음에는 right 위치를 기준으로 분할해서 quick 수행
+    quick(li,start,right-1)
+    quick(li,right+1,end)
+
+
+
+
 '''병합 정렬'''
 N = int(input())
 li = []
@@ -167,6 +200,10 @@ li = merge_sort(li)
 for i in li :
     print(i)
 
+
+'''병합 정렬 다시 구현해보기'''
+if temp[i] < temp[j] :
+    result[k]
 
 '''
 힙 정렬
@@ -237,3 +274,15 @@ heapify(li)
 heap_sort(li)
 
 for i in li : print(i)
+
+
+'''계수 정렬'''
+def gaesu(li, n) :
+    num = [0] * (n+1)
+    for i in li :
+        num[i]+=1
+    result = []
+    for j in range(len(num)) :
+        if num[j] !=0 :
+            for _ in range(num[j]) : result.append(j)
+    return result
