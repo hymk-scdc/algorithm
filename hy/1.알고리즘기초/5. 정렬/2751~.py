@@ -169,6 +169,7 @@ def quick(li, start, end) :
 
 
 '''병합 정렬'''
+'''
 N = int(input())
 li = []
 for _ in range(N) :
@@ -176,34 +177,106 @@ for _ in range(N) :
     li.append(n)
 
 def merge_sort(li) :
-    if len(li) < 2 :
+    if len(li) < 2 : # 리스트가 1 인 경우 
         return li
-
     mid = len(li)//2
-    temp1 = merge_sort(li[:mid])
-    temp2 = merge_sort(li[mid:])
 
-    result = []
-    i, j = 0, 0
-    while i < len(temp1) and j < len(temp2) :
-            if temp1[i] >= temp2[j] :
-                result.append(temp2[j])
-                j+=1
-            else :
-                result[k] = temp1[i]
-                i+=1
-    result += temp1[i:]
-    result += temp2[j:]
+    temp1, temp2 = [], []
+    for num in range(mid) :
+        temp1.append(li[num])
+
+    for num in range(mid,len(li)) :
+        temp2.append(li[num])
+
+    # 합치기 전 아이들도 병합정렬이 되어 있는 상태여야 함
+    temp1 = merge_sort(temp1)
+    temp2 = merge_sort(temp2)
+
+    # 병합 정렬한 결과물 담을 곳
+    result = [0]*len(li)
+    i,j= 0, 0
+    while (i < len(temp1) and j < len(temp2)) : # 한 쪽이 다 채워지기 전까지
+        if temp1[i] < temp2[j] :
+            result[k] = temp1[i]
+            i += 1
+            k += 1
+        else :
+            result[k] = temp2[j]
+            j += 1
+            k += 1
+    # 마지막까지 채우기 (while문을 for문으로 바꿨음)
+    if i == len(temp1) : # i는 다 채워짐
+        for z in range(j, len(temp2)) :
+            result[k] = temp2[z]
+            k += 1
+    elif j == len(temp2) : # j가 다 채워짐
+        for z in range(i, len(temp1)) :
+            result[k] = temp1[z]
+            k += 1
+
     return result
 
-li = merge_sort(li)
-for i in li :
+answer = merge_sort(li)
+
+for i in answer :
+    print(i)
+'''
+
+'''k안쓰고 병합정렬'''
+
+N = int(input())
+li = []
+for _ in range(N) :
+    n = int(input())
+    li.append(n)
+
+def merge_sort(li) :
+    if len(li) < 2 : # 리스트가 1 인 경우
+        return li
+    mid = len(li)//2
+
+    temp1, temp2 = [], []
+    for num in range(mid) :
+        temp1.append(li[num])
+
+    for num in range(mid,len(li)) :
+        temp2.append(li[num])
+
+    # 합치기 전 아이들도 병합정렬이 되어 있는 상태여야 함
+    temp1 = merge_sort(temp1)
+    temp2 = merge_sort(temp2)
+
+    # 병합 정렬한 결과물 담을 곳
+    result = []
+    i,j= 0, 0
+    while (i < len(temp1) and j < len(temp2)) : # 한 쪽이 다 채워지기 전까지
+        if temp1[i] < temp2[j] :
+            result.append(temp1[i])
+            i += 1
+        else :
+            result.append(temp2[j])
+            j += 1
+
+    # 마지막까지 채우기 (while문을 for문으로 바꿨음)
+    if i == len(temp1) : # temp1는 다 채워짐
+        for z in range(j, len(temp2)) :
+            result.append(temp2[z])
+
+    elif j == len(temp2) : # temp2가 다 채워짐
+        for z in range(i, len(temp1)) :
+            result.append(temp1[z])
+
+
+    return result
+
+answer = merge_sort(li)
+
+for i in answer :
     print(i)
 
 
-'''병합 정렬 다시 구현해보기'''
-if temp[i] < temp[j] :
-    result[k]
+
+
 
 '''
 힙 정렬
