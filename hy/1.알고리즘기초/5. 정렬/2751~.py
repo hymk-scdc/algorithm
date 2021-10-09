@@ -359,3 +359,75 @@ def gaesu(li, n) :
         if num[j] !=0 :
             for _ in range(num[j]) : result.append(j)
     return result
+
+
+# 11650 좌표 정렬하기
+'''시간초과'''
+
+n = int(input())
+li = []
+for _ in range(n) :
+    x, y = map(int, input().split())
+    li.append([x,y])
+
+for i in range(n) :
+    for j in range(n-1) :
+        if li[j][0] > li[j+1][0] :
+            li[j], li[j+1] = li[j+1], li[j]
+        elif li[j][0] == li[j+1][0] :
+            if li[j][1] > li[j+1][1] :
+                li[j][1], li[j+1][1] = li[j+1][1], li[j][1]
+
+for k in range(n) :
+    print(li[k][0], li[k][1])
+
+
+'''병합정렬 써볼까 --> 시간초과'''
+
+n = int(input())
+li = []
+for _ in range(n) :
+    x, y = map(int, input().split())
+    li.append([x,y])
+
+def merge_sort(li) :
+    if len(li) < 2 : # 리스트가 1 인 경우
+        return li
+    mid = len(li)//2
+
+    temp1, temp2 = [], []
+    for num in range(mid) :
+        temp1.append(li[num])
+
+    for num in range(mid,len(li)) :
+        temp2.append(li[num])
+
+    # 합치기 전 아이들도 병합정렬이 되어 있는 상태여야 함
+    temp1 = merge_sort(temp1)
+    temp2 = merge_sort(temp2)
+
+    # 병합 정렬한 결과물 담을 곳
+    result = []
+    i,j= 0, 0
+    while (i < len(temp1) and j < len(temp2)) : # 한 쪽이 다 채워지기 전까지
+        if temp1[i] < temp2[j] :
+            result.append(temp1[i])
+            i += 1
+        else :
+            result.append(temp2[j])
+            j += 1
+
+    # 마지막까지 채우기 (while문을 for문으로 바꿨음)
+    if i == len(temp1) : # temp1는 다 채워짐
+        for z in range(j, len(temp2)) :
+            result.append(temp2[z])
+
+    elif j == len(temp2) : # temp2가 다 채워짐
+        for z in range(i, len(temp1)) :
+            result.append(temp1[z])
+
+    return result
+
+li = merge_sort(li)
+for k in range(n) :
+    print(li[k][0], li[k][1])
