@@ -127,19 +127,102 @@ print(list)
 '''
 계수 정렬로 성공
 '''
-
 import sys
-list = [0 for i in range(2000001)]
+list1 = [0 for i in range(2000001)]
 
 N = int(sys.stdin.readline())
 for i in range(N):
     num = int(sys.stdin.readline())
-    list[num+1000000] += 1
+    list1[num+1000000] += 1
 
 cnt = 0
 
-while (cnt != N):
+while cnt != N:
     for i in range(2000001):
-        if list[i] != 0:
+        if list1[i] != 0:
             print(i-1000000)
             cnt += 1
+
+
+# 11650 : 좌표 정렬하기
+N = int(input(""))
+X = [0 for i in range(200001)]
+Y = [[] for i in range(200001)]
+# X에는 인덱스에 0,1 표시
+# Y에는 대응 인덱스에 넣기
+for i in range(N):
+     x, y = list(map(int, input("").split(" ")))
+     X[x+100000] += 1
+     Y[x+100000].append(y)
+
+cnt = 0
+
+while cnt != N:
+    for i in range(200001):
+        if X[i] != 0:
+            Y[i].sort()
+            for j in Y[i]:
+                print(i-100000, j)
+                cnt += 1
+
+
+# 11651 : 좌표 정렬하기 2
+'''
+다들 sort 씀
+'''
+N = int(input(""))
+X = [[] for i in range(200001)]
+Y = [0 for i in range(200001)]
+# X에는 인덱스에 0,1 표시
+# Y에는 대응 인덱스에 넣기
+for i in range(N):
+     x, y = list(map(int, input("").split(" ")))
+     Y[y+100000] += 1
+     X[y+100000].append(x)
+
+cnt = 0
+
+while cnt != N:
+    for i in range(200001):
+        if Y[i] != 0:
+            X[i].sort()
+            for j in X[i]:
+                print(j, i-100000)
+                cnt += 1
+
+
+# 10814 : 나이순 정렬
+'''
+다들 sort 씀
+'''
+N = int(input(""))
+age_name = [[] for i in range(201)]
+
+for i in range(N):
+    age, name = input("").split(" ")
+    age_name[int(age)].append(name)
+
+cnt = 0
+
+while cnt != N:
+    for i in range(201):
+        if age_name[i]:
+            for j in age_name[i]:
+                print(i, j)
+                cnt += 1
+
+# 10825 : 국영수
+N = int(input(""))
+name = []
+
+for i in range(N):
+    n, n1, n2, n3 = input("").split(" ")
+    name.append([n, int(n1), int(n2), int(n3)])
+
+name = sorted(name, key = lambda x : (-x[1], x[2], -x[3], x[0]))
+
+for i in name:
+    print(i[0])
+
+
+# 10989 : 수 정렬하기 3

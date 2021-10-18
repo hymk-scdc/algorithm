@@ -526,20 +526,3 @@ print(dp[-1] % 1000000)
 
 # 다른 풀이 도전
 
-
-# 학영
-num = int(input())
-mok = num
-result = []
-while True :
-    nam = mok % (-2)
-    if nam !=0 :
-        mok = mok -1
-        nam = 1
-    temp = mok // (-2)
-    mok = temp
-    result.append(str(nam))
-    if temp == 0 :
-        break
-result.reverse()
-print("".join(result))
