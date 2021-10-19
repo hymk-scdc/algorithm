@@ -431,3 +431,116 @@ def merge_sort(li) :
 li = merge_sort(li)
 for k in range(n) :
     print(li[k][0], li[k][1])
+
+
+'''
+시간초과..pypy3로 하면 맞음 
+'''
+n = int(input())
+li = []
+for _ in range(n) :
+    a, b = map(int, input().split())
+    li.append([a,b])
+
+def merge_sort(li) :
+    if len(li) < 2 : # 리스트가 1 인 경우
+        return li
+    mid = len(li)//2
+
+    temp1, temp2 = [], []
+    for num in range(mid) :
+        temp1.append(li[num])
+
+    for num in range(mid,len(li)) :
+        temp2.append(li[num])
+
+    # 합치기 전 아이들도 병합정렬이 되어 있는 상태여야 함
+    temp1 = merge_sort(temp1)
+    temp2 = merge_sort(temp2)
+
+    # 병합 정렬한 결과물 담을 곳
+    result = []
+    i,j= 0, 0
+    while (i < len(temp1) and j < len(temp2)) : # 한 쪽이 다 채워지기 전까지
+        if temp1[i] < temp2[j] :
+            result.append(temp1[i])
+            i += 1
+        else :
+            result.append(temp2[j])
+            j += 1
+
+    # 마지막까지 채우기 (while문을 for문으로 바꿨음)
+    if i == len(temp1) : # temp1는 다 채워짐
+        for z in range(j, len(temp2)) :
+            result.append(temp2[z])
+
+    elif j == len(temp2) : # temp2가 다 채워짐
+        for z in range(i, len(temp1)) :
+            result.append(temp1[z])
+
+
+    return result
+
+answer = merge_sort(li)
+
+for i in answer :
+    print (i[0], i[1])
+
+'''
+시간초과.. pypy3로 하면 맞음 
+'''
+n = int(input())
+li = []
+for _ in range(n) :
+    a, b = map(int, input().split())
+    li.append([a,b])
+li.sort()
+
+for i in li :
+    print(i[0], i[1])
+
+
+# 11651 좌표 정렬하기 2
+
+n = int(input())
+li = []
+for _ in range(n) :
+    a, b = map(int, input().split())
+    li.append([b,a])
+li.sort()
+
+for i in li :
+    print(i[1], i[0])
+
+
+# 10814 나이순 정렬
+n = int(input())
+result = []
+for i in range(n) :
+    age, name = input().split()
+    age = int(age)
+    result.append([age,i,name])
+
+result.sort()
+
+for j in result :
+    print(j[0],j[2])
+
+
+# 10825 국영수
+
+'''
+틀림
+int 처리해주니깐 맞았다고 나옴 
+'''
+n = int(input())
+
+result = []
+for _ in range(n) :
+    name, ko, en, ma = input().split()
+    result.append([ko,en,ma,name])
+
+result.sort(key = lambda x : (-int(x[0]),int(x[1]),-int(x[2]),x[3]))
+
+for j in result :
+    print(j[3])
