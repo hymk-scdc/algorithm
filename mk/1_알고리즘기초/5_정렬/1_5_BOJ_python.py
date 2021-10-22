@@ -226,3 +226,50 @@ for i in name:
 
 
 # 10989 : 수 정렬하기 3
+
+
+
+
+
+
+# 11652 : 카드
+n = int(input())
+result = {}
+
+for case in range(n):
+    a = int(input())
+    if a in result:
+        result[a] += 1
+    else:
+        result[a] = 1
+
+result = sorted(result.items(), key=lambda x: (-x[1], x[0]))
+print(result[0][0])
+
+
+
+# 11004 : K번째 수
+'''
+이게 맞나..
+'''
+N, K = input().split(" ")
+a = list(map(int, input().split(" ")))
+
+a.sort()
+print(a[int(K)-1])
+
+
+# 1377 : 버블 소트
+N = int(input(""))
+list_1 = []
+
+for i in range(N):
+    list_1.append(int(input()))
+
+for i in range(1,N+2):
+    TF = False
+    for j in range(1, N):
+        if (list_1[j] > list_1[j+1]):
+            TF = True
+            list_1[j], list[j+1] = list[j+1], list_1[j]
+    if TF == False:
