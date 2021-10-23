@@ -273,3 +273,25 @@ for i in range(1,N+2):
             TF = True
             list_1[j], list[j+1] = list[j+1], list_1[j]
     if TF == False:
+=======
+'''
+pypy 말고 Python3으로 했더니 됨
+'''
+import sys
+
+N = int(sys.stdin.readline())
+a = [0] * 10001
+
+for _ in range(N):
+    a[int(sys.stdin.readline())] += 1
+
+for i in range(10001):
+    if a[i] != 0:
+        for _ in range(a[i]):
+            print(i)
+
+
+# 11652 : 카드
+
+
+>>>>>>> Stashed changes
