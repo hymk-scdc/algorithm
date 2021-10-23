@@ -226,10 +226,18 @@ for i in name:
 
 
 # 10989 : 수 정렬하기 3
+import sys
 
+N = int(sys.stdin.readline())
+a = [0] * 10001
 
+for _ in range(N):
+    a[int(sys.stdin.readline())] += 1
 
-
+for i in range(10001):
+    if a[i] != 0:
+        for _ in range(a[i]):
+            print(i)
 
 
 # 11652 : 카드
