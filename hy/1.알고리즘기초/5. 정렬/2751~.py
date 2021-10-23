@@ -734,3 +734,39 @@ li = list(map(int, sys.stdin.readline().split()))
 li.sort()
 
 print(li[k-1])
+
+# 1377 버블소트... 모르겠어요
+import sys
+n = int(sys.stdin.readline())
+li = []
+for _ in range(n) :
+    li.append(int(sys.stdin.readline()))
+
+
+for i in range(1,n) :
+    changed = False
+    for j in range(0,n-i) :
+        if li[j] > li[j+1] :
+            changed = True
+            li[j], li[j+1] = li[j+1], li[j]
+            print(li)
+
+    if changed == False :
+        print("최종--->", li)
+        print(i)
+        break
+
+# index 차이 
+import sys
+n = int(sys.stdin.readline())
+li = []
+for i in range(n) :
+    li.append([int(sys.stdin.readline()), i])
+
+li.sort()
+
+result = []
+for i in range(n) :
+   result.append(li[i][1]-i)
+
+print(max(result)+1)
