@@ -226,6 +226,9 @@ for i in name:
 
 
 # 10989 : 수 정렬하기 3
+'''
+pypy 말고 Python3으로 했더니 됨
+'''
 import sys
 
 N = int(sys.stdin.readline())
@@ -268,38 +271,16 @@ print(a[int(K)-1])
 
 
 # 1377 : 버블 소트
+'''
+앞으로 제일 많이 온 놈이 앞으로 온 횟수
+'''
 N = int(input(""))
 list_1 = []
 
 for i in range(N):
-    list_1.append(int(input()))
+    list_1.append([int(input()), i])
 
-for i in range(1,N+2):
-    TF = False
-    for j in range(1, N):
-        if (list_1[j] > list_1[j+1]):
-            TF = True
-            list_1[j], list[j+1] = list[j+1], list_1[j]
-    if TF == False:
-=======
-'''
-pypy 말고 Python3으로 했더니 됨
-'''
-import sys
+list_1.sort(key = lambda x : (x[0]))
+result = [list_1[i][1]-i for i in range(N)]
 
-N = int(sys.stdin.readline())
-a = [0] * 10001
-
-for _ in range(N):
-    a[int(sys.stdin.readline())] += 1
-
-for i in range(10001):
-    if a[i] != 0:
-        for _ in range(a[i]):
-            print(i)
-
-
-# 11652 : 카드
-
-
->>>>>>> Stashed changes
+print(max(result)+1)
