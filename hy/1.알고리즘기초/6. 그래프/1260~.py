@@ -3,41 +3,45 @@
 # 데이터 담기
 n,m = map(int, input().split())
 
-data = [['1']*(m+1)]
-for _ in range(n) :
-    data.append(['1']+list(input()))
+graph = []
+for i in range(n):
+    graph.append(list(map(int, input())))  # cf. str은 iterable
 
-# 연결표시
-graph = [[set()]*(m+1)]*(n+1)
-for i in range(1,n) :
-    for j in range(1,m) :
-        if data[i][j] == '0' and data[i][j+1] == '0' :
-            graph[i][j].add((i,j+1))
-        if data[i][j] == '0' and data[i][j-1] == '0' :
-            graph[i][j].add((i,j-1))
 
-for j in range(1,m) :
-    for i in range(1,n) :
-        if data[i][ j] == '0' and data[i+1][ j] == '0':
-            graph[i][j].add((i+1,j))
-        if data[i][ j] == '0' and data[i-1][ j] == '0':
-            graph[i][j].add((i-1,j))
+def dfs(x, y):
+    if x <= -1 or x >= n or y <= -1 or y >= m:
+        print(x,y)
+        return False
+    # 방문처리
+    if graph[x][y] == 0:
+        graph[x][y] = 1
+        dfs(x-1, y)
+        dfs(x, y-1)
+        dfs(x+1, y)
+        dfs(x, y+1)
+        print("여기가 트루야" , x, y)
+        return True
+    return False
 
-visited = [['False']*(m+1)]*(n+1)
 
-# DFS
-def dfs(data, graph, n, m, visited):
-    for i in range(1,n+1) :
-        for j in range(1,m+1) :
-            if data[i][j] == '0':
-                visited[i][j] = True
-                print(i, j)
-                for node in graph[i][j] :
-                    node_i, node_j = node[0], node[1]
-                    print("여기--->", node_i,node_j)
-                    if visited[node_i][node_j] == False :
-                        dfs(data,graph, node_i, node_j, visited)
-                        return visited
+count = 0
+for i in range(n):
+    for j in range(m):
+        if dfs(i, j) == True:
+            result += 1
+
+print(count)
+
+
+# 재귀함수 연습
+def pr(i) :
+    if i >= 10 :
+        print(i, "넘음")
+    else :
+        print(i,"안넘음")
+        pr(i+1) # 여기서 1 ~ 10 까지 갔음
+        print(i,"돌아와") # 9 ~ 1 까지 다시 돌아감
+        pr(i+2) # 근데 9 -> 11 //-> 8 -> 10 //-> 7 -> 9 -> 10 -> 9 -> 11 //
 
 
 
