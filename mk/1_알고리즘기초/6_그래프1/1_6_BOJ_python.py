@@ -41,3 +41,36 @@ bfs(graph, V, [False] * (N+1))
 
 
 # 11724 : 연결 요소의 개수
+N, M = list(map(int, input().split(" ")))
+graph = [[] for i in range(N+1)]
+for i in range(M):
+    u, v = list(map(int, input().split(" ")))
+    graph[u].append(v)
+    graph[v].append(u)
+
+for i in graph:
+    i.sort()
+
+def dfs(graph, visited, start):
+    visited[start] = True
+    print(graph[start])
+    for i in graph[start]:
+        print(i, '여기', visited)
+        if visited[i] == False:
+            dfs(graph, visited, i)
+            return True
+
+visited = [False for i in range(N+1)]
+count = 0
+
+for i in range(1, N+1):
+    #
+    if visited[i] == False:
+        dfs(graph, visited, i)
+        print(i, "노드")
+        print(visited)
+        print('----')
+        count += 1
+
+print(count)
+
