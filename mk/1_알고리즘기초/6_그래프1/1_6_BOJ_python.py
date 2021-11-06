@@ -53,24 +53,62 @@ for i in graph:
 
 def dfs(graph, visited, start):
     visited[start] = True
-    print(graph[start])
     for i in graph[start]:
-        print(i, '여기', visited)
         if visited[i] == False:
             dfs(graph, visited, i)
-            return True
 
 visited = [False for i in range(N+1)]
 count = 0
 
 for i in range(1, N+1):
-    #
     if visited[i] == False:
         dfs(graph, visited, i)
-        print(i, "노드")
-        print(visited)
-        print('----')
         count += 1
 
 print(count)
+
+
+# 1707 : 이분 그래프
+'''
+visited : 0(미방문) 1(집합1) -1(집합2)
+'''
+from collections import deque
+
+
+def bfs(graph, visited):
+    for i in range(1, len(graph)):
+        if visited[i] == 0:
+            queue = deque([i])
+            visited[i] = 1
+            while queue:
+                v = queue.popleft()
+                for i in graph[v]:
+                    if visited[i] == 0:
+                        queue.append(i)
+                        visited[i] = visited[v] * (-1)
+    return visited
+
+
+def answer():
+    V, E = list(map(int, input().split(" ")))
+    graph = [[] for i in range(V + 1)]
+    for j in range(E):
+        u, v = list(map(int, input().split(" ")))
+        graph[u].append(v)
+        graph[v].append(u)
+
+    visited = bfs(graph, [0] * (V + 1))
+
+    for i in range(V+1):
+        for j in range(len(graph[i])):
+            graph[i][j] = visited[graph[i][j]]
+    for i in graph:
+        if len(set(i)) > 1:
+            return 'NO'
+    return 'YES'
+
+
+K = int(input(""))
+for i in range(K):
+    print(answer())
 
