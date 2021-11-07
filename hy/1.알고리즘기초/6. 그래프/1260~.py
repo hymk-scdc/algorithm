@@ -108,9 +108,11 @@ dy = [0, 0, -1, 1]
 '''
 리스트에 곱하기로 생성하면 하나만 바꿔도 다 바뀌는 문제 발생하니깐 
 list comprehension으로 해결해야 한다. 
+
+틀린 답이랍니다아 
 '''
 n, m , v = map(int, input().split())
-graph = [[] for _ in range(m+1)]
+graph = [[] for _ in range(n+1)]
 
 for _ in range(m) :
     a,b = map(int,input().split())
@@ -131,19 +133,31 @@ def dfs(graph, v, visited) :
 
 
 # bfs
-def bfs(graph, v , visited) :
+def bfs(graph, v , visited, visited2) :
     visited[v] = True
+    visited2[v] = True
     for i in graph[v] :
         if not visited[i]:
             visited[i] = True
             print(i, end=' ')
     for i in graph[v] :
-        bfs(graph, i, visited)
+        if not visited2[i] :
+            visited2[i] = True
+            bfs(graph, i, visited, visited2)
 
-
-
-
-
+#
+# from collections import deque
+# def bfs(graph, v, visited) :
+#
+#     visited[v] = True
+#     temp = []
+#     for i in graph[v] :
+#         if not visited[i] :
+#             visited[i] = True
+#             print(i, end = ' ')
+#             temp.append(i)
+#         for j in temp :
+#             bfs(graph,j,visited)
 
 
 
@@ -152,16 +166,121 @@ def bfs(graph, v , visited) :
 visited = [False for i in range(n+1)]
 dfs(graph, v, visited)
 visited = [False for i in range(n+1)]
+visited2 = [False for i in range(n+1)]
 print('')
 print(v, end = ' ')
-bfs(graph, v , visited)
+bfs(graph, v , visited, visited2)
 
 
 
+# 11724 연결 요소의 개수
+
+n, m = map(int, input().split())
+
+graph = [[] for _ in range(n+1)]
+for _ in range(m) :
+    u, v = map(int, input().split())
+    graph[u].append(v)
+    graph[v].append(u)
+    graph[u].sort()
+    graph[v].sort()
+
+
+visited = [False for _ in range(n+1)]
+
+def bfs(graph, v, visited) :
+    visited[v] = True
+    for i in graph[v] :
+        if not visited[i] :
+            visited[i] = True
+            # print("v---->", v, "i----->", i)
+            bfs(graph, i, visited)
+    # return True
+
+result = 0
+for v in range(1,n+1) :
+    if visited[v] == False :
+        bfs(graph, v, visited)
+        result +=1
+
+print(result)
+
+
+# 1707 이분 그래프
+from collections import deque
+
+def bi_graph(graph, start , visited) :
+    queue = deque([start]) # 큐를 만듦
+    visited[start] = 1 # 처음 시작은 방문함
+    while queue : # 큐에 담긴 애들 다 살펴보기
+        v = queue.popleft() # 살펴본 애들은 빼기
+
+        for i in graph[v] : # 살펴본 아이와 인접한 애들 다 연결하기
+            if not visited[i] :
+                queue.append(i)
+                visited[i] = -visited[v]
+            else:
+                if visited[i] == visited[v] :
+                    return False
+    return True
 
 
 
+k = int(input())
 
+for _ in range(k) :
+    v, e = map(int,input().split())
+    graph = [[] for _ in range(v + 1)]
+    visited = [False for _ in range(v + 1)]
 
+    for _ in range(e) :
+        a, b = map(int, input().split())
+        graph[a].append(b)
+        graph[b].append(a)
 
+    result = True
+    for i in range(1,v+1) :
+        if visited[i] == False :
+            if not bi_graph(graph, i, visited) :
+                result = False
+                break
+    print("YES" if result else "NO")
+
+'''
+이 코드 진짜 이상함.. 위랑 크게 다른 거 없는데 
+from collections import deque
+def bi_graph(graph, start , visited) :
+    queue = deque([start]) # 큐를 만듦
+    visited[start] = 0 # 처음 시작은 방문함
+    count = 0
+    while queue : # 큐에 담긴 애들 다 살펴보기
+        v = queue.popleft() # 살펴본 애들은 빼기
+        count +=1
+        for i in graph[v] : # 살펴본 아이와 인접한 애들 다 연결하기
+            if not visited[i] :
+                queue.append(i)
+                visited[i] = count%2
+            else:
+                if visited[i] != count%2 :
+                    return False
+    return True
+k = int(input())
+for _ in range(k) :
+    v, e = map(int,input().split())
+    graph = [[] for _ in range(v + 1)]
+    visited = [False for _ in range(v + 1)]
+    for _ in range(e) :
+        a, b = map(int, input().split())
+        graph[a].append(b)
+        graph[b].append(a)
+    
+    result = True
+    for i in range(1,v+1) :
+        if visited[i] == False :
+            if not bi_graph(graph, i, visited) :
+                result = False
+                break
+    print("YES" if result else "NO")
+    
+    '''
 
