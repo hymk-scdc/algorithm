@@ -132,18 +132,18 @@ def dfs(graph, v, visited) :
             dfs(graph, i, visited)
 
 
-# bfs
-def bfs(graph, v , visited, visited2) :
-    visited[v] = True
-    visited2[v] = True
-    for i in graph[v] :
-        if not visited[i]:
-            visited[i] = True
-            print(i, end=' ')
-    for i in graph[v] :
-        if not visited2[i] :
-            visited2[i] = True
-            bfs(graph, i, visited, visited2)
+# # bfs
+# def bfs(graph, v , visited, visited2) :
+#     visited[v] = True
+#     visited2[v] = True
+#     for i in graph[v] :
+#         if not visited[i]:
+#             visited[i] = True
+#             print(i, end=' ')
+#     for i in graph[v] :
+#         if not visited2[i] :
+#             visited2[i] = True
+#             bfs(graph, i, visited, visited2)
 
 #
 # from collections import deque
@@ -160,16 +160,32 @@ def bfs(graph, v , visited, visited2) :
 #             bfs(graph,j,visited)
 
 
+# 새로운 BFS
+
+from collections import deque
+
+def bfs(graph, start, visited) :
+    visited[start] = True
+    queue = deque([start])
+
+    while queue :
+        v = queue.popleft()
+        print(v, end = ' ')
+        for i in graph[v] :
+            if not visited[i] :
+                queue.append(i)
+                visited[i] = True
+
+
 
 
 # 답
 visited = [False for i in range(n+1)]
 dfs(graph, v, visited)
-visited = [False for i in range(n+1)]
-visited2 = [False for i in range(n+1)]
 print('')
-print(v, end = ' ')
-bfs(graph, v , visited, visited2)
+visited = [False for i in range(n+1)]
+bfs(graph, v , visited)
+
 
 
 
@@ -283,4 +299,112 @@ for _ in range(k) :
     print("YES" if result else "NO")
     
     '''
+
+# 10451 순열 사이클
+
+def cycle(graph, v, visited) :
+    visited[v] = True
+    # i = graph[v]
+    # if not visited[i] :
+        # visited[i] = True
+        # cycle(graph, i, visited)
+    # return True
+    cycle(graph, graph[v], visited)
+
+
+T = int(input())
+
+for _ in range(T) :
+    N = int(input())
+    graph = [''] + list(map(int, input().split()))
+    visited = [False for _ in range(N+1)]
+    result = 0
+    for i in range(1,N) :
+        if not visited[i] :
+            # if cycle(graph,i, visited) :
+            cycle(graph, i, visited)
+            result +=1
+    print(result)
+
+# 2331 반복수열
+
+A, P = input().split()
+def banbok(A, P, seq) :
+    seq.append(int(A))
+    visited[int(A)] = 1
+    a = list(map(int, list(A)))
+    temp = 0
+    for i in a :
+        temp += i**P
+    if visited[temp] == 0 :
+        banbok(str(temp), P, seq)
+
+    elif visited[temp] == 1 :
+        print(seq.index(temp))
+        return
+
+
+seq = []
+visited = [0 for _ in range(236197)]
+banbok(A,int(P),seq)
+
+
+'''
+재귀함수가 벗겨지면서 계속 return None을 하고 있어서, 
+마지막 return None 을 반환하게 되는 거였음 
+
+=> 해결방법 : global 선언 
+
+def banbok(A, P, seq) :
+    seq.append(int(A))
+    visited[int(A)] = 1
+    a = list(map(int, list(A)))
+    temp = 0
+    for i in a :
+        temp += i**P
+    if visited[temp] == 0 :
+        banbok(str(temp), P, seq)
+    elif visited[temp] == 1 :
+        print(seq.index(temp))
+        return temp
+seq = []
+visited = [0 for _ in range(236197)]
+result = banbok(A,int(P),seq)
+print(result)
+'''
+
+# 9466 텀 프로젝트
+'''틀린 코드'''
+T = int(input())
+
+for _ in range(T) :
+    n = int(input())
+    graph = [''] + list(map(int, input().split()))
+
+    def dfs(graph, v, visited, first) :
+        global count, result
+        count +=1
+        result = False
+        visited[v] = True
+        i = graph[v]
+        if visited[i] == True :
+            if i == first :
+                result = True
+            elif i == graph[i] :
+                count = 1
+                result = True
+                visited[i] = "self"
+        elif visited[i] == False :
+            dfs(graph,i, visited, first)
+        return count if result else False
+
+    visited = [False for _ in range(n + 1)]
+    for i in range(1, n+1) :
+        if visited[i] == False :
+            count = 0
+            answer = dfs(graph,i,visited,i)
+            if answer != False :
+                n -= answer
+
+    print(n)
 
