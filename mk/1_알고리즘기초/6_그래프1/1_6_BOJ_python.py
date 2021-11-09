@@ -154,3 +154,29 @@ print(len(nums))
 
 
 # 9466 : 텀 프로젝트
+def next_(index):
+    global visited_num
+    if visited_YN[index] == 0:
+        visited_YN[index] = 1
+        visited_num.append(index)
+        print(visited_YN)
+        print(visited_num)
+        next_(nums[index])
+    elif visited_YN[index] == 1:
+        visited_num = visited_num[visited_num.index(index):]
+        print(visited_num)
+        print("----")
+
+for T in range(int(input(""))):
+    n = int(input(""))
+    nums = [0] + list(map(int, input("").split(" ")))
+    visited_YN = [0 for i in range(n+1)]
+    visited_num = []
+
+    for i in range(1, n+1):
+        if visited_YN[i] == 0:
+            next_(i)
+
+
+
+
