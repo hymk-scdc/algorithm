@@ -154,29 +154,43 @@ print(len(nums))
 
 
 # 9466 : 텀 프로젝트
+'''
+시간초과
+'''
+import sys
+
 def next_(index):
     global visited_num
+    global temp
     if visited_YN[index] == 0:
         visited_YN[index] = 1
-        visited_num.append(index)
-        print(visited_YN)
-        print(visited_num)
+        temp.append(index)
         next_(nums[index])
     elif visited_YN[index] == 1:
-        visited_num = visited_num[visited_num.index(index):]
-        print(visited_num)
-        print("----")
+        try:
+            visited_num = visited_num + temp[temp.index(index):]
+        except:
+            temp = []
+        else:
+            temp = []
+            for i in visited_num:
+                visited_YN[i] = 2
+    else:
+        temp = []
 
-for T in range(int(input(""))):
-    n = int(input(""))
-    nums = [0] + list(map(int, input("").split(" ")))
+
+for T in range(int(sys.stdin.readline().strip())):
+    n = int(sys.stdin.readline().strip())
+    nums = [0] + list(map(int,sys.stdin.readline().strip().split(" ")))
     visited_YN = [0 for i in range(n+1)]
     visited_num = []
-
+    temp = []
     for i in range(1, n+1):
         if visited_YN[i] == 0:
             next_(i)
+    print(n-len(visited_num))
 
-
-
+'''
+다시..
+'''
 
