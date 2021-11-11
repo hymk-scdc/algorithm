@@ -161,36 +161,69 @@ import sys
 
 def next_(index):
     global visited_num
-    global temp
+    #print('**index', index)
     if visited_YN[index] == 0:
         visited_YN[index] = 1
         temp.append(index)
+        #print(visited_YN)
+        #print(temp)
+        #print("--")
         next_(nums[index])
     elif visited_YN[index] == 1:
-        try:
+        #print('index', index)
+        if index in temp:
             visited_num = visited_num + temp[temp.index(index):]
-        except:
-            temp = []
-        else:
-            temp = []
             for i in visited_num:
                 visited_YN[i] = 2
-    else:
-        temp = []
+        return
+        #print(visited_YN)
+        #print(temp)
+        #print('visited_num', visited_num)
+        #print('------')
+    #else:
+     #   temp = []
+      #  print("---")
 
 
 for T in range(int(sys.stdin.readline().strip())):
     n = int(sys.stdin.readline().strip())
-    nums = [0] + list(map(int,sys.stdin.readline().strip().split(" ")))
+    nums = [0] + list(map(int, sys.stdin.readline().strip().split(" ")))
     visited_YN = [0 for i in range(n+1)]
     visited_num = []
     temp = []
     for i in range(1, n+1):
         if visited_YN[i] == 0:
+            temp = []
             next_(i)
+            #print('---')
+            #print('---')
     print(n-len(visited_num))
 
 '''
 다시..
 '''
+import sys
 
+
+def next_(index):
+    global visited_num
+    visited_YN[index] = 1
+    temp.append(index)
+    if visited_YN[nums[index]] == 1:
+        if index in temp:
+            visited_num = visited_num + temp[temp.index(index):]
+        return
+    else:
+        next_(nums[index])
+
+
+for T in range(int(sys.stdin.readline())):
+    n = int(sys.stdin.readline())
+    nums = [0] + list(map(int, sys.stdin.readline().rstrip().split(" ")))
+    visited_YN = [0 for i in range(n+1)]
+    visited_num = []
+    for i in range(1, n+1):
+        if visited_YN[i] == 0:
+            temp = []
+            next_(i)
+    print(n-len(visited_num))
