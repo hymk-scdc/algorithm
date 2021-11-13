@@ -203,27 +203,102 @@ for T in range(int(sys.stdin.readline().strip())):
 다시..
 '''
 import sys
+sys.setrecursionlimit(111111)
 
 
 def next_(index):
     global visited_num
-    visited_YN[index] = 1
+    visited_YN[index] = True
     temp.append(index)
-    if visited_YN[nums[index]] == 1:
-        if index in temp:
-            visited_num = visited_num + temp[temp.index(index):]
+    x = nums[index]
+
+    if visited_YN[x]: #
+        if x in temp: # 여기 x부분 틀렸었음
+            visited_num = visited_num + temp[temp.index(x):] ### 여기 x부분 틀렸었음
+            print(visited_num)
         return
     else:
-        next_(nums[index])
+        next_(x)
 
 
-for T in range(int(sys.stdin.readline())):
-    n = int(sys.stdin.readline())
-    nums = [0] + list(map(int, sys.stdin.readline().rstrip().split(" ")))
-    visited_YN = [0 for i in range(n+1)]
+for _ in range(int(input())):
+    n = int(input())
+    nums = [0] + list(map(int, input().split()))
+    visited_YN = [True] + [False for i in range(n)]
     visited_num = []
     for i in range(1, n+1):
-        if visited_YN[i] == 0:
+        if not visited_YN[i]:
             temp = []
             next_(i)
     print(n-len(visited_num))
+
+
+# 2667 : 단지번호 붙이기
+def dfs(x, y):
+    global house
+    if x >= len(nums[0]) or x < 0 or y >= len(nums) or y<0:
+        return
+    if nums[x][y] == 1:
+        nums[x][y] = 0
+        house += 1
+        bfs(x + 1, y)
+        bfs(x, y - 1)
+        bfs(x - 1, y)
+        bfs(x, y + 1)
+        return True
+    else:
+        return
+
+T = int(input(""))
+nums = []
+for i in range(T):
+    nums.append(list(map(int, input(""))))
+
+count = []
+for i in range(len(nums)):
+    for j in range(len(nums[0])):
+        if nums[i][j] == 1:
+            house = 0
+            if dfs(i, j) == True:
+                count.append(house)
+print(len(count))
+count.sort()
+for i in count:
+    print(i)
+
+
+# 4963 : 섬의 개수
+def bfs(x, y):
+    global mymap, w, h
+    if x > h or x < 0 or y > w or y < 0:
+        return
+    if mymap[x][y] == 1:
+        #print(x, y)
+        mymap[x][y] = 0
+        bfs(x + 1, y)
+        bfs(x, y - 1)
+        bfs(x - 1, y)
+        bfs(x, y + 1)
+        return True
+    else:
+        #print(x, y)
+        return
+
+while True:
+    w, h = list(map(int, input().split(" ")))
+    if (w, h) == (0, 0):
+        break
+
+    mymap = [[0 for i in range(w+1)]]
+    for i in range(h):
+        mymap.append([0]+list(map(int, input("").split(" "))))
+
+    count = 0
+    for i in range(1, h+1):
+        for j in range(1, w+1):
+            #print(i,j)
+            if mymap[i][j] == 1:
+                if bfs(i, j) == True:
+                    #print("i,j", i, j)
+                    count += 1
+    print(count)
