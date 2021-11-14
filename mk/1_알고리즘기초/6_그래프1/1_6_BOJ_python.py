@@ -273,32 +273,106 @@ def bfs(x, y):
     if x > h or x < 0 or y > w or y < 0:
         return
     if mymap[x][y] == 1:
-        #print(x, y)
         mymap[x][y] = 0
         bfs(x + 1, y)
         bfs(x, y - 1)
         bfs(x - 1, y)
         bfs(x, y + 1)
+        bfs(x - 1, y + 1)
+        bfs(x + 1, y + 1)
+        bfs(x - 1, y - 1)
+        bfs(x + 1, y - 1)
         return True
     else:
-        #print(x, y)
         return
 
 while True:
     w, h = list(map(int, input().split(" ")))
     if (w, h) == (0, 0):
         break
-
     mymap = [[0 for i in range(w+1)]]
     for i in range(h):
         mymap.append([0]+list(map(int, input("").split(" "))))
-
     count = 0
     for i in range(1, h+1):
         for j in range(1, w+1):
-            #print(i,j)
             if mymap[i][j] == 1:
                 if bfs(i, j) == True:
-                    #print("i,j", i, j)
                     count += 1
     print(count)
+
+
+# 2178 미로 탐색
+from collections import deque
+
+N, M = list(map(int, input().split(" ")))
+
+list1 = [[0 for i in range(M+1)]]
+for i in range(N):
+    list1.append([0]+list(map(int, list(input()))))
+
+q = deque()
+q.append([1, 1])
+
+dx = [0, 0, 1, -1]
+dy = [1, -1, 0, 0]
+
+while q:
+    x, y = q.popleft()
+    for i in range(4):
+        nx = x+dx[i]
+        ny = y+dy[i]
+        if nx < 1 or nx > N or ny < 1 or ny > M:
+            continue
+        if list1[nx][ny] == 1:
+            list1[nx][ny] = list1[x][y]+1
+            q.append([nx, ny])
+print(list1[N][M])
+
+# 7576 : 토마토
+from collections import deque
+from functools import reduce
+
+M, N = list(map(int, input().split(" ")))
+
+list1 = [[0 for i in range(M+1)]]
+count1 = 0
+index1 = []
+
+for i in range(N):
+    inputlist = list(map(int, list(map(int, input().split(" ")))))
+    for j in range(len(inputlist)):
+        if inputlist[j] == 1:
+            count1 += 1
+            index1.append([i+1, j+1])
+    list1.append([0]+inputlist)
+
+qs = []
+for i in index1:
+    q = deque()
+    q.append(i)
+    qs.append([q, deque()])
+
+dx = [0, 0, 1, -1]
+dy = [1, -1, 0, 0]
+
+while reduce(lambda x, y : x+y, reduce(lambda x, y : x+y, qs)):
+    for q in qs:
+        print(q, len(q[0]))
+        while len(q[0]) > 0:
+            x, y = q[0].popleft()
+            for i in range(4):
+                nx = x+dx[i]
+                ny = y+dy[i]
+                if nx < 1 or nx > N or ny < 1 or ny > M:
+                    continue
+                if list1[nx][ny] == 0:
+                    list1[nx][ny] = list1[x][y] + 1
+                    q[1].append([nx, ny])
+            q[0] = q[1]
+            q[1] = deque()
+        '''for i in qs:
+            print(i)
+    for i in list1[1:]:
+        print(i[1:])'''
+    print("---")
