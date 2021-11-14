@@ -374,37 +374,177 @@ print(result)
 '''
 
 # 9466 텀 프로젝트
-'''틀린 코드'''
-T = int(input())
+# '''틀린 코드'''
+# T = int(input())
+#
+# for _ in range(T) :
+#     n = int(input())
+#     graph = [''] + list(map(int, input().split()))
+#
+#     def dfs(graph, v, visited, first) :
+#         global count, result
+#         count +=1 # 연결된 애들 개수
+#         result = False # 연결 여부
+#         visited[v] = True # 방문여부
+#         i = graph[v] # 처음 시작 위치 고정
+#         if visited[i] == True :
+#             if i == first :
+#                 result = True
+#
+#             elif i == graph[i] :
+#                 count = 1
+#                 result = True
+#                 visited[i] = "self"
+#
+#         elif visited[i] == False :
+#             dfs(graph,i, visited, first)
+#         return count if result else False
+#
+#     submit = n
+#     answer = False
+#
+#     visited = [False for _ in range(n + 1)]
+#
+#
+# # '''내가 하고 싶은 것은 visited에서 연결된 애들은 냅두고 연결 안된 애들만 계속 다시 갱신해주고 싶음 '''
+#     for i in range(1, n+1) :
+#         if answer == False :
+#
+#             count = 0
+#             answer = dfs(graph,i,visited,i)
+#             if answer != False :
+#                 submit -= answer
+#
+#         else :
+#             if visited2[i] == False :
+#                 count = 0
+#                 answer = dfs(graph, i, visited2, i)
+#                 if answer != False:
+#                     submit -= answer
+#         print("i는 ", i, "현재의 답은 ", answer )
+#
+#     print(submit)
+
+'''새로운 코드'''
+
+def bfs(graph, v, visited, first):
+    global temp
+    visited[v] = 1
+    i = graph[v]
+    if visited[i] == 0:
+        visited[i] = 1
+        temp.append(i)
+        bfs(graph, i, visited, first)
+    if visited[i] == 1:
+        if graph[i] == first: # 본인이 본인을 가르킨 경우
+            visited[i] = 2
+        elif i == first:
+            temp.append(i)
+            for j in temp:
+                visited[j] = 2
+
+
+import sys
+T = int(sys.stdin.readline())
 
 for _ in range(T) :
-    n = int(input())
-    graph = [''] + list(map(int, input().split()))
+    n = int(sys.stdin.readline())
+    graph = [''] + list(map(int, sys.stdin.readline().split()))
 
-    def dfs(graph, v, visited, first) :
-        global count, result
-        count +=1
-        result = False
-        visited[v] = True
-        i = graph[v]
-        if visited[i] == True :
-            if i == first :
-                result = True
-            elif i == graph[i] :
-                count = 1
-                result = True
-                visited[i] = "self"
-        elif visited[i] == False :
-            dfs(graph,i, visited, first)
-        return count if result else False
+    visited = [0 for _ in range(n+1)]
 
-    visited = [False for _ in range(n + 1)]
-    for i in range(1, n+1) :
-        if visited[i] == False :
-            count = 0
-            answer = dfs(graph,i,visited,i)
-            if answer != False :
-                n -= answer
+    for k in range(1, n+1) :
+        if visited[k] == 0 :
+            temp = []
+            bfs(graph, k, visited, k)
+        for k in range(1, n+1) :
+            if visited[k] == 1 :
+                visited[k] = 0
 
-    print(n)
+    print(visited.count(0)-1)
+
+
+
+# 2667 단지번호붙이기
+
+n = int(input())
+graph = []
+
+for _ in range(n) :
+   graph.append(list(input()))
+
+
+def dfs(x,y) :
+    global cnt
+    if x <= -1 or x >=n or y <= -1 or y >= n :
+        return False
+    if graph[x][y] == '1' : # 벽이면 return
+        graph[x][y] = '0' # 방문처리함
+        dfs(x-1, y)
+        dfs(x+1, y)
+        dfs(x, y+1)
+        dfs(x, y-1)
+        cnt+=1
+        return True
+    return False
+
+result = []
+for i in range(n) :
+    for j in range(n) :
+        if graph[i][j] == '1' :
+            cnt = 0
+            if dfs(i,j) :
+                result.append(cnt)
+print(len(result))
+result.sort()
+for answer in result :
+    print(answer)
+
+
+
+# 4963 섬의 개수
+
+def dfs(x,y) :
+    if x <= -1 or x >= h or y <= -1 or y >= w:
+        return False
+    if graph[x][y] == 1 :
+        graph[x][y] = 0
+        dfs(x-1, y-1)
+        dfs(x-1, y)
+        dfs(x-1, y+1)
+        dfs(x,y-1)
+        dfs(x,y+1)
+        dfs(x+1, y-1)
+        dfs(x+1, y)
+        dfs(x+1, y+1)
+        return True
+    return False
+
+while True :
+    graph = []
+    result = 0
+    w, h = map(int, input().split())
+    if w == 0 and h == 0 :
+        break
+    for _ in range(h) :
+        graph.append(list(map(int, input().split())))
+
+    for i in range(h) :
+        for j in range(w) :
+            if graph[i][j] == 1 :
+                if dfs(i,j) :
+                    result +=1
+    print(result)
+
+
+# 2178 미로 탐색
+from collections import deque
+def bfs(x,y) :
+    queue = deque([(x,y)])
+
+
+n, m = map(int , input().split())
+graph = []
+for _ in range(n) :
+    graph.append(list(map(int, input(" "))))
 
