@@ -571,6 +571,8 @@ print(bfs(0,0))
 
 # 7576 토마토
 
+'''입력받을 때 아예 익은 토마토 저장하고 시작'''
+
 m, n = map(int, input().split())
 
 graph = []
@@ -587,14 +589,16 @@ def bfs(x,y) :
         x, y = queue.popleft()
 
         for i in range(4) :
-            nx, ny = x+dx[i], y+dy[i]
-            if nx != -1 and ny != -1 and nx != n and ny != m :
-                if graph[nx][ny] == 0 :
+            nx, ny = x+dx[i], y+dy[i] # 상하좌우
+            if nx != -1 and ny != -1 and nx != n and ny != m : # 그래프 내 범위 확인
+                if graph[nx][ny] == 0 : # 첫 방문
                     queue.append((nx,ny))
-                    graph[nx][ny] = graph[x][y] + 1
-                elif graph[nx][ny] >= 2 :
-                    print(queue)
-                    graph[nx][ny] = min(graph[nx][ny], graph[x][y] + 1)
+                    graph[nx][ny] = graph[x][y] + 1 # 하루 추가
+                elif graph[nx][ny] >= 2 : # 이미 방문
+                    if graph[nx][ny] > graph[x][y] + 1 : # 여기서 출발하는 게 더 익는 시간이 짧은 경우
+                        queue.append((nx,ny))
+                        graph[nx][ny] = graph[x][y] + 1
+
 
 
 dx = [-1, 1, 0, 0]
@@ -615,8 +619,46 @@ for i in range(n) :
     for j in range(m) :
         if graph[i][j] == 0 :
             day = 0
-            break
+            print(-1)
+            exit()
         else :
             day = max(day, graph[i][j])
+
 print(day-1)
+
+
+# 2146 다리 만들기
+
+n = int(input())
+graph = []
+for i in range(n) :
+    graph.append(list(map(int, input().split())))
+
+from collections import deque
+
+dx = [-1, 1, 0, 0]
+dy = [0, 0, -1, 1]
+
+def bfs(x,y) :
+    queue = deque()
+    queue.append((x,y))
+
+    while queue :
+        x, y = queue.popleft()
+        for i in range(4) : # 상하좌우
+            nx, ny = x+dx[i], y+dy[i]
+
+            if nx > -1 and nx < n and ny >-1 and ny < n :
+                if graph[nx][ny] == cnt :
+                    queue.append((nx,ny))
+                    graph[nx][ny] = -1
+                elif graph[nx][ny] == 0 :
+                    graph[nx][ny] = cnt+1
+                    queue.append((nx,ny))
+
+for i in range(n) :
+    for j in range(n) :
+        if graph[i][j] == 1 :
+            bfs(i,j)
+
 
