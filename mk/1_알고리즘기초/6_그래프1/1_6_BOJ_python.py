@@ -329,6 +329,7 @@ while q:
             q.append([nx, ny])
 print(list1[N][M])
 
+
 # 7576 : 토마토
 '''
 ㅂㅗㄱㅈㅏㅂㅎㅏㄱㅔ ㅍㅜㄹㅇㅓㅆㄴㄴㅡㄴㄷㅔ ㄱㅓㅁㅅㅐㄱㅎㅏㄴㅣㄲㅏ ㄱㅣㅂㅗㄴㅈㅓㄱㅇㅣㄴ ㅍㅜㄹㅇㅣ ㅂㅏㅇㅂㅓㅂㅇㄹㅗ ㄴㅏㅇㅗㅁ
@@ -359,63 +360,23 @@ for i in index1:
 dx = [0, 0, 1, -1]
 dy = [1, -1, 0, 0]
 
+def bfs(start):
+    x, y  = start.popleft()
+    for i in range(4):
+        nx = x + dx[i]
+        ny = y + dy[i]
+        if nx < 1 or nx > N or ny < 1 or ny > M:
+            continue
+        if list1[nx][ny] == 0:
+            list1[nx][ny] = list1[x][y] + 1
+            q[1].append([nx, ny])
+cnt = 0
+# 다 0이 될 때 종료
 while reduce(lambda x, y : x+y, reduce(lambda x, y : x+y, qs)):
     for q in qs:
-        print(q, len(q[0]))
         while len(q[0]) > 0:
-            x, y = q[0].popleft()
-            for i in range(4):
-                nx = x+dx[i]
-                ny = y+dy[i]
-                if nx < 1 or nx > N or ny < 1 or ny > M:
-                    continue
-                if list1[nx][ny] == 0:
-                    list1[nx][ny] = list1[x][y] + 1
-                    q[1].append([nx, ny])
+            bfs(q[0])
+        else:
             q[0] = q[1]
             q[1] = deque()
-        '''for i in qs:
-            print(i)
-    for i in list1[1:]:
-        print(i[1:])'''
-    print("---")
-
-
-# 2146 : 다리 만들기
-from collections import deque
-
-N = int(input())
-graph = []
-for i in range(N):
-    graph.append(list(map(int, input().split(" "))))
-dx = [0, 0, 1, -1]
-dy = [1, -1, 0, 0]
-q = deque()
-
-
-def bfs(x, y, color):
-    while q:
-        if graph[x][y] == 1:
-            graph[x][y] = color
-        for i in range(4):
-            if (x+dx > N or y+dx > N or x+dx < 0 or y+dy < 0):
-                continue
-            bfs(x+dx, y+dy)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
