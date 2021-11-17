@@ -401,12 +401,14 @@ q = deque()
 
 def bfs(x, y, color):
     while q:
+        x, y = q.popleft()
         if graph[x][y] == 1:
             graph[x][y] = color
         for i in range(4):
             if (x+dx > N or y+dx > N or x+dx < 0 or y+dy < 0):
                 continue
             bfs(x+dx, y+dy)
+            q.append([x+dx, y+dy])
     cnt += 1
 
 for i in list1[1:]:
