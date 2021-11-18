@@ -332,7 +332,7 @@ print(list1[N][M])
 
 # 7576 : 토마토
 '''
-ㅂㅗㄱㅈㅏㅂㅎㅏㄱㅔ ㅍㅜㄹㅇㅓㅆㄴㄴㅡㄴㄷㅔ ㄱㅓㅁㅅㅐㄱㅎㅏㄴㅣㄲㅏ ㄱㅣㅂㅗㄴㅈㅓㄱㅇㅣㄴ ㅍㅜㄹㅇㅣ ㅂㅏㅇㅂㅓㅂㅇㄹㅗ ㄴㅏㅇㅗㅁ
+복잡하게 풀었는데 검색해보니까 기본적인 풀이방법으로 나옴
 '''
 from collections import deque
 from functools import reduce
@@ -428,6 +428,9 @@ q2 = deque()
 for i in range(N):
     for j in range(M):
         if graph[i][j] != 0:
+            
+
+
 ### 여기 할 차례
 
 
