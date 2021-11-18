@@ -400,24 +400,35 @@ q = deque()
 
 
 def bfs(x, y, color):
+    q.append([x, y])
     while q:
         x, y = q.popleft()
         if graph[x][y] == 1:
             graph[x][y] = color
         for i in range(4):
-            if (x+dx > N or y+dx > N or x+dx < 0 or y+dy < 0):
+            nx, ny = x+dx[i], y+dy[i]
+            if (nx >= N or ny >= N or nx < 0 or ny < 0):
                 continue
-            bfs(x+dx, y+dy)
-            q.append([x+dx, y+dy])
-    cnt += 1
-
-for i in list1[1:]:
-    if 0 in i[1:]:
-        print(-1)
-        exit()
-print(cnt-1)
+            elif graph[nx][ny] == 1:
+                #bfs(nx, ny, color)
+                q.append([nx, ny])
+    return
 
 
+# 섬 구분하기
+color = 2
+for i in range(N):
+    for j in range(N):
+        if graph[i][j] == 1:
+            bfs(i, j, color)
+            color += 1
+
+# 최단거리
+q2 = deque()
+for i in range(N):
+    for j in range(M):
+        if graph[i][j] != 0:
+### 여기 할 차례
 
 
 
