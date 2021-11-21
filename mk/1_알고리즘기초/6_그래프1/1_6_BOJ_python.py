@@ -424,20 +424,9 @@ for i in range(N):
             color += 1
 
 # 최단거리
-q2 = deque()
+'''q2 = deque()
 for i in range(N):
     for j in range(M):
         if graph[i][j] != 0:
             
-
-
-### 여기 할 차례
-
-
-
-# print(q[0])
-# print(q[1])
-# for i in list1:
-#    print(i)
-# print("---")
-# print("---")
+'''
