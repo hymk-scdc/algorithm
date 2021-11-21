@@ -649,16 +649,22 @@ def bfs(x,y) :
             nx, ny = x+dx[i], y+dy[i]
 
             if nx > -1 and nx < n and ny >-1 and ny < n :
-                if graph[nx][ny] == cnt :
+                if graph[nx][ny] == 0 :
                     queue.append((nx,ny))
-                    graph[nx][ny] = -1
-                elif graph[nx][ny] == 0 :
-                    graph[nx][ny] = cnt+1
-                    queue.append((nx,ny))
+                    graph[nx][ny] = graph[x][y]+1
+                elif graph[nx][ny] > graph[x][y]+1 :
+                    queue.append((nx, ny))
+                    graph[nx][ny] = min(graph[nx][ny], graph[x][y]+1)
+                # elif graph[nx][ny] == graph[x][y]+1 :
+                #     result.append(graph[nx][ny])
+
+
+result = []
 
 for i in range(n) :
     for j in range(n) :
         if graph[i][j] == 1 :
             bfs(i,j)
+
 
 
