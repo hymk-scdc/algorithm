@@ -55,7 +55,7 @@ post_order(tree['A'])
 # 11725 : 트리의 부모 찾기
 '''
 recursion error : import sys; sys.setrecursionlimit(10**5) 추가
-'''
+
 import sys
 sys.setrecursionlimit(100000)
 
@@ -81,10 +81,11 @@ parent_pop(1)
 for i in parents[2:]:
     print(i)
 
-
+'''
 ''' 
 다시 해서 해결
 def 문 안의 if문 부분 좀 바꿈
+- dfs 풀이임
 '''
 import sys
 sys.setrecursionlimit(100000)
@@ -101,13 +102,40 @@ parents = [0 for i in range(N + 1)]
 
 
 def parent_pop(parent):
-    for child in childs[parent]:  # child : 4, 6 / parent : 1
+    for child in childs[parent]:
         if parents[child] == 0:
             parents[child] = parent
             parent_pop(child)
     return
 
-
 parent_pop(1)
+
 for i in parents[2:]:
     print(i)
+
+
+# 1167 : 트리의 지름
+V = int(input())
+graph = [ [0 for i in range(V+1)] for _ in range(V+1) ]
+for _ in range(V):
+    inputs = list(map(int, input().split(" ")))
+    x = inputs[0]
+    for i in range(1, len(inputs)-1, 2):
+        graph[x][inputs[i]] = inputs[i+1]
+        graph[inputs[i]][x] = inputs[i+1]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
