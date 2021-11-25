@@ -116,8 +116,8 @@ for i in parents[2:]:
 
 # 1167 : 트리의 지름
 '''
-메모리 초과 - deepcopy를 방문처리로 고쳐보기
-'''
+# 메모리 초과 - deepcopy 를 방문처리로 고쳐보기
+
 import copy
 
 V = int(input())
@@ -130,7 +130,6 @@ for _ in range(V):
         graph[x][inputs[i]] = inputs[i+1]
         graph[inputs[i]][x] = inputs[i+1]
         connect[x].append(inputs[i])
-
 
 maxdist_1 = 0
 
@@ -149,9 +148,11 @@ for i in range(1, V+1):
     result = max(result, dfs(i, connect1, 0))
 
 print(result)
+'''
 
 
 
+# 1967 :
 
 
 
