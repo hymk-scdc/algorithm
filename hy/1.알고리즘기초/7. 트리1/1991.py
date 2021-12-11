@@ -181,3 +181,45 @@ while True :
     else :
         temp2.append(a)
         j = a
+
+
+
+# 1967 트리의 지름
+from collections import deque
+n = int(input())
+
+tree = [[] for _ in range(n+1)]
+
+for _ in range(n-1) :
+    p, c, l = map(int, input().split())
+    tree[p].append([p,c,l])
+    tree[c].append([c,p,l])
+
+
+def bfs(start):
+    queue = deque()
+    visited[start] = 0
+    for tu in tree[start]:
+        queue.append(tu)
+    while queue:
+        temp = queue.popleft()
+        head, node, link = temp[0], temp[1], temp[2]  # 연결된 앞, 뒤, 길이
+        if visited[node] == -1:
+            visited[node] = visited[head] + link
+            for tu2 in tree[node] :
+                queue.append(tu2)
+
+    return visited.index(max(visited))  # 최대인 애로 다시 돌게..그러면 최대인 애에서 또 최대인 애가 나오겠지
+
+j = 1 # 처음 시작위치
+temp2 = [] # 최대라고 나왔던 node들 담는 곳
+while True :
+    visited = [-1]*(n+1)
+    a = bfs(j) # 최대라고 나온 node
+    if a in temp2 :
+        print(max(visited)) # 만약에 이미 최대라고 나왔던 애라면 굳이 다시 안돌아도 되니 끝
+        break
+    else :
+        temp2.append(a)
+        j = a
+
