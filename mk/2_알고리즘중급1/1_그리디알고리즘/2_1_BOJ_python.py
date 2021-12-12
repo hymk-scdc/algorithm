@@ -23,11 +23,16 @@ reserve = []
 for i in range(N):
     reserve.append(list(map(int, input().split())))
 
-reserve.sort()
+reserve = sorted(reserve, key=lambda a : (a[1], a[0]))
 reserved = [[0, 0]]
 count = 0
 
 for i in reserve:
-    print(reserved[-1][1], i[0])
     if reserved[-1][1] <= i[0]:
         reserved.append(i)
+        count += 1
+
+print(count)
+
+
+
