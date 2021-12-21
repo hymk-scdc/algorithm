@@ -40,3 +40,19 @@ for i in Ms:
     binary(Ns, i, 0, N-1)
 
 print(' '.join(map(str, result)))
+
+
+# 11729 : 하노이 탑 이동 순서
+N = int(input())
+
+def hanoi(n, start, mid, end):
+    if n == 1:
+        print(start, end)
+    else:
+        hanoi(n-1, start, end, mid)
+        #  1개 원하는 고으로 이동
+        print(start, end)
+        hanoi(n-1, mid, start, end)
+
+print(2**N-1)
+hanoi(N, 1, 2, 3) # (N개, 시작하는 곳, 원하는 곳)
