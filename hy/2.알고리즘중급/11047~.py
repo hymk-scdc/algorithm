@@ -94,7 +94,40 @@ for j in cardNum :
 
 
 # 11729 하노이 탑 이동 순서
+n = int(input())
+def hanoi(n,a,b,c) :
+    if n == 1 :
+        print(a,c)
+    else :
+        hanoi(n-1, a, c, b)
+        print(a,c)
+        hanoi(n-1, b, a, c)
+
+cnt = 1
+if n == 1 :
+    cnt = 1
+else :
+    for i in range(n-1) :
+        cnt = cnt*2 + 1
+
+print(cnt)
+hanoi(n,1,2,3)
+
+# 2261 가장 가까운 두 점
+
+n = int(input())
+dot = []
+distance = 800000000
+
+for i in range(n) :
+    x, y = map(int,input().split())
+    dot.append((x,y))
 
 
+for i in range(n) :
+    x, y = dot[i]
+    for j in range(i+1,n) :
+        cx, cy = dot[j]
+        distance = min(distance , (x-cx)**2 + (y-cy)**2)
 
-
+print(distance)
