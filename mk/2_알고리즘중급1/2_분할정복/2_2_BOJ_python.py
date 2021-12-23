@@ -59,11 +59,42 @@ hanoi(N, 1, 2, 3) # (N개, 시작하는 곳, 원하는 곳)
 
 
 # 2261 : 가장 가까운 두 점
-# 2차원 평면 상에 n개의 점이
+n = int(input())
+sets = []
+for i in range(n):
+    sets.append(list(map(int, input().split(' '))))
+sets.sort(key=lambda x: x[0])
 
-# x,y
-'''
-0,0   0,10   10,0   10,10
+def dist(a,b):
+    return (b[0]-a[0])**2 + (b[1]-a[1])**2
 
 
-'''
+def get_min(start, end):
+    # 1 두 점 사이 대표 거리
+    if end-start == 1:
+        return dist(sets[start], sets[end])
+    # 2 세 개일 때 대표 거리
+    elif end-start == 2:
+        return min(dist(sets[start], sets[start+1]), dist(sets[start+1], sets[end]))
+    # 3 합치기 (1-1, 1-2 두 가지 경우)
+    else:
+        min_mid = min(get_min(start, (start+end)//2), get_min((start+end)//2, end))
+        set_mid_x, set_mid_y = sets[start+end//2]
+        test_sets = []
+
+        # 중간값에서 +- min_mid 사이에 있는 애들만 test_sets에 append
+        for i in sets:
+            if ((set_mid_x - i[0])**2 < min_mid) or ((set_mid_y - i[1])**2 < min_mid):
+                test_sets.append(i)
+
+        # test_sets 내부에서 거리 검사 (단, mid 기준으로 양옆에 있는 점들끼리만)
+        for i in range(len(test_sets)):
+            for j in range(i+1, len(test_sets)):
+                if (set_mid_x - test_sets[i][0]) * (set_mid_x-test_sets[j][0]) <= 0:
+                    print(test_sets[i], test_sets[j], dist(test_sets[i], test_sets[j]))
+                    min_mid = min(min_mid, dist(test_sets[i], test_sets[j]))
+
+        return min_mid
+
+
+print(get_min(0, n-1))
