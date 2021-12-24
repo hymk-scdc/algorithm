@@ -123,7 +123,6 @@ for i in range(n) :
     x, y = map(int,input().split())
     dot.append((x,y))
 
-
 for i in range(n) :
     x, y = dot[i]
     for j in range(i+1,n) :
@@ -131,3 +130,68 @@ for i in range(n) :
         distance = min(distance , (x-cx)**2 + (y-cy)**2)
 
 print(distance)
+
+# 분할정복
+n = int(input())
+dot = []
+
+for i in range(n) :
+    x, y = map(int,input().split())
+    dot.append([x,y])
+
+
+dot.sort()
+
+def dist(dot1, dot2) :
+    return (dot1[0]-dot2[0])**2 + (dot1[1]-dot2[1])**2
+
+def min_dist(dot, n) :
+    if n == 2 :
+        return dist(dot[0], dot[1])
+    elif n == 3 :
+
+        return min(dist(dot[0], dot[1]), dist(dot[1], dot[2]), dist(dot[0], dot[2]))
+    else :
+        mid = n//2
+
+        left = min_dist(dot[:mid], mid)
+        right = min_dist(dot[mid:], n-mid)
+
+
+        mid_dist = min(left, right)
+
+        temp= []
+
+        for i in range(n) :
+            if (dot[i][0] - dot[mid][0])**2 < mid_dist :
+                temp.append(dot[i])
+
+
+        if len(temp) >= 2 :
+            temp.sort(key = lambda y : y[1])
+
+            for i in range(len(temp)-1) :
+                for j in range(i+1,len(temp)) :
+                    if (temp[i][1] - temp[j][1])**2 > mid_dist :
+                        break
+                    temp_dist = dist(temp[i], temp[j])
+                    # print(f'before : {mid_dist}')
+                    mid_dist = min(mid_dist, temp_dist)
+                    # print(f'after : {mid_dist}')
+
+        return mid_dist
+
+print(min_dist(dot,n))
+
+
+
+
+# 1654 랜선자르기
+
+K, N = map(int,input().split())
+
+line = []
+
+for _ in range(K) :
+    line.append(int(input()))
+
