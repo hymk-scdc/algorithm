@@ -75,7 +75,7 @@ def get_min(start, end):
         return dist(sets[start], sets[end])
     # 2 세 개일 때 대표 거리
     elif end-start == 2:
-        return min(dist(sets[start], sets[start+1]), dist(sets[start+1], sets[end]))
+        return min(dist(sets[start], sets[start+1]), dist(sets[start+1], sets[end]), dist(sets[start], sets[end]))
     # 3 합치기 (1-1, 1-2 두 가지 경우)
     else:
         min_mid = min(get_min(start, (start+end)//2), get_min((start+end)//2, end))
@@ -87,14 +87,49 @@ def get_min(start, end):
             if ((set_mid_x - i[0])**2 < min_mid) or ((set_mid_y - i[1])**2 < min_mid):
                 test_sets.append(i)
 
+        ### 여기까지 코드는 set_mid 기준으로만 y 거리 비교 -> 후보키끼리 y 거리 비교해야 하
+
         # test_sets 내부에서 거리 검사 (단, mid 기준으로 양옆에 있는 점들끼리만)
         for i in range(len(test_sets)):
             for j in range(i+1, len(test_sets)):
                 if (set_mid_x - test_sets[i][0]) * (set_mid_x-test_sets[j][0]) <= 0:
-                    print(test_sets[i], test_sets[j], dist(test_sets[i], test_sets[j]))
+                    #print(test_sets[i], test_sets[j], dist(test_sets[i], test_sets[j]))
                     min_mid = min(min_mid, dist(test_sets[i], test_sets[j]))
 
         return min_mid
 
 
 print(get_min(0, n-1))
+
+
+
+#
+K, N = map(int,input().split())
+
+line = []
+
+for _ in range(K) :
+    line.append(int(input()))
+
+start = 1
+end = max(line)
+mid = (start+end)//2
+
+while True :
+    cnt = 0
+    for i in line :
+        cnt += i//mid
+    if cnt < N :
+        end = mid
+        mid = (start + end)//2
+    elif cnt > N :
+        start = mid
+        mid = (start + end)//2
+    elif cnt == N:
+        while cnt == N :
+            cnt = 0
+            mid += 1
+            for j in line:
+                cnt += j // (mid)
+        print(mid-1)
+        break
