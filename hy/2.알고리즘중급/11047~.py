@@ -195,3 +195,88 @@ line = []
 for _ in range(K) :
     line.append(int(input()))
 
+
+start = 1
+end = max(line)
+
+
+while start <= end :
+    mid = (start + end)//2
+
+    cnt = 0
+    for i in line :
+        cnt += i // mid
+
+    if cnt >= N :
+        start = mid + 1
+    else :
+        end = mid - 1
+
+print(end)
+
+# 2805 나무자르기
+
+N, M = map(int, input().split())
+
+tree = list(map(int, input().split()))
+
+start = 0
+end = max(tree)
+
+while start <= end :
+    mid = (start + end) // 2
+
+    total = 0
+    for i in tree :
+        if i - mid >= 0 :
+            total += i-mid
+    if total >= M :
+        start = mid + 1
+    else :
+        end = mid -1
+
+print(end)
+
+
+# 11723 집합
+import sys
+n = int(sys.stdin.readline())
+s = set()
+
+for _ in range(n) :
+    order = sys.stdin.readline().split()
+    if len(order) == 1 :
+        if order[0] == 'all':
+            # s = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20}
+            s = {i for i in range(1,21)}
+        else:
+            s = set()
+    else :
+        command, num = order[0], int(order[1])
+        if command == 'add' :
+            s.add(num)
+        elif command == 'remove' :
+            s.discard(num)
+        elif command == 'toggle' :
+            if num in s :
+                s.discard(num)
+            else :
+                s.add(num)
+        elif command == 'check' :
+            print(1 if num in s else 0)
+
+# 10972 다음 순열
+
+import sys
+n = int(sys.stdin.readline())
+num = list(map(int,sys.stdin.readline().split()))
+
+cnt = 0
+for i in range(1,n) :
+    if num[i] <= num[i-1] :
+        cnt +=1
+
+if cnt == (n-1) :
+    print(-1)
+else :
+    print()
