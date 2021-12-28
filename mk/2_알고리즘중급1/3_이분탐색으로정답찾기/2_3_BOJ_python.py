@@ -13,11 +13,6 @@ def get_max(n, start, mid, end, yn):
     if mid == maxline:
         print(mid)
         return
-    '''
-    print('mid',mid)
-    print('cnt_lines',cnt_lines)
-    print('yn',yn)
-    print('----')'''
 
     if cnt_lines < n:
         if yn == 1:
@@ -31,3 +26,8 @@ def get_max(n, start, mid, end, yn):
 
 
 get_max(N, 1, (1+maxline)//2, maxline, 0)
+
+
+
+
+
