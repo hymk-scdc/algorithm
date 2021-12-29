@@ -34,7 +34,9 @@ for i in range(M):
 
 # 10972 : 다음 순열
 '''
-뒤에서부터 보면서 
+뒤에서부터 보면서
+-
+정답 : 다른 점 - 이웃한 애들끼리 대소관계 비교한 뒤에 swap 임
 '''
 N = int(input())
 seq = list(map(int, input().split()))
@@ -48,35 +50,3 @@ for i in range(-1, -N, -1):
             sys.exit(0)
 print(-1)
 
-'''
-while로 바꾸기
-'''
-
-N = int(input())
-seq = list(map(int, input().split()))
-yn = 1
-i = -1
-j = -2
-
-while ((yn == 1) & (i >-N) & (j >-N-1)):
-    #print(i, j)
-    if seq[j] < seq[i]:
-        seq[j], seq[i] = seq[i], seq[j]
-        print(' '.join(map(str, seq[:j + 1] + sorted(seq[j + 1:]))))
-
-        '''for i in seq[:j + 1] + sorted(seq[j + 1:]):
-            print(i, end=' ')'''
-        yn = 0
-    j -= 1
-    #print(i, j)
-    #print('---')
-
-    if j == -N:
-        #print('여기', i, j)
-        i -= 1
-        j = i-1
-
-        #print('여기1', i, j)
-
-if yn == 1:
-    print(-1)
