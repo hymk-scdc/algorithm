@@ -271,12 +271,65 @@ import sys
 n = int(sys.stdin.readline())
 num = list(map(int,sys.stdin.readline().split()))
 
-cnt = 0
-for i in range(1,n) :
-    if num[i] <= num[i-1] :
-        cnt +=1
+def num_print(num) :
+    for j in num :
+        print(j, end = ' ')
 
-if cnt == (n-1) :
+
+
+if n == 1 :
     print(-1)
 else :
-    print()
+    i = n-1
+    while True:
+        if  num[i-1] <= num[i] : # 역수아님
+            # 자기 이하의 아이들 중에서 지금 나보다 바로 다음으로 큰 아이를 가져온다
+            temp = sorted(num[i-1:])
+            idx = temp.index(num[i-1]) # 정렬했을 때 내 순서
+            next = temp[idx+1] # 나보다 바로 다음으로 큰 아이
+            next_idx = num.index(next)
+            num[i-1], num[next_idx] = num[next_idx], num[i-1] # 자리 바꿔주기
+
+            result = num[:i] + sorted(num[i:])
+            num_print(result)
+            break
+        else : # 역수임
+            i -= 1
+            if i == 0 :
+                print(-1)
+                break
+
+# 1697 숨바꼭질
+n, k = map(int, input().split())
+
+cnt = 0
+# def findk(n, k, before) :
+#     if n == k :
+#         return True
+#     elif (k>0) or (k<100)  :
+#         print(n, k)
+#         if k % 2 != 0 :
+#             if before == k+1 :
+#                 findk(n, k-1, k)
+#             elif before == k-1 :
+#                 findk(n, k+1, k)
+#             elif before == 'start' :
+#                 findk(n, k-1, k)
+#                 findk(n, k+1, k)
+#         else :
+#             findk(n, int(k//2), k)
+#             if before == k+1 :
+#                 findk(n, k-1, k)
+#             elif before == k-1 :
+#                 findk(n, k+1, k)
+#             elif before == 'start' :
+#                 findk(n, k-1, k)
+#                 findk(n, k+1, k)
+#
+#     elif k == 0 :
+#         return
+# findk(n,k,'start')
+
+
+
+
