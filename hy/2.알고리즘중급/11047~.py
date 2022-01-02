@@ -302,7 +302,69 @@ else :
 # 1697 숨바꼭질
 n, k = map(int, input().split())
 
-cnt = 0
+
+
+# def findk(num) :
+#     if num == k :
+#         return True
+#     elif num < 0 or num > 100000 :
+#         return False
+#     else :
+#         if num*2
+#
+#
+#         print(num)
+#         if visited[num] ==0 :
+#             visited[num] == 1
+#             findk(num*2)
+#             findk(num+1)
+#             findk(num-1)
+
+from collections import deque
+
+visited = [0] * 100001
+
+def findk(n, k) :
+    queue = deque()
+    queue.append(n)
+    cnt = 0
+    while queue :
+        num = queue.popleft()
+        if num == k :
+            return True
+        if visited[num] == 0 :
+            queue.append(num*2)
+            queue.append(num+1)
+            queue.append(num-1)
+            cnt +=1
+            print(num, cnt)
+
+findk(n,k)
+#
+# cnt = 0
+# def findcnt(n,k) :
+#     global cnt
+#     print(n)
+#     if n == k :
+#         return True
+#     if n <= -1 or n > 100000 :
+#         return False
+#     if visited[n] == 0 :
+#         visited[n] = 1
+#         findcnt(n*2,k)
+#         findcnt(n+1,k)
+#         findcnt(n-1,k)
+#         cnt += 1
+#         return True
+#     return False
+# findcnt(n,k)
+
+
+
+
+
+
+
 # def findk(n, k, before) :
 #     if n == k :
 #         return True
@@ -331,5 +393,61 @@ cnt = 0
 # findk(n,k,'start')
 
 
+# 1987 알파벳
+from collections import deque
+
+r,c = map(int, input().split())
+graph = []
+
+for i in range(r) :
+    graph.append(list(input()))
+#
+#
+# visited = []
+# def bfs(x,y) :
+#     queue = deque()
+#     queue.append((x,y))
+#     cnt = 0
+#     while queue :
+#         print(queue)
+#         x, y = queue.popleft()
+#         alpha = graph[x][y]
+#         print(alpha)
+#         if alpha in visited :
+#             continue
+#         else :
+#             visited.append(alpha)
+#             print('---------',alpha)
+#             for i in [(x,y-1), (x,y+1), (x-1,y), (x+1,y)] :
+#                 if (0 <= i[0] < r) and  (0 <= i[1] < c) :
+#                     queue.append(i) #상
+#                     print(graph[i[0]][i[1]])
+#
+#             cnt +=1
+#     return cnt
+#
+# bfs(0,0)
 
 
+alpha = []
+visited=[[0 for _ in range(c)] for _ in range(r)]
+def dfs(x,y) :
+    if (0 <= x < r) and (0 <= y < c):
+        print('====',graph[x][y])
+        if graph[x][y] not in alpha :
+            print(graph[x][y])
+            alpha.append(graph[x][y])
+            dfs(x - 1, y)
+            dfs(x, y - 1)
+            dfs(x + 1, y)
+            dfs(x, y + 1)
+            visited[x][y] = 1
+            return
+        return False
+
+dfs(0,0)
+
+
+for _ in range(4) :
+    visited=[[0 for _ in range(c)] for _ in range(r)]
+    print('----------',dfs(0,0))
