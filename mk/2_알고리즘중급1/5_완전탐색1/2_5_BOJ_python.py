@@ -141,3 +141,65 @@ print(cnt)'''
 
 
 # 1987 알파벳
+'''
+검색 답안 : 방문한 알파벳 중복 없이 넣는 visited 를 set로 함 - 맞음
+원래 내꺼 : 방문한 알파벳 중복 없이 넣는 visited 를 리스트로 함 - 시간 초과
+
+왜 시간초과 차이가 나는지 모르겠음....
+'''
+R, C = map(int, input().split())
+words = []
+for i in range(R):
+    words.append(list(input()))
+
+visited = set(words[0][0])
+dx = [1, -1, 0, 0]
+dy = [0, 0, 1, -1]
+maxnum = 0
+
+def dfs(x, y, cnt):
+    global maxnum
+    maxnum = max(maxnum, cnt)
+
+    for i in range(4):
+        nx, ny = x+dx[i], y+dy[i]
+
+        if (0<=nx<=R-1 and 0<=ny<=C-1 and words[nx][ny] not in visited):
+            print(visited)
+            visited.add(words[nx][ny])
+            #print(word)
+            dfs(nx, ny, cnt+1)
+            visited.remove(words[nx][ny])
+
+
+dfs(0, 0, 1)
+print(maxnum)
+
+
+# 원래 내꺼 : 방문한 알파벳 중복 없이 넣는 visited 를 리스트로 함
+R, C = map(int, input().split())
+words = []
+for i in range(R):
+    words.append(list(input()))
+
+visited = [words[0][0]]
+dx = [1, -1, 0, 0]
+dy = [0, 0, 1, -1]
+maxnum = 0
+
+def dfs(x, y, cnt):
+    global maxnum
+    maxnum = max(maxnum, cnt)
+
+    for i in range(4):
+        nx, ny = x+dx[i], y+dy[i]
+
+        if (0<=nx<=R-1 and 0<=ny<=C-1 and words[nx][ny] not in visited):
+            visited.append(words[nx][ny])
+            #print(word)
+            dfs(nx, ny, cnt+1)
+            visited.pop()
+
+
+dfs(0, 0, 1)
+print(maxnum)
