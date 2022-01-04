@@ -2,12 +2,54 @@
 '''
 자료구조 : 트리 / 루트노드로 집합 구분
 '''
+
+'''
+# 틀린 원래 코드
+# find 할 때 parents 리스트를 부모노드가 아닌 루트노드로 업데이트 안 하면 시간 초과됨
+# if yn==0 부분 조금 틀림
+
 n, m = map(int, input().split())
-lists = []
-indexes = [0 for i in range(n+1)]
+parents = [i for i in range(n+1)]
 
 
+def find_root(child):
+    while parents[child] != child:
+        child = parents[child]
+    return child
 
+
+for i in range(m):
+    yn, a, b = map(int, input().split())
+    if yn == 0:
+        parents[max(find_root(max(a, b)), min(a, b))] = min(find_root(max(a, b)), min(a,b))
+    else:
+        if find_root(a) != find_root(b):
+            print('NO')
+        else:
+            print('YES')
+'''
+
+n, m = map(int, input().split())
+parents = [i for i in range(n+1)]
+
+
+def find_root(child):
+    x_child = child
+    while parents[child] != child:
+        child = parents[child]
+    parents[x_child] = child
+    return child
+
+
+for i in range(m):
+    yn, a, b = map(int, input().split())
+    if yn == 0:
+        parents[max(find_root(a), find_root(b))] = min(find_root(a), find_root(b))
+    else:
+        if find_root(a) != find_root(b):
+            print('NO')
+        else:
+            print('YES')
 
 
 # 2606 바이러스
