@@ -203,3 +203,44 @@ def dfs(x, y, cnt):
 
 dfs(0, 0, 1)
 print(maxnum)
+
+
+# 학영 집합
+n, m = map(int,input().split())
+
+class Node() :
+    def __init__(self, parent):
+        self.parent = parent
+num = []
+for i in range(n+1) :
+    num.append(Node(i))
+
+
+def setroot(a,b) : # union
+    ap = findroot(a)
+    bp = findroot(b)
+    if ap <= bp :
+        num[bp].parent = num[ap].parent
+    else :
+        num[ap].parent = num[bp].parent
+
+
+def findroot(a) : # find
+    while num[a].parent != a :
+        p = num[a].parent
+        num[a].parent = num[p].parent
+        a = p
+    return num[a].parent
+
+for j in range(m) :
+    o , a , b = map(int, input().split())
+    if o == 0 :
+        if a < b :
+            setroot(a,b)
+        else :
+            setroot(b,a)
+    else :
+        if findroot(a) == findroot(b) :
+            print('YES')
+        else :
+            print('NO')

@@ -29,11 +29,12 @@ for i in range(m):
             print('YES')
 '''
 
+# union-find 알고리즘
 n, m = map(int, input().split())
 parents = [i for i in range(n+1)]
 
 
-def find_root(child):
+def find_root(child): # find
     x_child = child
     while parents[child] != child:
         child = parents[child]
@@ -44,6 +45,7 @@ def find_root(child):
 for i in range(m):
     yn, a, b = map(int, input().split())
     if yn == 0:
+        # union
         parents[max(find_root(a), find_root(b))] = min(find_root(a), find_root(b))
     else:
         if find_root(a) != find_root(b):
