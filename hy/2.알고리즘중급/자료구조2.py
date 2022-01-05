@@ -37,7 +37,7 @@ for _ in range(m) :
 
        print(ans)
 
-
+tete
 
 
 
