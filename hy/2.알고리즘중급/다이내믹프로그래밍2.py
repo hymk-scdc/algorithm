@@ -105,13 +105,12 @@ m, n = map(int,input().split())
 
 graph = []
 
-# result = []
 for i in range(m) :
     graph.append(list(map(int,input().split())))
 
 dp = [[[] for _ in range(n)] for _ in range(m) ]
 result = 1
-def bfs(x,y) :
+def dfs(x,y) :
     global result
 
     if x == m-1 and y == n-1 :
@@ -134,8 +133,88 @@ def bfs(x,y) :
         result += (len(dp[x][y])-1)
 
     for nx,ny in dp[x][y] :
-        bfs(nx,ny)
+        dfs(nx,ny)
 
-bfs(0,0)
+dfs(0,0)
 
 print(result)
+
+#-------------------------
+import sys
+
+m, n = map(int,sys.stdin.readline().split())
+
+graph = []
+
+for i in range(m) :
+    graph.append(list(map(int,sys.stdin.readline().split())))
+
+cnt = 0
+def dfs(x,y) :
+    global cnt
+    if x == m-1 and y == n-1 :
+        cnt +=1
+        return
+
+    dx = [0, 0, -1, 1]  # 상하좌우
+    dy = [-1, 1, 0, 0]
+
+    for i in range(4):
+        cx, cy = x + dx[i], y + dy[i]
+        if cx < 0 or cx >= m or cy <0 or cy >= n :
+            continue
+        else :
+            if graph[cx][cy] >= graph[x][y] :
+                continue
+            else :
+                # print(graph[x][y], graph[cx][cy], cx,cy)
+                dfs(cx,cy)
+
+    return cnt
+
+print(dfs(0,0))
+
+
+import sys
+m, n = map(int,sys.stdin.readline().split())
+
+graph = []
+
+for i in range(m) :
+    graph.append(list(map(int,sys.stdin.readline().split())))
+
+
+def finddp(x,y) :
+    dx = [0, 0, -1, 1]  # 상하좌우
+    dy = [-1, 1, 0, 0]
+
+    for i in range(4):
+        cx, cy = x + dx[i], y + dy[i]
+        if cx < 0 or cx >= m or cy < 0 or cy >= n:
+            continue
+        else:
+            if graph[cx][cy] > graph[x][y] :
+                if visited[cx][cy] == 0 : # 자기보다 큰 애가 아직 방문 안했으면 걔부터 구하게 함
+                    finddp(cx,cy)
+                    dp[x][y] += dp[cx][cy]
+
+                else :
+                    dp[x][y] += dp[cx][cy]
+    visited[x][y] = 1
+    return
+
+dp = [[0 for _ in range(n)] for _ in range(m) ]
+visited = [[0 for _ in range(n)] for _ in range(m) ]
+
+
+visited[0][0] = 1
+dp[0][0] = 1
+
+for i in range(m) :
+    for j in range(n) :
+        if i == 0 and j == 0 :
+            pass
+        else :
+            if visited[i][j] == 0 :
+                finddp(i,j)
+print(dp[m-1][n-1])
