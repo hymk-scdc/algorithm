@@ -75,4 +75,34 @@ result = power(A, B)
 print(result)
 
 
-# 2748 피보나치 수 2
+# 1016 제곱 ㄴㄴ 수
+M, max1 = map(int, input().split())
+
+N = int(pow(max1, 1/2))
+decimal = [0 for i in range(N+1)]
+decimal[1] = 1
+decimal_list = []
+
+for i in range(2, (N // 2)+1):
+    if decimal[i] == 0:
+        for j in range(2, (N // i) + 1):
+            decimal[i * j] = 1
+    else:
+        continue
+
+for i in range(2, N+1):
+    if decimal[i] == 0:
+        decimal_list.append(i)
+
+result_index = [0 for i in range(max1-M+1)]
+for i in decimal_list:
+    #print((M//(i**2)),'to', (max1//(i**2)))
+    for j in range(max((M//(i**2)),1), (max1//(i**2))+1):
+        try:
+            result_index[i*i*j-M] = 1
+        except:
+            pass
+        #print(i, j, i*i*j-M)
+
+print(result_index.count(0))
+
