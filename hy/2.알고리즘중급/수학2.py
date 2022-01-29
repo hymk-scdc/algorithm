@@ -88,18 +88,13 @@ ma_root = int(ma**(1/2)) + 1
 
 dp = []
 
-for i in range(2,ma_root+1) :
-    j = 2
-    while (i ** j) <= ma :
-        temp = i**j
-        dp.append(temp)
-        j +=1
-
-dp = set(dp)
+for i in range(2,ma_root+1) : # 제곱수 구하기
+    if i**2 <= ma :
+        dp.append(i**2)
 
 result = []
 
-for num in dp :
+for num in dp : # 제곱수의 배수 구하기 (소수로 하기..?)
     k = 1
     temp2 = num*k
     while temp2 <= ma :
