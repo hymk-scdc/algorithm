@@ -156,3 +156,88 @@ for _ in range(m) :
     a, b = same_depth(a,b)
     answer = lca(a,b)
     print(answer)
+
+
+
+# 11003 최솟값 찾기
+n, l = map(int, input().split())
+num = list(map(int,input().split()))
+d = num[0]
+print(d, end = ' ')
+for i in range(1,n) :
+    d = min(d, num[i])
+
+'''다시 하기'''
+from collections import deque
+n, l = map(int, input().split())
+num = list(map(int,input().split()))
+queue = deque()
+
+for i in range(n) :
+    queue.append(num[i])
+    if len(queue) > l :
+        queue.popleft()
+    print(min(queue), end = ' ')
+
+'''다시 하기'''
+from collections import deque
+n, l = map(int, input().split())
+num = list(map(int,input().split()))
+queue = deque()
+
+temp = num[0]
+for i in range(n) :
+    queue.append(num[i])
+    temp = min(temp, num[i])
+    print(queue)
+
+    if len(queue) > l :
+        temp1 = queue.popleft()
+        if temp == temp1 :
+            temp = min(queue)
+
+    print(temp, end = ' ')
+
+'''다시 하기'''
+from collections import deque
+n, l = map(int, input().split())
+num = list(map(int,input().split()))
+queue = deque()
+
+# deque에서 본인보다 큰 애들은 삭제
+for i in range(n) :
+    new = num[i]
+
+    while queue and queue[-1][1] >= new :
+        queue.pop()
+    while queue and i - queue[0][0] >= l :
+        queue.popleft()
+    queue.append((i,new))
+    # queue.append(new)
+    # idx.append(i)
+    print(queue[0][1], end = ' ')
+
+
+
+
+# 2042 구간 합 구하기
+# from collections import deque
+n,m,k = map(int,input().split())
+num = []
+for i in range(n) :
+    num.append(int(input()))
+
+for j in range(m+k) :
+    a, b, c = map(int,input().split())
+    # queue = deque()
+    if a == 1 :
+        num[b-1] = c
+    else :
+        # for i in range(b-1,c) :
+        #     queue.append(num[i])
+
+        print(sum(num[b-1:c]))
+
+
+
+
