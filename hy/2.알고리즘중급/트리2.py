@@ -221,7 +221,7 @@ for i in range(n) :
 
 
 # 2042 구간 합 구하기
-# from collections import deque
+
 n,m,k = map(int,input().split())
 num = []
 for i in range(n) :
@@ -229,13 +229,10 @@ for i in range(n) :
 
 for j in range(m+k) :
     a, b, c = map(int,input().split())
-    # queue = deque()
+
     if a == 1 :
         num[b-1] = c
     else :
-        # for i in range(b-1,c) :
-        #     queue.append(num[i])
-
         print(sum(num[b-1:c]))
 
 
